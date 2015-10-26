@@ -17,6 +17,8 @@ public class NodeLibrary {
     private ArrayList<Integer>[] nodeToPolygons;
     private ArrayList<Integer>[] polygonToNodes;
     private HashMap<Coordinates, Integer> coordinatesToNode;
+    private Coordinates[] coordinates;
+    
     private int nodeCounter;
     private int polycounter;
 
@@ -24,6 +26,7 @@ public class NodeLibrary {
         this.nodeToPolygons = new ArrayList[numOfNodes];
         this.polygonToNodes = new ArrayList[numOfPolygons];
         this.coordinatesToNode = new HashMap<>();
+        this.coordinates = new Coordinates[numOfNodes];
         this.nodeCounter = -1;
     }
 
@@ -48,10 +51,19 @@ public class NodeLibrary {
     private void addNewNode(Coordinates xy, int poly){
         this.nodeCounter++;
         this.coordinatesToNode.put(xy, this.nodeCounter);
+        this.coordinates[this.nodeCounter] = xy;
         this.nodeToPolygons[this.nodeCounter] = new ArrayList<Integer>();        
         if(this.polygonToNodes[poly]==null){
             this.polygonToNodes[poly] = new ArrayList<Integer>();
         }
+    }
+    
+    public Coordinates getCoordinates(int node){
+        return this.coordinates[node];
+    }
+
+    public int getNumOfNodes() {
+        return nodeCounter+1;
     }
     
 }
