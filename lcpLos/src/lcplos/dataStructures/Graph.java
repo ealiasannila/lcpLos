@@ -20,10 +20,9 @@ public class Graph {
 
     private NodeLibrary nodelib;
     private Map<Integer, Double>[] al; //adjacency list
-    private int numOfNodes;
         
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
-        this.numOfNodes = nodelib.getNumOfNodes();
+        int numOfNodes = nodelib.getNumOfNodes();
 
         this.nodelib = nodelib;
         this.al = new TreeMap[numOfNodes];
@@ -33,6 +32,7 @@ public class Graph {
         }
 
         for (int node = 0; node < nodelib.getNumOfNodes(); node++) {
+            //System.out.println("node: " + node);
             ArrayList<Integer> polygons = nodelib.getPolygons(node);
             for (int polyIndex : polygons) {
                 Polygon polygon = new Polygon(nodelib, polyIndex);
@@ -71,7 +71,7 @@ public class Graph {
 
     
     public int getNumOfNodes(){
-        return this.numOfNodes;
+        return this.getNodelib().getNumOfNodes();
     }
 
     public NodeLibrary getNodelib() {

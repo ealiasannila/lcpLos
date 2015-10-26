@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="lcplos.dataStructures.NodeLibraryTest" skipped="0" tests="2" time="0.098" timestamp="2015-10-26T21:27:23">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.102" timestamp="2015-10-26T21:27:24">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner lcplos.dataStructures.NodeLibraryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/koodi/lcpLos/build/test/results/TEST-lcplos.dataStructures.NodeLibraryTest.xml crashfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junitvmwatcher5672281734859754055.properties propsfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junit4535369004789531667.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/koodi/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junitvmwatcher6840678833365756813.properties propsfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junit5950070659205054102.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -363,8 +363,9 @@
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="lcplos.dataStructures.NodeLibraryTest" name="testGetPolygons" time="0.002" />
-  <testcase classname="lcplos.dataStructures.NodeLibraryTest" name="testGetNodes" time="0.0" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.008" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.001" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.001" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

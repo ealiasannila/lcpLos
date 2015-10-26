@@ -5,58 +5,62 @@
  */
 package logic;
 
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 import lcplos.dataStructures.Coordinates;
 import lcplos.dataStructures.Graph;
+import lcplos.dataStructures.Minheap;
 
 /**
  *
  * @author elias
  */
 public class PathSearch {
+
     private double[] toStart;
     private double[] toEnd;
     private int[] path;
-    
+
     private Graph graph;
-    
+
     private int startnode;
     private int targetnode;
-    
 
     public PathSearch(Graph graph, int startnode, int targetnode) {
         this.graph = graph;
         this.startnode = startnode;
         this.targetnode = targetnode;
-        
+
         this.toEnd = new double[graph.getNumOfNodes()];
         this.toStart = new double[graph.getNumOfNodes()];
         this.path = new int[graph.getNumOfNodes()];
-    
+
         for (int i = 0; i < graph.getNumOfNodes(); i++) {
             this.toStart[i] = Double.MAX_VALUE;
             this.path[i] = -1;
             this.toEnd[i] = this.estimateCost(i);
         }
-        
+
         this.toStart[this.startnode] = 0;
-        
+
     }
-    
-    private double estimateCost(int node){
+
+    private double estimateCost(int node) {
         Coordinates targetc = this.graph.getNodelib().getCoordinates(this.targetnode);
         Coordinates nodec = this.graph.getNodelib().getCoordinates(node);
-        return HelperFunctions.eucDist(nodec.getX(), nodec.getY(), targetc.getX(), targetc.getY());
+        return HelperFunctions.eucDist(nodec.getX(), nodec.getY(), targetc.getX(), targetc.getY())*0.000001; //0.000001 = minimum friction
     }
-    
-    private boolean relax(int node, int neighbour, int naapurinindeksi) {
+
+    private boolean relax(int node, int neighbour, double cost) {
         if (this.toStart[node] == Double.MAX_VALUE) {
             return false;
         }
-        
-        double kaari = this.vl[node].ota(naapurinindeksi)[1];
-        if (this.toStart[neighbour] > this.toStart[node] + kaari) {
-            this.toStart[neighbour] = this.toStart[node] + kaari;
-            this.polku[neighbour] = node;
+
+        if (this.toStart[neighbour] > this.toStart[node] + cost) {
+            this.toStart[neighbour] = this.toStart[node] + cost;
+            this.path[neighbour] = node;
             return true;
         }
 
@@ -71,42 +75,69 @@ public class PathSearch {
      * @param lahtoSolmu
      * @return
      */
-    public boolean aStar() {
+    public void aStar() {
 
-        MinimiKeko keko = new MinimiKeko(this.toStart.length) {
-
+        Minheap heap = new Minheap(this.toStart.length) {
+            
             @Override
-            double arvio(int i) {
+            public double estimate(int i) {
                 if (toStart[i] == Double.MAX_VALUE) {
-                    return Double.MAX_VALUE * 0.00001;
+                    return Double.MAX_VALUE;
                 }
-                return toStart[i] + loppuun[i] * 0.00001; //0.00001 = minimivauhti jota voidaan kulkea
+                return toStart[i] + toEnd[i]; 
             }
         };
 
         for (int i = 0; i < this.toStart.length; i++) {
-            keko.lisaa(i);
+            heap.add(i);
         }
 
-        while (!keko.tyhja()) {
-            int solmu = keko.otaPienin();
-            if (solmu == this.maalisolmu) {
-                return true;
+        while (!heap.empty()) {
+            int node = heap.takeSmallest();
+            if (node == this.targetnode) {
+                return;
             }
-            for (int i = 0; i < this.vl[solmu].koko(); i++) {
-                int naapuri = (int) this.vl[solmu].ota(i)[0];
-                if (relax(solmu, naapuri, i)) {
-                    keko.paivita(naapuri);
+            Map<Integer, Double> neighbours = this.graph.getNeighbours(node);
+            Set<Integer> neighbourset = neighbours.keySet();
+            for (int neighbour : neighbourset) {
+                if (relax(node, neighbour, neighbours.get(neighbour))) {
+                    heap.update(neighbour);
                 }
             }
         }
-        if (this.toStart[this.maalisolmu] == Double.MAX_VALUE) { //reittiä ei löytynyt
-            return false;
+    }
+    
+    
+    public ArrayList<Integer> shortestPath() {
+        
+        if (this.startnode == this.targetnode) {
+            return null;
+        }
+        Stack<Integer> stack = new Stack();
+        int next = this.path[this.targetnode];
+        
+        if(next == -1){
+            return null;
         }
 
-        return true;
+        while (next != startnode) {
+            stack.add(next);
+            next = this.path[next];
+        }
+
+        ArrayList<Integer> lcp = new ArrayList<Integer>();
+        
+        lcp.add(this.startnode);
+        
+        while (!stack.empty()) {
+            int node = stack.pop();
+            lcp.add(node);
+           
+        }
+        lcp.add(this.targetnode);
+        return lcp;
+
     }
 
 
-    
 }

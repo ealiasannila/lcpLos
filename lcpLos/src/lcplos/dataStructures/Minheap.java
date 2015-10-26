@@ -20,7 +20,7 @@ public abstract class Minheap {
         this.heap = new int[size + 1];
         this.heapsize = 0;
 
-         this.heapindexes = new int[size];
+        this.heapindexes = new int[size];
     }
 
     /**
@@ -59,9 +59,7 @@ public abstract class Minheap {
      * @param i
      * @return
      */
-    abstract double estimate(int i);
-    
-    
+    public abstract double estimate(int i);
 
     /**
      * Palauttaa kekoehdon voimaan, jos kekoon (tai keossa oleviin alkioihin) on
@@ -91,13 +89,13 @@ public abstract class Minheap {
     }
 
     /**
-     * Palauttaa kekoehdon voimaan, kun alkioon on tehty muutoksia.
-     * Aloittaa muokkaamisen tietystä alkiosta
+     * Palauttaa kekoehdon voimaan, kun alkioon on tehty muutoksia. Aloittaa
+     * muokkaamisen tietystä alkiosta
      *
-     * @param alkio
+     * @param number
      */
-    public void paivita(int alkio) {
-        int i = this.heapindexes[alkio];
+    public void update(int number) {
+        int i = this.heapindexes[number];
         while (i > 1 && estimate(this.heap[this.parent(i)]) > estimate(this.heap[i])) {
             this.swap(i, this.parent(i));
             i = this.parent(i);
@@ -121,18 +119,18 @@ public abstract class Minheap {
     /**
      * lisää kekoon uuden alkion, säilyttäen kekoehdon voimassa.
      *
-     * @param alkio
+     * @param number
      */
-    public void lisaa(int alkio) {
+    public void add(int number) {
         this.heapsize++;
         int i = this.heapsize;
-        while (i > 1 && estimate(this.heap[this.parent(i)]) > estimate(alkio)) {
+        while (i > 1 && estimate(this.heap[this.parent(i)]) > estimate(number)) {
             this.heap[i] = heap[this.parent(i)];
             this.heapindexes[this.heap[i]] = i;
             i = this.parent(i);
         }
-        this.heap[i] = alkio;
-        this.heapindexes[alkio] = i;
+        this.heap[i] = number;
+        this.heapindexes[number] = i;
 
     }
 
@@ -141,7 +139,7 @@ public abstract class Minheap {
      *
      * @return
      */
-    public boolean tyhja() {
+    public boolean empty() {
         return this.heapsize == 0;
     }
 
@@ -151,19 +149,15 @@ public abstract class Minheap {
      *
      * @return
      */
-    public int otaPienin() {
+    public int takeSmallest() {
 
-        int eka = this.heap[1];
+        int first = this.heap[1];
         this.heap[1] = this.heap[this.heapsize];
         this.heapindexes[this.heap[1]] = 1;
 
         this.heapsize--;
         this.heapify(1);
-        return eka;
+        return first;
     }
 
-    public String toString() {
-        return "hei olen keko";
-//    return "K: " + Arrays.toString(this.keko) + "\nL: " + Arrays.toString(this.loppuun) + "\nKi: " + Arrays.toString(this.kekoindeksit);
-    }
 }
