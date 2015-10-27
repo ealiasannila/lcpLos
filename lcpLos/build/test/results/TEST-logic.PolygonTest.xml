@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PolygonTest" skipped="0" tests="3" time="0.098" timestamp="2015-10-26T21:27:24">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PolygonTest" skipped="0" tests="4" time="0.135" timestamp="2015-10-27T22:05:44">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
     <property name="nb.wait.for.caches" value="true" />
-    <property name="javac.test.classpath" value=":build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
+    <property name="javac.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
     <property name="libs.jsf20.maven-pom" value="" />
     <property name="libs.junit.javadoc" value="/home/elias/tmcbeans/java/docs/junit-3.8.2-api.zip" />
     <property name="libs.spring-webmvc4.0.src" value="" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PolygonTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/koodi/lcpLos/build/test/results/TEST-logic.PolygonTest.xml crashfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junitvmwatcher655594332634635280.properties propsfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junit1486089109240682552.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PolygonTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/koodi/lcpLos/build/test/results/TEST-logic.PolygonTest.xml crashfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junitvmwatcher7244628879947091374.properties propsfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junit6961281777109468249.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -61,7 +61,7 @@
     <property name="user.country" value="US" />
     <property name="manifest.file" value="manifest.mf" />
     <property name="javadoc.encoding" value="UTF-8" />
-    <property name="javac.classpath" value="" />
+    <property name="javac.classpath" value="json-20131018.jar" />
     <property name="libs.jsp-compilation-syscp.src" value="" />
     <property name="libs.spring-framework400.classpath" value="/home/elias/tmcbeans/ide/modules/org-apache-commons-logging.jar:/home/elias/tmcbeans/java/modules/ext/cglib-2.2.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-aop-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-aspects-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-beans-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-build-src-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-context-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-context-support-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-core-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-expression-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-framework-bom-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-instrument-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-instrument-tomcat-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-jdbc-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-jms-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-messaging-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-orm-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-oxm-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-test-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-tx-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-web-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-portlet-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-websocket-4.0.1.RELEASE.jar" />
     <property name="debug-transport" value="dt_socket" />
@@ -88,7 +88,7 @@
     <property name="file.separator" value="/" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
-    <property name="javac.test.processorpath" value=":build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
+    <property name="javac.test.processorpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
     <property name="netbeans.buildnumber" value="0.8.8" />
     <property name="libs.JWSAntTasks.javadoc" value="" />
     <property name="build.generated.sources.dir" value="build/generated-sources" />
@@ -130,7 +130,7 @@
     <property name="manifest.available" value="true" />
     <property name="libs.primefaces.javadoc" value="" />
     <property name="libs.spring-framework300.maven-pom" value="" />
-    <property name="run.test.classpath" value=":build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
+    <property name="run.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
     <property name="ant.project.invoked-targets" value="test" />
     <property name="test.binaryexcludes" value="" />
     <property name="libs.swing-layout.javadoc" value="/home/elias/tmcbeans/platform/docs/swing-layout-1.0.4-doc.zip" />
@@ -162,7 +162,7 @@
     <property name="libs.jpa20-persistence.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
     <property name="java.home" value="/usr/lib/jvm/java-7-openjdk-amd64/jre" />
     <property name="libs.jsp-compilation.src" value="" />
-    <property name="debug.test.classpath" value=":build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
+    <property name="debug.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
     <property name="libs.javaee-endorsed-api-6.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/javax.annotation.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/jaxb-api-osgi.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/webservices-api-osgi.jar" />
     <property name="libs.javaee-api-6.0.src" value="" />
     <property name="ant.project.default-target" value="default" />
@@ -174,7 +174,7 @@
     <property name="http.nonProxyHosts" value="localhost|127.0.0.1|sahkolammitin" />
     <property name="libs.junit_4.javadoc" value="/home/elias/tmcbeans/java/docs/junit-4.10-javadoc.jar" />
     <property name="libs.javaee-web-api-6.0.maven-pom" value="" />
-    <property name="run.classpath" value=":build/classes" />
+    <property name="run.classpath" value="json-20131018.jar:build/classes" />
     <property name="jna.boot.library.name" value="jnidispatch-410" />
     <property name="libs.javaee-endorsed-api-6.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
     <property name="libs.javaee-api-7.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee-api-7.0.jar" />
@@ -187,9 +187,10 @@
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
     <property name="javac.deprecation" value="false" />
     <property name="javadoc.use" value="true" />
+    <property name="file.reference.json-20131018.jar" value="json-20131018.jar" />
     <property name="sun.java2d.noddraw" value="true" />
     <property name="libs.jsp-compiler.classpath" value="/home/elias/.tmcbeans/dev/ant/extra/jspcompile.jar" />
-    <property name="javac.processorpath" value="" />
+    <property name="javac.processorpath" value="json-20131018.jar" />
     <property name="javac.compilerargs" value="" />
     <property name="ant.file" value="/home/elias/Documents/kandi/koodi/lcpLos/build.xml" />
     <property name="libs.beans-binding.maven-pom" value="" />
@@ -212,7 +213,7 @@
     <property name="libs.jsp-compiler.src" value="" />
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64" />
     <property name="have.sources" value="true" />
-    <property name="debug.classpath" value=":build/classes" />
+    <property name="debug.classpath" value="json-20131018.jar:build/classes" />
     <property name="javadoc.private" value="false" />
     <property name="test.src.dir" value="test" />
     <property name="libs.jsf20.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar" />
@@ -221,6 +222,7 @@
     <property name="javadoc.encoding.used" value="UTF-8" />
     <property name="dist.jar" value="dist/lcpLos.jar" />
     <property name="libs.spring-framework400.maven-pom" value="" />
+    <property name="netbeans.automatic.build" value="true" />
     <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
     <property name="ant.project.name" value="lcpLos" />
     <property name="netbeans.hash.code" value="unique=06b043eb1-0d5e-4df2-8075-a35cde5e99db" />
@@ -316,22 +318,22 @@
     <property name="excludes" value="" />
     <property name="libs.jpa2-persistence.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
     <property name="apple.laf.useScreenMenuBar" value="true" />
-    <property name="java.class.path" value="/home/elias/Documents/kandi/koodi/lcpLos/build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:/home/elias/Documents/kandi/koodi/lcpLos/build/test/classes:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar:/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit4.jar:/usr/share/java/jayatanaag.jar" />
+    <property name="java.class.path" value="/home/elias/Documents/kandi/koodi/lcpLos/json-20131018.jar:/home/elias/Documents/kandi/koodi/lcpLos/build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:/home/elias/Documents/kandi/koodi/lcpLos/build/test/classes:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar:/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit4.jar:/usr/share/java/jayatanaag.jar" />
     <property name="do.mkdist" value="true" />
     <property name="libs.absolutelayout.src" value="" />
     <property name="libs.jpa20-persistence.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar" />
     <property name="os.version" value="3.19.0-23-generic" />
     <property name="application.args" value="" />
     <property name="libs.javaee-api-7.0.maven-pom" value="" />
-    <property name="sun.awt.enableExtraMouseButtons" value="true" />
     <property name="main.class.available" value="true" />
+    <property name="sun.awt.enableExtraMouseButtons" value="true" />
     <property name="sun.desktop" value="gnome" />
     <property name="libs.hibernate4-persistence.src" value="" />
     <property name="libs.hibernate4-support.maven-pom" value="" />
     <property name="libs.JAXB-ENDORSED.classpath" value="/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar" />
     <property name="nb.internal.action.name" value="test" />
-    <property name="libs.eclipselink.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/eclipselink.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
     <property name="libs.javaee-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
+    <property name="libs.eclipselink.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/eclipselink.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
     <property name="libs.beans-binding.javadoc" value="/home/elias/tmcbeans/java/docs/beansbinding-1.2.1-doc.zip" />
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
@@ -340,8 +342,8 @@
     <property name="libs.jsp-compiler.maven-pom" value="" />
     <property name="run.jvmargs" value="" />
     <property name="libs.hibernate4-persistence.classpath" value="/home/elias/tmcbeans/java/modules/ext/hibernate4/antlr-2.7.7.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/c3p0-0.9.2.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-c3p0-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/mchange-commons-java-0.2.3.4.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/dom4j-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/ehcache-core-2.4.3.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-ehcache-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-core-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-logging-3.1.3.GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-commons-annotations-4.0.4.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-entitymanager-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/javassist-3.18.1-GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-transaction-api_1.2_spec-1.0.0.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-api-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-simple-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
-    <property name="dist.archive.excludes" value="" />
     <property name="libs.JAXB-ENDORSED.src" value="" />
+    <property name="dist.archive.excludes" value="" />
     <property name="libs.testng.javadoc" value="/home/elias/tmcbeans/platform/docs/testng-6.8.1-javadoc.zip" />
     <property name="libs.PostgreSQLDriver.classpath" value="/home/elias/tmcbeans/ide/modules/ext/postgresql-9.2-1002.jdbc4.jar" />
     <property name="libs.jsf12.maven-pom" value="" />
@@ -354,8 +356,8 @@
     <property name="libs.jsp-compilation.classpath" value="/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/.tmcbeans/dev/modules/ext/servlet3.1-jsp2.3-api.jar:/home/elias/.tmcbeans/dev/modules/ext/glassfish-jspparser-4.0.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar:/home/elias/.tmcbeans/dev/modules/ext/jstl-api.jar:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.4 compiled on April 29 2014" />
     <property name="libs.javaee-api-5.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee5.jar" />
-    <property name="build.classes.excludes" value="**/*.java,**/*.form" />
     <property name="file.encoding" value="UTF-8" />
+    <property name="build.classes.excludes" value="**/*.java,**/*.form" />
     <property name="jdkBug6558476" value="false" />
     <property name="javadoc.nonavbar" value="false" />
     <property name="libs.spring-webmvc4.0.classpath" value="/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar" />
@@ -363,9 +365,10 @@
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesSquare" time="0.003" />
-  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesTriangle" time="0.001" />
-  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesComplex" time="0.001" />
+  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesTriangle" time="0.003" />
+  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesComplex" time="0.0" />
+  <testcase classname="logic.PolygonTest" name="testSample" time="0.001" />
+  <testcase classname="logic.PolygonTest" name="testLosBetweenNodesSquare" time="0.0" />
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

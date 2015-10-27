@@ -42,7 +42,7 @@ public class GeoJsonReader {
 
         NodeLibrary nodelib = new NodeLibrary(maxNodes, maxPolygons);
 
-        for (int feature = 0; feature < Math.min(features.length(), maxPolygons); feature++) {
+        for (int feature = 0; feature < features.length(); feature++) {
             if (features.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
                 JSONArray polygonRings = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
                 frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble("friction"));
@@ -51,7 +51,7 @@ public class GeoJsonReader {
                     for (int k = 0; k < coordinates.length(); k++) {
                         JSONArray coordinatePair = coordinates.getJSONArray(k);
                       
-                        nodelib.addNode(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)), 1);
+                        nodelib.addNode(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)), feature);
                         if (nodelib.getNumOfNodes() >= maxNodes) {
                             return nodelib;
                         }

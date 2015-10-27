@@ -15,74 +15,74 @@ import lcplos.dataStructures.NodeLibrary;
  */
 public class Polygon {
 
-    private ArrayList<Integer> nodes;
-    private NodeLibrary nodelib;
-
-    public Polygon(NodeLibrary nodelib, int polygon) {
-        this.nodelib = nodelib;
-        this.nodes = this.nodelib.getNodes(polygon);
-    }
-
-    
-    public int losBetweenNodes(int startNode, int targetIndex) { //target is index within polygon, start absolute node index
-        if(this.nodes.get(targetIndex)==startNode){
-            return -1;
-        }
-        
-        for (int edgenode = 0; edgenode < nodes.size()-1; edgenode++) {
-            if (edgesIntersect(edgenode, startNode, targetIndex)) {
-                return -1;
-            }
-        }
-        return this.nodes.get(targetIndex);
-
-    }
-
-    private boolean edgesIntersect(int ed1, int startNode, int targetNodeIndex) {
-        int ed2 = ed1 + 1;
-        
-        if (this.nodes.get(ed1) == startNode || ed1 == targetNodeIndex || this.nodes.get(ed2) == startNode || ed2 == targetNodeIndex) {
+    public static boolean losBetweenNodes(int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
+        if (startNode == targetNode) {
             return false;
         }
 
-        Coordinates ic = this.nodelib.getCoordinates(this.nodes.get(ed1));
-        Coordinates jc = this.nodelib.getCoordinates(this.nodes.get(ed2));
-        Coordinates n1c = this.nodelib.getCoordinates(startNode);
-        Coordinates n2c = this.nodelib.getCoordinates(this.nodes.get(targetNodeIndex));
+        ArrayList<Integer> nodes = nodelib.getNodes(polygon);
+        Coordinates sc = nodelib.getCoordinates(startNode);
+        Coordinates tc = nodelib.getCoordinates(targetNode);
 
-        int ijn1 = directionOfRotation(ic.getX(), ic.getY(), jc.getX(), jc.getY(), n1c.getX(), n1c.getY());
-        int ijn2 = directionOfRotation(ic.getX(), ic.getY(), jc.getX(), jc.getY(), n2c.getX(), n2c.getY());
-        int n1n2i = directionOfRotation(n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY(), ic.getX(), ic.getY());
-        int n1n2j = directionOfRotation(n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY(), jc.getX(), jc.getY());
+        for (int start = 0; start < nodes.size() - 1; start++) {
+            int end = start + 1;
+            if (end == nodes.size()) {
+                end = 0;
+            }
+            if (edgesIntersect(sc, tc, nodelib.getCoordinates(nodes.get(start)), nodelib.getCoordinates(nodes.get(end)))) {
+//               System.out.println("killing due intersect");
+//                System.out.println("es:" + start + " et: " + end + ", s: " + startNode + " t: " + targetNode);
 
-        //edge cuts los
-        if (ijn1 != ijn2 && n1n2i != n1n2j) {
-            return true;
+                return false;
+            }
         }
 
-        //edge is same direction as los and on los
-        if (ijn1 == 0 && this.pointOnSameDirEdge(n1c.getX(), n1c.getY(), ic.getX(), ic.getY(), jc.getX(), jc.getY())) {
-            return true;
-        }
-
-        if (ijn2 == 0 && this.pointOnSameDirEdge(n2c.getX(), n2c.getY(), ic.getX(), ic.getY(), jc.getX(), jc.getY())) {
-            return true;
-        }
-        if (n1n2i == 0 && this.pointOnSameDirEdge(ic.getX(), ic.getY(), n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY())) {
-            return true;
-        }
-        if (n1n2j == 0 && this.pointOnSameDirEdge(jc.getX(), jc.getY(), n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY())) {
-            return true;
-        }
-
-        return false;
+        return true;
 
     }
 
-    private boolean pointOnSameDirEdge(double xp, double yp, double xe1, double ye1, double xe2, double ye2) {
+    public static boolean edgesIntersect(Coordinates s1, Coordinates s2, Coordinates k1, Coordinates k2) {
 
-        if (yp <= Math.max(ye1, ye2) && yp >= Math.min(ye1, ye2)
-                && xp <= Math.max(xe1, xe2) && xp >= Math.min(xe1, xe2)) {
+        if (s1.equals(k1) || s1.equals(k2) || s2.equals(k1) || s2.equals(k2)) {
+            return false;
+        }
+        int o1 = orientation(s1, s2, k1);
+        int o2 = orientation(s1, s2, k2);
+        int o3 = orientation(k1, k2, s1);
+        int o4 = orientation(k1, k2, s2);
+
+        if (o1 != o2 && o3 != o4) {
+            return true;
+        }
+
+        // Special Cases
+        // s1, s2 and k1 are colinear and k1 lies on segment s1s2
+        if (o1 == 0 && onSegment(s1, k1, s2)) {
+            return true;
+        }
+
+        // s1, s2 and k2 are colinear and k2 lies on segment s1s2
+        if (o2 == 0 && onSegment(s1, k2, s2)) {
+            return true;
+        }
+
+        // k1, k2 and s1 are colinear and s1 lies on segment k1k2
+        if (o3 == 0 && onSegment(k1, s1, k2)) {
+            return true;
+        }
+
+        // k1, k2 and s2 are colinear and s2 lies on segment k1k2
+        if (o4 == 0 && onSegment(k1, s2, k2)) {
+            return true;
+        }
+
+        return false; // Doesn't fall in any of the above cases
+
+    }
+
+    private static boolean onSegment(Coordinates s1, Coordinates s2, Coordinates p) {
+        if (s2.getX() <= Math.max(s1.getX(), p.getX()) && s2.getX() >= Math.min(s1.getX(), p.getX())
+                && s2.getY() <= Math.max(s1.getY(), p.getY()) && s2.getY() >= Math.min(s1.getY(), p.getY())) {
             return true;
         }
 
@@ -93,16 +93,17 @@ public class Polygon {
      * kertoo onko kolmen pisteen kiertosuunta myötä (-1) vai vastapäivään(1),
      * vai ovatko ne samalla viivalla(0)
      *
-     * @param x1
-     * @param y1
-     * @param x2
-     * @param y2
-     * @param x3
-     * @param y3
+     * @param xp
+     * @param yp
+     * @param ed1x
+     * @param ed1y
+     * @param ed2x
+     * @param ed2y
      * @return
      */
-    private int directionOfRotation(double x1, double y1, double x2, double y2, double x3, double y3) {
-        double difference = (x2 - x1) * (y3 - y2) - (x3 - x2) * (y2 - y1);
+    private static int orientation(Coordinates p1, Coordinates p2, Coordinates p3) {
+        double difference = (p2.getY() - p1.getY()) * (p3.getX() - p2.getX())
+                - (p2.getX() - p1.getX()) * (p3.getY() - p2.getY());
         if (difference < -0.00001) {
             return -1;
         }
@@ -112,8 +113,56 @@ public class Polygon {
             return 0;
         }
     }
-    
-    public int getNumOfNodes(){
-        return this.nodes.size();
+
+    public static boolean sample(int node, int targetNode, NodeLibrary nodelib, int polyIndex, int n) {
+        for (int i = 1; i <= n; i++) {
+
+            double px = nodelib.getCoordinates(node).getX() + (nodelib.getCoordinates(targetNode).getX() - nodelib.getCoordinates(node).getX()) / (n+1)*i;
+            double py = nodelib.getCoordinates(node).getY() + (nodelib.getCoordinates(targetNode).getY() - nodelib.getCoordinates(node).getY()) / (n+1)*i;
+
+            if (!Polygon.pointInside(new Coordinates(px, py), nodelib, polyIndex)) {
+                return false;
+            }
+        }
+        return true;
     }
+
+    public static boolean pointInside(Coordinates p, NodeLibrary nodelib, int polygon) {
+
+        int intersections = 0;
+        ArrayList<Integer> nodes = nodelib.getNodes(polygon);
+
+        for (int start = 0; start < nodes.size(); start++) {
+            int end = start + 1;
+            if (start == nodes.size() - 1) { //last to first
+                end = 0;
+            }
+
+            Coordinates sc = nodelib.getCoordinates(nodes.get(start));
+            Coordinates ec = nodelib.getCoordinates(nodes.get(end));
+            if ((Math.abs(sc.getX() - p.getX()) < 0.0001 && Math.abs(ec.getX() - p.getX()) < 0.0001)) {
+
+                if (p.getY() - Math.min(sc.getY(), ec.getY()) > -0.00001 && p.getY() - Math.max(sc.getY(), ec.getY()) < 0.00001) {
+                    return true;
+                }
+            }
+
+            //raycasting method, ray shot due north
+            if ((sc.getX() <= p.getX() && ec.getX() > p.getX()) || (sc.getX() > p.getX() && ec.getX() <= p.getX())) { //point between edge x coordinates
+                double proportionOfSegment = (p.getX() - sc.getX()) / (ec.getX() - sc.getX());
+                double intersectY = sc.getY() + proportionOfSegment * (ec.getY() - sc.getY());
+
+                if (Math.abs(p.getY() - intersectY) < 0.0001) { //point on edge
+                    return true;
+                }
+                if (p.getY() < intersectY) {
+                    intersections++;
+                }
+
+            }
+        }
+
+        return intersections % 2 != 0;
+    }
+
 }

@@ -43,13 +43,19 @@ public class Coordinates {
             return false;
         }
         final Coordinates other = (Coordinates) obj;
-        if (Double.doubleToLongBits(this.x) != Double.doubleToLongBits(other.x)) {
+        if (Math.abs(this.x-other.x)>0.001) {
             return false;
         }
-        if (Double.doubleToLongBits(this.y) != Double.doubleToLongBits(other.y)) {
+        if (Math.abs(this.y-other.y)>0.001) {
             return false;
         }
+        
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Coordinates{" + "x=" + x + ", y=" + y + '}';
     }
     
     

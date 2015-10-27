@@ -20,7 +20,7 @@ public class Graph {
 
     private NodeLibrary nodelib;
     private Map<Integer, Double>[] al; //adjacency list
-        
+
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
         int numOfNodes = nodelib.getNumOfNodes();
 
@@ -33,17 +33,19 @@ public class Graph {
 
         for (int node = 0; node < nodelib.getNumOfNodes(); node++) {
             //System.out.println("node: " + node);
-            ArrayList<Integer> polygons = nodelib.getPolygons(node);
-            for (int polyIndex : polygons) {
-                Polygon polygon = new Polygon(nodelib, polyIndex);
-                for (int targetIndex = 0; targetIndex < polygon.getNumOfNodes(); targetIndex++) {
-                    int targetNode = polygon.losBetweenNodes(node, targetIndex);
-                    if (targetNode != -1) {
+            for (int polyIndex : nodelib.getPolygons(node)) {
+                //System.out.println("pi: " + polyIndex);
+                for (int targetNode : nodelib.getNodes(polyIndex)) {
+                    if(!Polygon.sample(node, targetNode, nodelib, polyIndex, 3)){
+                        continue;
+                    }
+                    
+                    if (Polygon.losBetweenNodes(node, targetNode, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
+
                     }
                 }
             }
-
         }
 
     }
@@ -56,8 +58,8 @@ public class Graph {
         double distance = HelperFunctions.eucDist(n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY());
         double cost = distance * friction;
 
-        if(this.al[node1].containsKey(node2)){
-            if(this.al[node1].get(node2)<cost){
+        if (this.al[node1].containsKey(node2)) {
+            if (this.al[node1].get(node2) < cost) {
                 return;
             }
         }
@@ -69,8 +71,7 @@ public class Graph {
         return this.al[node];
     }
 
-    
-    public int getNumOfNodes(){
+    public int getNumOfNodes() {
         return this.getNodelib().getNumOfNodes();
     }
 

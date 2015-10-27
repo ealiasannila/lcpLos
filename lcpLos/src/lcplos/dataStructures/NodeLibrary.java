@@ -18,7 +18,7 @@ public class NodeLibrary {
     private ArrayList<Integer>[] polygonToNodes;
     private HashMap<Coordinates, Integer> coordinatesToNode;
     private Coordinates[] coordinates;
-    
+
     private int nodeCounter;
     private int polyCounter;
 
@@ -40,36 +40,40 @@ public class NodeLibrary {
     }
 
     public void addNode(Coordinates xy, int poly) {
-        if(!this.coordinatesToNode.containsKey(xy)){
+        if (!this.coordinatesToNode.containsKey(xy)) {
             this.addNewNode(xy, poly);
             this.polyCounter++;
+
         }
         int node = this.coordinatesToNode.get(xy);
         this.nodeToPolygons[node].add(poly);
+        //System.out.println(poly);
+        if (this.polygonToNodes[poly] == null) {
+            this.polygonToNodes[poly] = new ArrayList<Integer>();
+
+        }
         this.polygonToNodes[poly].add(node);
-        
+
     }
 
-    private void addNewNode(Coordinates xy, int poly){
+    private void addNewNode(Coordinates xy, int poly) {
         this.nodeCounter++;
         this.coordinatesToNode.put(xy, this.nodeCounter);
         this.coordinates[this.nodeCounter] = xy;
-        this.nodeToPolygons[this.nodeCounter] = new ArrayList<Integer>();        
-        if(this.polygonToNodes[poly]==null){
-            this.polygonToNodes[poly] = new ArrayList<Integer>();
-        }
+        this.nodeToPolygons[this.nodeCounter] = new ArrayList<Integer>();
+
     }
-    
-    public Coordinates getCoordinates(int node){
+
+    public Coordinates getCoordinates(int node) {
         return this.coordinates[node];
     }
 
     public int getNumOfNodes() {
-        return this.nodeCounter+1;
+        return this.nodeCounter + 1;
     }
 
     public int getNumOfPolys() {
-        return this.polyCounter+1;
+        return this.polyCounter + 1;
     }
-    
+
 }

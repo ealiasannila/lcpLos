@@ -6,6 +6,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -50,7 +51,7 @@ public class PathSearch {
     private double estimateCost(int node) {
         Coordinates targetc = this.graph.getNodelib().getCoordinates(this.targetnode);
         Coordinates nodec = this.graph.getNodelib().getCoordinates(node);
-        return HelperFunctions.eucDist(nodec.getX(), nodec.getY(), targetc.getX(), targetc.getY())*0.000001; //0.000001 = minimum friction
+        return HelperFunctions.eucDist(nodec.getX(), nodec.getY(), targetc.getX(), targetc.getY()) * 0.000001; //0.000001 = minimum friction
     }
 
     private boolean relax(int node, int neighbour, double cost) {
@@ -78,13 +79,13 @@ public class PathSearch {
     public void aStar() {
 
         Minheap heap = new Minheap(this.toStart.length) {
-            
+
             @Override
             public double estimate(int i) {
                 if (toStart[i] == Double.MAX_VALUE) {
                     return Double.MAX_VALUE;
                 }
-                return toStart[i] + toEnd[i]; 
+                return toStart[i] + toEnd[i];
             }
         };
 
@@ -94,11 +95,14 @@ public class PathSearch {
 
         while (!heap.empty()) {
             int node = heap.takeSmallest();
+
             if (node == this.targetnode) {
+                System.out.println("lopetan");
                 return;
             }
             Map<Integer, Double> neighbours = this.graph.getNeighbours(node);
             Set<Integer> neighbourset = neighbours.keySet();
+
             for (int neighbour : neighbourset) {
                 if (relax(node, neighbour, neighbours.get(neighbour))) {
                     heap.update(neighbour);
@@ -106,17 +110,18 @@ public class PathSearch {
             }
         }
     }
-    
-    
+
     public ArrayList<Integer> shortestPath() {
-        
+
         if (this.startnode == this.targetnode) {
+            System.out.println("same start and target");
             return null;
         }
         Stack<Integer> stack = new Stack();
         int next = this.path[this.targetnode];
-        
-        if(next == -1){
+
+        if (next == -1) {
+            System.out.println("no path found");
             return null;
         }
 
@@ -126,18 +131,17 @@ public class PathSearch {
         }
 
         ArrayList<Integer> lcp = new ArrayList<Integer>();
-        
+
         lcp.add(this.startnode);
-        
+
         while (!stack.empty()) {
             int node = stack.pop();
             lcp.add(node);
-           
+
         }
         lcp.add(this.targetnode);
         return lcp;
 
     }
-
 
 }
