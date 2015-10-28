@@ -23,7 +23,7 @@ public class GraphTest {
     @Before
     public void setUp() {
 
-        NodeLibrary nodelibrary = new NodeLibrary(10, 2);
+        NodeLibrary nodelibrary = new NodeLibrary(2);
 
         nodelibrary.addNode(new Coordinates(0, 0), 0);
         nodelibrary.addNode(new Coordinates(0, 1), 0);

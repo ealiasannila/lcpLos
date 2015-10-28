@@ -25,7 +25,7 @@ public class PolygonTest {
 
     @Before
     public void setUp() {
-        nodelibrary = new NodeLibrary(20, 5);
+        nodelibrary = new NodeLibrary(5);
 
         nodelibrary.addNode(new Coordinates(0, 0), 0);
         nodelibrary.addNode(new Coordinates(0, 1), 0);

@@ -5,14 +5,16 @@
  */
 package logic;
 
+import lcplos.dataStructures.Coordinates;
+
 /**
  *
  * @author elias
  */
 public class HelperFunctions {
     
-    public static double eucDist(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(eucDistSquared(x1, y1, x2, y2));
+    public static double eucDist(Coordinates p1, Coordinates p2) {
+        return Math.sqrt(eucDistSquared(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
 
     }
 

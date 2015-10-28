@@ -22,7 +22,7 @@ public class NodeLibraryTest {
 
     @Before
     public void setUp() {
-        nodelibrary = new NodeLibrary(10, 10);
+        nodelibrary = new NodeLibrary(10);
 
         this.nodelibrary.addNode(new Coordinates(0, 0), 0);
         this.nodelibrary.addNode(new Coordinates(0, 1), 0);

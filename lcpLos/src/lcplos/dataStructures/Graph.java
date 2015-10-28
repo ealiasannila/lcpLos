@@ -55,7 +55,7 @@ public class Graph {
         Coordinates n1c = this.nodelib.getCoordinates(node1);
         Coordinates n2c = this.nodelib.getCoordinates(node2);
 
-        double distance = HelperFunctions.eucDist(n1c.getX(), n1c.getY(), n2c.getX(), n2c.getY());
+        double distance = HelperFunctions.eucDist(n1c, n2c);
         double cost = distance * friction;
 
         if (this.al[node1].containsKey(node2)) {

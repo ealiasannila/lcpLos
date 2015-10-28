@@ -7,12 +7,14 @@ package dataManagement;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lcplos.dataStructures.Coordinates;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.NodeLibrary;
+import logic.EdgeSplitter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -36,30 +38,30 @@ public class GeoJsonReader {
         return new JSONObject(data);
     }
 
-    public static NodeLibrary readNodes(File tiedosto, int maxNodes, int maxPolygons, FrictionLibrary frictionlib) {
+    public static NodeLibrary readNodes(File tiedosto, int maxPolygons, FrictionLibrary frictionlib, double step) {
         JSONObject obj = lataaJsonObject(tiedosto);
         JSONArray features = obj.getJSONArray("features");
 
-        NodeLibrary nodelib = new NodeLibrary(maxNodes, maxPolygons);
+        NodeLibrary nodelib = new NodeLibrary(maxPolygons);
 
         for (int feature = 0; feature < features.length(); feature++) {
             if (features.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
-                JSONArray polygonRings = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
+                JSONArray coordinates = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates").getJSONArray(0);
                 frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble("friction"));
-                for (int polygonRing = 0; polygonRing < polygonRings.length(); polygonRing++) {
-                    JSONArray coordinates = polygonRings.getJSONArray(polygonRing);
-                    for (int k = 0; k < coordinates.length(); k++) {
-                        JSONArray coordinatePair = coordinates.getJSONArray(k);
-                      
-                        nodelib.addNode(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)), feature);
-                        if (nodelib.getNumOfNodes() >= maxNodes) {
-                            return nodelib;
-                        }
-                    }
+                
+                ArrayList<Coordinates> polygon = new ArrayList<Coordinates>();
+                    
+                for (int k = 0; k < coordinates.length() - 1; k++) {
+                    JSONArray coordinatePair = coordinates.getJSONArray(k);
+                    polygon.add(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
                 }
+                polygon = EdgeSplitter.splitEdges(polygon, step);
+                nodelib.addPolygon(polygon, feature);
+                
             }
         }
+
         return nodelib;
     }
-    
+
 }

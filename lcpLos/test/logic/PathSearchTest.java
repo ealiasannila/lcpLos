@@ -26,7 +26,7 @@ public class PathSearchTest {
 
     @Before
     public void setUp() {
-        NodeLibrary nodelibrary = new NodeLibrary(20, 5);
+        NodeLibrary nodelibrary = new NodeLibrary(5);
 
         nodelibrary.addNode(new Coordinates(0, 0), 0);
         nodelibrary.addNode(new Coordinates(0, 1), 0);

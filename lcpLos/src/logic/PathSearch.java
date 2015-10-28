@@ -51,7 +51,7 @@ public class PathSearch {
     private double estimateCost(int node) {
         Coordinates targetc = this.graph.getNodelib().getCoordinates(this.targetnode);
         Coordinates nodec = this.graph.getNodelib().getCoordinates(node);
-        return HelperFunctions.eucDist(nodec.getX(), nodec.getY(), targetc.getX(), targetc.getY()) * 0.000001; //0.000001 = minimum friction
+        return HelperFunctions.eucDist(nodec, targetc) * 0.000001; //0.000001 = minimum friction
     }
 
     private boolean relax(int node, int neighbour, double cost) {
