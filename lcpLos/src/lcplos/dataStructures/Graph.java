@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import logic.HelperFunctions;
-import logic.Polygon;
+import logic.LosChecker;
 
 /**
  *
@@ -22,7 +22,9 @@ public class Graph {
     private Map<Integer, Double>[] al; //adjacency list
 
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
+
         int numOfNodes = nodelib.getNumOfNodes();
+        boolean[] usedNodes = new boolean[numOfNodes];
 
         this.nodelib = nodelib;
         this.al = new TreeMap[numOfNodes];
@@ -30,22 +32,33 @@ public class Graph {
         for (int i = 0; i < al.length; i++) {
             al[i] = new TreeMap<>();
         }
-
+        int oldPercent = 0;
         for (int node = 0; node < nodelib.getNumOfNodes(); node++) {
-            //System.out.println("node: " + node);
+
+            int percentDone = (int) ((double) node / nodelib.getNumOfNodes() * 100);
+            if (oldPercent != percentDone) {
+                System.out.println(percentDone + "%");
+                oldPercent = percentDone;
+            }
             for (int polyIndex : nodelib.getPolygons(node)) {
-                //System.out.println("pi: " + polyIndex);
-                for (int targetNode : nodelib.getNodes(polyIndex)) {
-                    if(!Polygon.sample(node, targetNode, nodelib, polyIndex, 3)){
+
+                for (int targetIndex = 0; targetIndex< nodelib.getNodes(polyIndex).size(); targetIndex++) {
+                    int targetNode = nodelib.getNodes(polyIndex).get(targetIndex);
+                    if (usedNodes[node] || 10000 < HelperFunctions.eucDist(nodelib.getCoordinates(node), nodelib.getCoordinates(targetNode))) {
                         continue;
                     }
-                    
-                    if (Polygon.losBetweenNodes(node, targetNode, nodelib, polyIndex)) {
+
+                    if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
+                        continue;
+                    }
+
+                    if (LosChecker.losBetweenNodes(targetIndex, targetNode, node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
 
                     }
                 }
             }
+            usedNodes[node] = true;
         }
 
     }
@@ -64,6 +77,7 @@ public class Graph {
             }
         }
         this.al[node1].put(node2, cost);
+        this.al[node2].put(node1, cost);
 
     }
 

@@ -38,7 +38,7 @@ public class NodeLibrary {
         return this.nodeToPolygons.get(node);
     }
 
-    public void addPolygon(ArrayList<Coordinates> nodes, int poly){
+    public void addPolygon(ArrayList<Coordinates> nodes, int poly) {
         for (Coordinates xy : nodes) {
             this.addNode(xy, poly);
         }
@@ -48,7 +48,7 @@ public class NodeLibrary {
         if (!this.coordinatesToNode.containsKey(xy)) {
             this.addNewNode(xy);
         }
-        
+
         int node = this.coordinatesToNode.get(xy);
         this.nodeToPolygons.get(node).add(poly);
         //System.out.println(poly);

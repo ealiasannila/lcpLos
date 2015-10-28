@@ -24,7 +24,7 @@ public class EdgeSplitter {
             }
 
             if (splitEdge(start, end, step, nodes) != null) {
-                nodes.addAll(start + 1,splitEdge(start, end, step, nodes));
+                nodes.addAll(start + 1, splitEdge(start, end, step, nodes));
             }
 
         }
@@ -34,7 +34,6 @@ public class EdgeSplitter {
     private static ArrayList<Coordinates> splitEdge(int startNode, int endNode, double step, ArrayList<Coordinates> nodes) {
         Coordinates sc = nodes.get(startNode);
         Coordinates ec = nodes.get(endNode);
-
         return calcCoords(sc, ec, step);
 
     }

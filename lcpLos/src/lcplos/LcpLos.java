@@ -14,7 +14,7 @@ import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.NodeLibrary;
 import logic.EdgeSplitter;
 import logic.PathSearch;
-import logic.Polygon;
+import logic.LosChecker;
 
 /**
  *
@@ -26,10 +26,10 @@ public class LcpLos {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(Polygon.edgesIntersect(new Coordinates(4, 4), new Coordinates(4, 6), new Coordinates(4, 5), new Coordinates(5, 5)));
+        System.out.println(LosChecker.edgesIntersect(new Coordinates(4, 4), new Coordinates(4, 6), new Coordinates(4, 5), new Coordinates(5, 5)));
 
         FrictionLibrary frictionlib = new FrictionLibrary();
-        NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 3000, frictionlib, 100);
+        NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 6500, frictionlib, Double.MAX_VALUE);
         System.out.println("nodelib done: " + nodelib.getNumOfNodes() + " nodes");
         Graph graph = new Graph(nodelib, frictionlib);
         System.out.println("graph done");

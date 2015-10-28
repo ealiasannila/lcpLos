@@ -46,18 +46,25 @@ public class GeoJsonReader {
 
         for (int feature = 0; feature < features.length(); feature++) {
             if (features.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
-                JSONArray coordinates = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates").getJSONArray(0);
+                JSONArray rings = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
+
                 frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble("friction"));
-                
                 ArrayList<Coordinates> polygon = new ArrayList<Coordinates>();
-                    
-                for (int k = 0; k < coordinates.length() - 1; k++) {
-                    JSONArray coordinatePair = coordinates.getJSONArray(k);
-                    polygon.add(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
+
+                for (int i = 0; i < 1/*rings.length()*/; i++) {
+
+                    JSONArray coordinates = rings.getJSONArray(i);
+
+                    for (int k = 0; k < coordinates.length(); k++) {
+                        JSONArray coordinatePair = coordinates.getJSONArray(k);
+
+                        polygon.add(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
+
+                    }
                 }
                 polygon = EdgeSplitter.splitEdges(polygon, step);
                 nodelib.addPolygon(polygon, feature);
-                
+
             }
         }
 

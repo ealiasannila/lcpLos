@@ -61,6 +61,7 @@ public class PathSearchTest {
         assertEquals("[0, 1, 2]", pathSearch.shortestPath().toString());
     }
 
+    
     @Test
     public void testShortestPath2() {
         PathSearch pathSearch = new PathSearch(graph, 4, 2);
