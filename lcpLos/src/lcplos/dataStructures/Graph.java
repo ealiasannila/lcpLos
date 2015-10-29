@@ -24,7 +24,7 @@ public class Graph {
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
 
         int numOfNodes = nodelib.getNumOfNodes();
-        boolean[] usedNodes = new boolean[numOfNodes];
+        //boolean[] usedNodes = new boolean[numOfNodes];
 
         this.nodelib = nodelib;
         this.al = new TreeMap[numOfNodes];
@@ -42,25 +42,30 @@ public class Graph {
             }
             for (int polyIndex : nodelib.getPolygons(node)) {
 
-                for (int targetIndex = 0; targetIndex< nodelib.getNodes(polyIndex).size(); targetIndex++) {
+                for (int targetIndex = 0; targetIndex < nodelib.getNodes(polyIndex).size(); targetIndex++) {
                     int targetNode = nodelib.getNodes(polyIndex).get(targetIndex);
-                    if (usedNodes[node] || 10000 < HelperFunctions.eucDist(nodelib.getCoordinates(node), nodelib.getCoordinates(targetNode))) {
+
+                    if (4000 < HelperFunctions.eucDist(nodelib.getCoordinates(node), nodelib.getCoordinates(targetNode))) {
                         continue;
                     }
 
-                    if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
-                        continue;
-                    }
-
-                    if (LosChecker.losBetweenNodes(targetIndex, targetNode, node, nodelib, polyIndex)) {
+                    /*  if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
+                     continue;
+                     }
+                     */
+                    if (LosChecker.losBetweenNodes(LosChecker.polyOrientation(polyIndex, nodelib),
+                            targetIndex, targetNode, node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
 
                     }
                 }
             }
-            usedNodes[node] = true;
         }
 
+    }
+
+    public double isEdge(int node1, int node2) {
+        return this.al[node1].get(node2);
     }
 
     private void addEdge(int node1, int node2, double friction) { //absolute node indexes
@@ -76,6 +81,7 @@ public class Graph {
                 return;
             }
         }
+
         this.al[node1].put(node2, cost);
         this.al[node2].put(node1, cost);
 

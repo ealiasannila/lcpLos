@@ -7,6 +7,7 @@ package lcplos.dataStructures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import logic.HelperFunctions;
 
 /**
  *
@@ -50,6 +51,11 @@ public class NodeLibrary {
         }
 
         int node = this.coordinatesToNode.get(xy);
+        
+        if(nodeToPolygons.get(node).contains(poly)){
+            return;
+        }
+        
         this.nodeToPolygons.get(node).add(poly);
         //System.out.println(poly);
         if (this.polygonToNodes[poly] == null) {
@@ -77,5 +83,17 @@ public class NodeLibrary {
     public int getNumOfPolys() {
         return this.polygonToNodes.length;
     }
+    public int getNearestNode(Coordinates xy){
+        double d = Double.MAX_VALUE;
+        int node = -1;
+        for (int i = 0; i < this.nodeToPolygons.size(); i++) {
+            if(HelperFunctions.eucDist(this.getCoordinates(i), xy)<d){
+                d= HelperFunctions.eucDist(this.getCoordinates(i), xy);
+                node = i;
+            }
+        }
+        return node;
+    }
+    
 
 }

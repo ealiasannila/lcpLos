@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="1" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.114" timestamp="2015-10-28T16:13:14">
+<testsuite errors="0" failures="0" hostname="da5-cs-bk107-09" name="logic.PathSearchTest" skipped="0" tests="3" time="0.08" timestamp="2015-10-29T13:03:52">
   <properties>
-    <property name="libs.jsp-compiler.javadoc" value="" />
-    <property name="netbeans.autoupdate.country" value="US" />
+    <property name="netbeans.autoupdate.country" value="GB" />
     <property name="nb.wait.for.caches" value="true" />
-    <property name="javac.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
-    <property name="libs.jsf20.maven-pom" value="" />
-    <property name="libs.junit.javadoc" value="/home/elias/tmcbeans/java/docs/junit-3.8.2-api.zip" />
-    <property name="libs.spring-webmvc4.0.src" value="" />
+    <property name="javac.test.classpath" value="json-20131018.jar:build/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar" />
+    <property name="libs.junit.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/docs/junit-3.8.2-api.zip" />
     <property name="ant.file.type.lcpLos" value="file" />
-    <property name="ant.core.lib" value="/home/elias/tmcbeans/extide/ant/lib/ant.jar" />
+    <property name="ant.core.lib" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant/lib/ant.jar" />
     <property name="javadoc.windowtitle" value="" />
-    <property name="libs.jsp-compilation.javadoc" value="" />
-    <property name="user.dir" value="/home/elias/Documents/kandi/koodi/lcpLos" />
-    <property name="libs.javaee-api-7.0.src" value="" />
-    <property name="java.vm.version" value="24.79-b02" />
-    <property name="libs.MySQLDriver.classpath" value="/home/elias/tmcbeans/ide/modules/ext/mysql-connector-java-5.1.23-bin.jar" />
+    <property name="user.dir" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos" />
+    <property name="java.vm.version" value="25.66-b17" />
+    <property name="libs.MySQLDriver.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/mysql-connector-java-5.1.23-bin.jar" />
     <property name="libs.eclipselinkmodelgen.src" value="" />
     <property name="javadoc.notree" value="false" />
     <property name="netbeans.autoupdate.version" value="1.23" />
     <property name="netbeans.running.environment" value="gnome" />
-    <property name="libs.javaee-web-api-6.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee-web-api-6.0.jar" />
     <property name="javac.profile.cmd.line.arg" value="" />
-    <property name="jdk.home" value="/usr/lib/jvm/java-7-openjdk-amd64" />
+    <property name="jdk.home" value="/usr/lib/jvm/java-8-oracle" />
     <property name="libs.javac-api.src" value="" />
     <property name="javadoc.noindex" value="false" />
-    <property name="libs.jpa2-persistence.classpath" value="/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
+    <property name="libs.jpa2-persistence.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
     <property name="sun.os.patch.level" value="unknown" />
     <property name="do.archive+manifest.available" value="true" />
     <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
@@ -34,53 +28,41 @@
     <property name="org.xml.sax.driver" value="com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser" />
     <property name="libs.javac-api.javadoc" value="" />
     <property name="os.name" value="Linux" />
-    <property name="libs.beans-binding.classpath" value="/home/elias/tmcbeans/java/modules/ext/beansbinding-1.2.1.jar" />
-    <property name="libs.javaee-endorsed-api-7.0.maven-pom" value="" />
+    <property name="libs.beans-binding.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/beansbinding-1.2.1.jar" />
     <property name="ap.proc.none.internal" value="" />
     <property name="libs.JWSAntTasks.maven-pom" value="" />
-    <property name="libs.jstl.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/jstl-impl.jar:/home/elias/.tmcbeans/dev/modules/ext/jstl-api.jar" />
     <property name="libs.testng.src" value="" />
-    <property name="libs.spring-webmvc3.0.src" value="" />
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
     <property name="libs.jaxb.maven-pom" value="" />
     <property name="os.arch" value="amd64" />
     <property name="libs.eclipselink.src" value="" />
-    <property name="user.name" value="elias" />
-    <property name="libs.jsf12.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
+    <property name="user.name" value="eannila" />
     <property name="copylibs.rebase" value="true" />
-    <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/koodi/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junitvmwatcher4786182748952079254.properties propsfile=/home/elias/Documents/kandi/koodi/lcpLos/build/junit2211717991702795372.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher2003132585684860828.properties propsfile=/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/junit6936433784777266442.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
-    <property name="libs.javaee-endorsed-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
-    <property name="libs.jaxws21.javadoc" value="/home/elias/tmcbeans/java/docs/jaxws-api-doc.zip" />
-    <property name="libs.spring-webmvc4.0.javadoc" value="" />
+    <property name="libs.jaxws21.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/docs/jaxws-api-doc.zip" />
     <property name="includes" value="**" />
-    <property name="user.country" value="US" />
+    <property name="user.country" value="GB" />
     <property name="manifest.file" value="manifest.mf" />
     <property name="javadoc.encoding" value="UTF-8" />
     <property name="javac.classpath" value="json-20131018.jar" />
-    <property name="libs.jsp-compilation-syscp.src" value="" />
-    <property name="libs.spring-framework400.classpath" value="/home/elias/tmcbeans/ide/modules/org-apache-commons-logging.jar:/home/elias/tmcbeans/java/modules/ext/cglib-2.2.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-aop-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-aspects-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-beans-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-build-src-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-context-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-context-support-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-core-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-expression-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-framework-bom-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-instrument-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-instrument-tomcat-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-jdbc-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-jms-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-messaging-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-orm-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-oxm-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-test-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-tx-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-web-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-portlet-4.0.1.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-4/spring-websocket-4.0.1.RELEASE.jar" />
+    <property name="libs.spring-framework400.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/org-apache-commons-logging.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/cglib-2.2.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-aop-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-aspects-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-beans-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-build-src-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-context-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-context-support-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-core-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-expression-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-framework-bom-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-instrument-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-instrument-tomcat-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-jdbc-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-jms-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-messaging-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-orm-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-oxm-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-test-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-tx-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-web-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-webmvc-portlet-4.0.1.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-4/spring-websocket-4.0.1.RELEASE.jar" />
     <property name="debug-transport" value="dt_socket" />
-    <property name="netbeans.home" value="/home/elias/tmcbeans/platform" />
+    <property name="netbeans.home" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform" />
     <property name="build.compiler.emacs" value="true" />
-    <property name="libs.javaee-web-api-6.0.src" value="" />
-    <property name="libs.jsp-compilation-syscp.classpath" value="/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/.tmcbeans/dev/modules/ext/servlet3.1-jsp2.3-api.jar:/home/elias/.tmcbeans/dev/modules/ext/glassfish-jspparser-4.0.jar:/home/elias/.tmcbeans/dev/modules/ext/jstl-impl.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar" />
-    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/endorsed" />
-    <property name="netbeans.dynamic.classpath" value="/home/elias/tmcbeans/platform/core/core.jar:/home/elias/tmcbeans/platform/core/org-openide-filesystems.jar:/home/elias/tmcbeans/platform/core/locale/core_pt_BR.jar:/home/elias/tmcbeans/platform/core/locale/org-openide-filesystems_zh_CN.jar:/home/elias/tmcbeans/platform/core/locale/core_ja.jar:/home/elias/tmcbeans/platform/core/locale/core_ru.jar:/home/elias/tmcbeans/platform/core/locale/core_zh_CN.jar:/home/elias/tmcbeans/platform/core/locale/org-openide-filesystems_pt_BR.jar:/home/elias/tmcbeans/platform/core/locale/org-openide-filesystems_ru.jar:/home/elias/tmcbeans/platform/core/locale/org-openide-filesystems_ja.jar:/home/elias/tmcbeans/tmcbeans/core/locale/core_tmcbeans.jar:/home/elias/tmcbeans/nb/core/org-netbeans-upgrader.jar:/home/elias/tmcbeans/nb/core/locale/org-netbeans-upgrader_pt_BR.jar:/home/elias/tmcbeans/nb/core/locale/org-netbeans-upgrader_ru.jar:/home/elias/tmcbeans/nb/core/locale/org-netbeans-upgrader_zh_CN.jar:/home/elias/tmcbeans/nb/core/locale/org-netbeans-upgrader_ja.jar" />
-    <property name="java.vm.specification.version" value="1.7" />
+    <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/endorsed" />
+    <property name="user.language.format" value="fi" />
+    <property name="netbeans.dynamic.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/org-openide-filesystems.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/core.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/org-openide-filesystems_pt_BR.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/org-openide-filesystems_zh_CN.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/org-openide-filesystems_ja.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/org-openide-filesystems_ru.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/core_zh_CN.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/core_pt_BR.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/core_ja.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/core/locale/core_ru.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/tmcbeans/core/locale/core_tmcbeans.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb/core/org-netbeans-upgrader.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb/core/locale/org-netbeans-upgrader_zh_CN.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb/core/locale/org-netbeans-upgrader_pt_BR.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb/core/locale/org-netbeans-upgrader_ja.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb/core/locale/org-netbeans-upgrader_ru.jar" />
+    <property name="java.vm.specification.version" value="1.8" />
     <property name="libs.hibernate4-support.src" value="" />
-    <property name="libs.primefaces.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/primefaces/primefaces-5.0.jar" />
-    <property name="libs.javaee-api-6.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee-api-6.0.jar" />
-    <property name="netbeans.productversion" value="Netbeans with TMC 201411181905" />
+    <property name="netbeans.productversion" value="Netbeans with TMC 201408251540" />
     <property name="libs.jaxws21.src" value="" />
     <property name="do.archive" value="true" />
     <property name="netbeans.autoupdate.language" value="en" />
     <property name="java.vendor" value="Oracle Corporation" />
-    <property name="libs.javaee-api-6.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
     <property name="sun.font.fontmanager" value="sun.awt.X11FontManager" />
     <property name="jar.index.metainf" value="false" />
     <property name="javac.debug" value="true" />
@@ -88,38 +70,33 @@
     <property name="file.separator" value="/" />
     <property name="libs.junit_4.maven-pom" value="" />
     <property name="mkdist.disabled" value="false" />
-    <property name="javac.test.processorpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
-    <property name="netbeans.buildnumber" value="0.8.8" />
+    <property name="javac.test.processorpath" value="json-20131018.jar:build/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar" />
+    <property name="netbeans.buildnumber" value="0.8.2" />
     <property name="libs.JWSAntTasks.javadoc" value="" />
     <property name="build.generated.sources.dir" value="build/generated-sources" />
-    <property name="libs.eclipselinkmodelgen.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.modelgen_2.5.2.v20140319-9ad6abd.jar" />
-    <property name="libs.javaee-endorsed-api-7.0.src" value="" />
+    <property name="libs.eclipselinkmodelgen.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.modelgen_2.5.2.v20140319-9ad6abd.jar" />
     <property name="sun.java.launcher" value="SUN_STANDARD" />
-    <property name="libs.junit.classpath" value="/home/elias/tmcbeans/java/modules/ext/junit-3.8.2.jar" />
+    <property name="libs.junit.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/junit-3.8.2.jar" />
     <property name="libs.hibernate4-persistencemodelgen.javadoc" value="" />
-    <property name="libs.jaxb.javadoc" value="/home/elias/tmcbeans/ide/docs/jaxb-api-doc.zip" />
-    <property name="libs.struts.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/struts/antlr-2.7.2.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/bsf-2.3.0.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-beanutils-1.8.0.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-chain-1.2.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-digester-1.8.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-fileupload-1.1.1.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-io-1.1.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-logging-1.0.4.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/commons-validator-1.3.1.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/jstl-1.0.2.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/oro-2.0.8.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/standard-1.0.6.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-core-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-el-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-extras-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-faces-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-mailreader-dao-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-scripting-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-taglib-1.3.10.jar:/home/elias/.tmcbeans/dev/modules/ext/struts/struts-tiles-1.3.10.jar" />
-    <property name="ant.home" value="/home/elias/tmcbeans/extide/ant" />
-    <property name="libs.junit_4.src" value="/home/elias/tmcbeans/java/docs/junit-4.10-sources.jar" />
-    <property name="libs.testng.classpath" value="/home/elias/tmcbeans/platform/modules/ext/testng-6.8.1-dist.jar" />
+    <property name="libs.jaxb.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/docs/jaxb-api-doc.zip" />
+    <property name="ant.home" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant" />
+    <property name="libs.junit_4.src" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/docs/junit-4.10-sources.jar" />
+    <property name="libs.testng.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/testng-6.8.1-dist.jar" />
     <property name="libs.absolutelayout.maven-pom" value="" />
-    <property name="ant.java.version" value="1.7" />
-    <property name="java.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/bin/../jre/lib/amd64:/usr/lib/jvm/java-7-openjdk-amd64/bin/../jre/lib/i386::/usr/java/packages/lib/amd64:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib" />
+    <property name="ant.java.version" value="1.8" />
+    <property name="java.library.path" value="/usr/lib/jvm/java-8-oracle/bin/../jre/lib/amd64:/usr/lib/jvm/java-8-oracle/bin/../jre/lib/i386::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib" />
     <property name="javadoc.author" value="false" />
     <property name="java.util.logging.config.class" value="org.netbeans.core.startup.TopLogging" />
     <property name="libs.spring-framework400.src" value="" />
     <property name="libs.PostgreSQLDriver.src" value="" />
     <property name="sun.arch.data.model" value="64" />
-    <property name="basedir" value="/home/elias/Documents/kandi/koodi/lcpLos" />
+    <property name="basedir" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos" />
     <property name="libs.jpa20-persistence.maven-pom" value="" />
     <property name="jar.compress" value="false" />
-    <property name="libs.javaee-web-api-7.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee-web-api-7.0.jar" />
     <property name="path.separator" value=":" />
-    <property name="libs.javaee-web-api-6.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
     <property name="ant.junit.enabletestlistenerevents" value="true" />
     <property name="sun.io.unicode.encoding" value="UnicodeLittle" />
-    <property name="libs.jaxws21.classpath" value="/home/elias/tmcbeans/ide/modules/ext/jaxb/jaxb-impl.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/jaxb-xjc.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/FastInfoset.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/gmbal-api-only.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/ha-api.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/javax.mail_1.4.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/jaxws-rt.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/jaxws-tools.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/management-api.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/mimepull.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/policy.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/saaj-impl.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/stax-ex.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/stax2-api.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/streambuffer.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/woodstox-core-asl.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/api/jaxws-api.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/api/jsr181-api.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/api/javax.annotation.jar:/home/elias/tmcbeans/java/modules/ext/jaxws22/api/saaj-api.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/activation.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jsr173_1.0_api.jar" />
-    <property name="libs.struts.src" value="" />
+    <property name="libs.jaxws21.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/jaxb-impl.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/jaxb-xjc.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/FastInfoset.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/gmbal-api-only.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/ha-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/javax.mail_1.4.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/jaxws-rt.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/jaxws-tools.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/management-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/mimepull.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/policy.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/saaj-impl.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/stax-ex.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/stax2-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/streambuffer.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/woodstox-core-asl.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/api/jaxws-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/api/jsr181-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/api/javax.annotation.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/jaxws22/api/saaj-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/activation.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/api/jsr173_1.0_api.jar" />
     <property name="compile.on.save" value="true" />
     <property name="apple.awt.graphics.UseQuartz" value="true" />
     <property name="user.language" value="en" />
@@ -128,114 +105,91 @@
     <property name="libs.eclipselink.maven-pom" value="" />
     <property name="test.binaryincludes" value="&lt;nothing&gt;" />
     <property name="manifest.available" value="true" />
-    <property name="libs.primefaces.javadoc" value="" />
     <property name="libs.spring-framework300.maven-pom" value="" />
-    <property name="run.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
+    <property name="run.test.classpath" value="json-20131018.jar:build/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
     <property name="ant.project.invoked-targets" value="test" />
     <property name="test.binaryexcludes" value="" />
-    <property name="libs.swing-layout.javadoc" value="/home/elias/tmcbeans/platform/docs/swing-layout-1.0.4-doc.zip" />
+    <property name="libs.swing-layout.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/docs/swing-layout-1.0.4-doc.zip" />
     <property name="libs.hibernate4-persistence.maven-pom" value="" />
-    <property name="https.nonProxyHosts" value="localhost|127.0.0.1|sahkolammitin" />
+    <property name="https.nonProxyHosts" value="localhost|127.0.0.1|da5-cs-bk107-09" />
     <property name="libs.PostgreSQLDriver.maven-pom" value="" />
-    <property name="java.class.version" value="51.0" />
+    <property name="java.class.version" value="52.0" />
     <property name="libs.hibernate4-persistencemodelgen.maven-pom" value="" />
-    <property name="libs.javaee-endorsed-api-6.0.src" value="" />
-    <property name="libs.eclipselink.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
-    <property name="libs.jsp-compilation.maven-pom" value="" />
-    <property name="user.properties.file" value="/home/elias/.tmcbeans/dev/build.properties" />
+    <property name="libs.eclipselink.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
+    <property name="user.properties.file" value="/home/eannila/.tmcbeans/dev/build.properties" />
     <property name="runtime.encoding" value="UTF-8" />
     <property name="libs.javac-api.maven-pom" value="" />
-    <property name="libs.javaee-api-5.0.maven-pom" value="" />
     <property name="file.encoding.pkg" value="sun.io" />
     <property name="sun.cpu.endian" value="little" />
     <property name="libs.JAXB-ENDORSED.javadoc" value="" />
-    <property name="libs.JWSAntTasks.classpath" value="/home/elias/tmcbeans/java/ant/extra/org-netbeans-modules-javawebstart-anttasks.jar" />
-    <property name="libs.spring-webmvc4.0.maven-pom" value="" />
+    <property name="libs.JWSAntTasks.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/ant/extra/org-netbeans-modules-javawebstart-anttasks.jar" />
     <property name="libs.spring-framework300.src" value="" />
-    <property name="ant.file.lcpLos" value="/home/elias/Documents/kandi/koodi/lcpLos/build.xml" />
-    <property name="libs.jstl.src" value="" />
-    <property name="empty.dir" value="/home/elias/Documents/kandi/koodi/lcpLos/build/empty" />
-    <property name="version-output" value="java version &quot;1.7" />
+    <property name="ant.file.lcpLos" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build.xml" />
+    <property name="empty.dir" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/empty" />
+    <property name="version-output" value="java version &quot;1.8" />
     <property name="test.binarytestincludes" value="" />
     <property name="libs.hibernate4-persistencemodelgen.src" value="" />
     <property name="javadoc.preview" value="true" />
-    <property name="libs.jpa20-persistence.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
-    <property name="java.home" value="/usr/lib/jvm/java-7-openjdk-amd64/jre" />
-    <property name="libs.jsp-compilation.src" value="" />
-    <property name="debug.test.classpath" value="json-20131018.jar:build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
-    <property name="libs.javaee-endorsed-api-6.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/javax.annotation.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/jaxb-api-osgi.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee6-endorsed/webservices-api-osgi.jar" />
-    <property name="libs.javaee-api-6.0.src" value="" />
+    <property name="libs.jpa20-persistence.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
+    <property name="java.home" value="/usr/lib/jvm/java-8-oracle/jre" />
+    <property name="debug.test.classpath" value="json-20131018.jar:build/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar:build/test/classes" />
     <property name="ant.project.default-target" value="default" />
     <property name="annotation.processing.run.all.processors" value="true" />
     <property name="ant.file.type.lcpLos-impl" value="file" />
     <property name="libs.PostgreSQLDriver.javadoc" value="" />
     <property name="libs.MySQLDriver.maven-pom" value="" />
-    <property name="libs.hibernate4-persistence.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
-    <property name="http.nonProxyHosts" value="localhost|127.0.0.1|sahkolammitin" />
-    <property name="libs.junit_4.javadoc" value="/home/elias/tmcbeans/java/docs/junit-4.10-javadoc.jar" />
-    <property name="libs.javaee-web-api-6.0.maven-pom" value="" />
+    <property name="libs.hibernate4-persistence.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
+    <property name="http.nonProxyHosts" value="localhost|127.0.0.1|da5-cs-bk107-09" />
+    <property name="libs.junit_4.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/docs/junit-4.10-javadoc.jar" />
     <property name="run.classpath" value="json-20131018.jar:build/classes" />
     <property name="jna.boot.library.name" value="jnidispatch-410" />
-    <property name="libs.javaee-endorsed-api-6.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
-    <property name="libs.javaee-api-7.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee-api-7.0.jar" />
     <property name="sun.awt.datatransfer.timeout" value="1000" />
-    <property name="libs.spring-webmvc3.0.javadoc" value="" />
     <property name="libs.jpa2-persistence.maven-pom" value="" />
     <property name="annotation.processing.enabled.in.editor" value="false" />
-    <property name="libs.hibernate4-support.classpath" value="/home/elias/tmcbeans/java/modules/ext/hibernate4/antlr-2.7.7.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/c3p0-0.9.2.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-c3p0-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/mchange-commons-java-0.2.3.4.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/dom4j-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/ehcache-core-2.4.3.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-ehcache-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-core-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-logging-3.1.3.GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-commons-annotations-4.0.4.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-entitymanager-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/javassist-3.18.1-GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-transaction-api_1.2_spec-1.0.0.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-api-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-simple-1.6.1.jar" />
+    <property name="libs.hibernate4-support.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/antlr-2.7.7.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/c3p0-0.9.2.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-c3p0-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/mchange-commons-java-0.2.3.4.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/dom4j-1.6.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/ehcache-core-2.4.3.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-ehcache-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-core-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/jboss-logging-3.1.3.GA.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-commons-annotations-4.0.4.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-entitymanager-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/javassist-3.18.1-GA.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/jboss-transaction-api_1.2_spec-1.0.0.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/slf4j-api-1.6.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/slf4j-simple-1.6.1.jar" />
     <property name="nb.native.filechooser" value="false" />
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
     <property name="javac.deprecation" value="false" />
     <property name="javadoc.use" value="true" />
     <property name="file.reference.json-20131018.jar" value="json-20131018.jar" />
     <property name="sun.java2d.noddraw" value="true" />
-    <property name="libs.jsp-compiler.classpath" value="/home/elias/.tmcbeans/dev/ant/extra/jspcompile.jar" />
     <property name="javac.processorpath" value="json-20131018.jar" />
     <property name="javac.compilerargs" value="" />
-    <property name="ant.file" value="/home/elias/Documents/kandi/koodi/lcpLos/build.xml" />
+    <property name="ant.file" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build.xml" />
     <property name="libs.beans-binding.maven-pom" value="" />
-    <property name="libs.hibernate4-support.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
-    <property name="libs.jsf12.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/commons-beanutils.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/commons-collections.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/commons-digester.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/commons-logging.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/jsf-api.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-1_2/jsf-impl.jar" />
-    <property name="libs.jstl.maven-pom" value="" />
-    <property name="libs.javaee-api-5.0.src" value="" />
+    <property name="libs.hibernate4-support.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
     <property name="libs.beans-binding.src" value="" />
     <property name="java.vm.specification.vendor" value="Oracle Corporation" />
-    <property name="libs.swing-layout.src" value="/home/elias/tmcbeans/platform/docs/swing-layout-1.0.4-src.zip" />
+    <property name="libs.swing-layout.src" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/docs/swing-layout-1.0.4-src.zip" />
     <property name="org.openide.major.version" value="IDE/1" />
-    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM" />
-    <property name="netbeans.user" value="/home/elias/.tmcbeans/dev" />
+    <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+    <property name="netbeans.user" value="/home/eannila/.tmcbeans/dev" />
     <property name="javadoc.additionalparam" value="" />
     <property name="java.io.tmpdir" value="/tmp" />
     <property name="java.vendor.url" value="http://java.oracle.com/" />
     <property name="endorsed.classpath.cmd.line.arg" value="" />
     <property name="junit.available" value="true" />
-    <property name="libs.javaee-api-5.0.javadoc" value="" />
-    <property name="libs.jsp-compiler.src" value="" />
-    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64" />
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/amd64" />
     <property name="have.sources" value="true" />
     <property name="debug.classpath" value="json-20131018.jar:build/classes" />
     <property name="javadoc.private" value="false" />
     <property name="test.src.dir" value="test" />
-    <property name="libs.jsf20.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar" />
     <property name="ap.processors.internal" value="" />
     <property name="meta.inf.dir" value="src/META-INF" />
     <property name="javadoc.encoding.used" value="UTF-8" />
     <property name="dist.jar" value="dist/lcpLos.jar" />
     <property name="libs.spring-framework400.maven-pom" value="" />
     <property name="netbeans.automatic.build" value="true" />
-    <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
+    <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
     <property name="ant.project.name" value="lcpLos" />
-    <property name="netbeans.hash.code" value="unique=06b043eb1-0d5e-4df2-8075-a35cde5e99db" />
-    <property name="libs.jsp-compilation-syscp.maven-pom" value="" />
+    <property name="netbeans.hash.code" value="unique=086394f29-5daa-43d5-8c68-9a99fcdd8f58_9c6230bd-231e-4bfd-a1bf-ee28847b7472" />
     <property name="sun.cpu.isalist" value="" />
     <property name="libs.spring-framework400.javadoc" value="" />
     <property name="libs.CopyLibs.javadoc" value="" />
     <property name="org.openide.specification.version" value="6.2" />
-    <property name="user.home" value="/home/elias" />
+    <property name="user.home" value="/home/eannila" />
     <property name="annotation.processing.processors.list" value="" />
-    <property name="libs.primefaces.maven-pom" value="" />
     <property name="debug-args-line" value="-Xdebug" />
-    <property name="libs.javaee-api-6.0.maven-pom" value="" />
     <property name="libs.JWSAntTasks.src" value="" />
     <property name="jar.index" value="false" />
     <property name="libs.CopyLibs.maven-pom" value="" />
@@ -243,135 +197,110 @@
     <property name="libs.absolutelayout.javadoc" value="" />
     <property name="java.specification.name" value="Java Platform API Specification" />
     <property name="do.archive+main.class.available" value="true" />
-    <property name="ant.file.lcpLos-impl" value="/home/elias/Documents/kandi/koodi/lcpLos/nbproject/build-impl.xml" />
+    <property name="ant.file.lcpLos-impl" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/nbproject/build-impl.xml" />
     <property name="java.specification.vendor" value="Oracle Corporation" />
-    <property name="libs.javac-api.classpath" value="/home/elias/tmcbeans/java/modules/ext/nb-javac-api.jar" />
-    <property name="java.version" value="1.7.0_79" />
+    <property name="libs.javac-api.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/nb-javac-api.jar" />
+    <property name="java.version" value="1.8.0_66" />
     <property name="run.jvmargs.ide" value="" />
     <property name="javadoc.version" value="false" />
     <property name="libs.MySQLDriver.javadoc" value="" />
     <property name="org.openide.version" value="deprecated" />
-    <property name="platform.java" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java" />
+    <property name="platform.java" value="/usr/lib/jvm/java-8-oracle/jre/bin/java" />
     <property name="source.encoding" value="UTF-8" />
     <property name="ap.cmd.line.internal" value="" />
     <property name="libs.eclipselinkmodelgen.maven-pom" value="" />
-    <property name="libs.jsp-compilation-syscp.javadoc" value="" />
     <property name="libs.junit.maven-pom" value="" />
     <property name="libs.eclipselinkmodelgen.javadoc" value="" />
-    <property name="libs.javaee-endorsed-api-7.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee7-endorsed/javax.annotation-api.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee7-endorsed/javax.xml.soap-api.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee7-endorsed/jaxb-api-osgi.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee7-endorsed/jaxws-api.jar:/home/elias/.tmcbeans/dev/modules/ext/javaee7-endorsed/jsr181-api.jar" />
-    <property name="libs.struts.maven-pom" value="" />
     <property name="netbeans.home+have.tests" value="true" />
     <property name="annotation.processing.processor.options" value="" />
     <property name="libs.testng.maven-pom" value="" />
     <property name="libs.jaxb.src" value="" />
-    <property name="work.dir" value="/home/elias/Documents/kandi/koodi/lcpLos" />
-    <property name="libs.jaxb.classpath" value="/home/elias/tmcbeans/ide/modules/ext/jaxb/jaxb-impl.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/jaxb-xjc.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/jaxb1-impl.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/activation.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar:/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jsr173_1.0_api.jar" />
-    <property name="php.global.include.path" value="" />
+    <property name="work.dir" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos" />
+    <property name="libs.jaxb.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/jaxb-impl.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/jaxb-xjc.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/jaxb1-impl.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/activation.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/api/jsr173_1.0_api.jar" />
     <property name="do.depend" value="false" />
     <property name="dist.javadoc.dir" value="dist/javadoc" />
-    <property name="libs.swing-layout.classpath" value="/home/elias/tmcbeans/platform/modules/ext/swing-layout-1.0.4.jar" />
-    <property name="libs.spring-webmvc3.0.classpath" value="/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-webmvc-3.2.7.RELEASE.jar" />
-    <property name="libs.javaee-web-api-7.0.maven-pom" value="" />
+    <property name="libs.swing-layout.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/swing-layout-1.0.4.jar" />
     <property name="build.generated.dir" value="build/generated" />
     <property name="javac.source" value="1.7" />
     <property name="line.separator" value="&#xa;" />
-    <property name="java.specification.version" value="1.7" />
+    <property name="java.specification.version" value="1.8" />
     <property name="libs.jaxws21.maven-pom" value="" />
     <property name="java.vm.info" value="mixed mode" />
     <property name="nb.junit.batch" value="true" />
     <property name="junit.forkmode" value="perTest" />
-    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/resources.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rt.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jsse.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jce.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/charsets.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/rhino.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/jfr.jar:/usr/lib/jvm/java-7-openjdk-amd64/jre/classes" />
+    <property name="user.country.format" value="FI" />
+    <property name="sun.boot.class.path" value="/usr/lib/jvm/java-8-oracle/jre/lib/resources.jar:/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar:/usr/lib/jvm/java-8-oracle/jre/lib/sunrsasign.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jsse.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jce.jar:/usr/lib/jvm/java-8-oracle/jre/lib/charsets.jar:/usr/lib/jvm/java-8-oracle/jre/lib/jfr.jar:/usr/lib/jvm/java-8-oracle/jre/classes" />
     <property name="javac.target" value="1.7" />
-    <property name="built-jar.properties" value="/home/elias/Documents/kandi/koodi/lcpLos/build/built-jar.properties" />
+    <property name="built-jar.properties" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/built-jar.properties" />
     <property name="build.test.classes.dir" value="build/test/classes" />
     <property name="src.dir" value="src" />
     <property name="annotation.processing.enabled" value="true" />
     <property name="libs.jpa2-persistence.src" value="" />
-    <property name="libs.jsf20.src" value="" />
     <property name="libs.jpa20-persistence.src" value="" />
-    <property name="libs.jsf12.src" value="" />
-    <property name="libs.struts.javadoc" value="/home/elias/.tmcbeans/dev/docs/struts-1.3.10-javadoc.zip" />
     <property name="ignore.failing.tests" value="true" />
-    <property name="libs.javaee-web-api-7.0.src" value="" />
-    <property name="libs.primefaces.src" value="" />
     <property name="dist.dir" value="dist" />
     <property name="testng.debug.mode" value="" />
     <property name="javac.fork" value="false" />
     <property name="java.awt.printerjob" value="sun.print.PSPrinterJob" />
-    <property name="default.javac.source" value="1.7" />
+    <property name="default.javac.source" value="1.8" />
     <property name="debug-transport-by-os" value="dt_socket" />
-    <property name="sun.jnu.encoding" value="UTF-8" />
     <property name="libs.MySQLDriver.src" value="" />
+    <property name="sun.jnu.encoding" value="UTF-8" />
+    <property name="java.runtime.version" value="1.8.0_66-b17" />
     <property name="build.test.results.dir" value="build/test/results" />
-    <property name="java.runtime.version" value="1.7.0_79-b14" />
     <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/lib64:/usr/lib:/lib" />
-    <property name="default.javac.target" value="1.7" />
-    <property name="libs.junit_4.classpath" value="/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar" />
+    <property name="default.javac.target" value="1.8" />
+    <property name="libs.junit_4.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar" />
     <property name="user.timezone" value="" />
     <property name="nb.junit.single" value="false" />
-    <property name="libs.javaee-endorsed-api-6.0.maven-pom" value="" />
-    <property name="netbeans.dirs" value="/home/elias/tmcbeans/tmcbeans:/home/elias/tmcbeans/cnd:/home/elias/tmcbeans/dlight:/home/elias/tmcbeans/extide:/home/elias/tmcbeans/harness:/home/elias/tmcbeans/ide:/home/elias/tmcbeans/java:/home/elias/tmcbeans/nb:/home/elias/tmcbeans/mavenmodules:" />
-    <property name="libs.jsf20.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
-    <property name="libs.jstl.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
-    <property name="java.ext.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/ext:/usr/java/packages/lib/ext" />
-    <property name="libs.absolutelayout.classpath" value="/home/elias/tmcbeans/java/modules/ext/AbsoluteLayout.jar" />
+    <property name="netbeans.dirs" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/tmcbeans:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/cnd:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/dlight:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/harness:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/nb:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/mavenmodules:" />
+    <property name="java.ext.dirs" value="/usr/lib/jvm/java-8-oracle/jre/lib/ext:/usr/java/packages/lib/ext" />
+    <property name="libs.absolutelayout.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/AbsoluteLayout.jar" />
     <property name="excludes" value="" />
-    <property name="libs.jpa2-persistence.javadoc" value="/home/elias/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
+    <property name="libs.jpa2-persistence.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/docs/javax.persistence-2.1.0-doc.zip" />
+    <property name="java.class.path" value="/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/json-20131018.jar:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/modules/ext/junit-4.10.jar:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/build/test/classes:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant/lib/ant-launcher.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant/lib/ant.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant/lib/ant-junit.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/extide/ant/lib/ant-junit4.jar" />
     <property name="apple.laf.useScreenMenuBar" value="true" />
-    <property name="java.class.path" value="/home/elias/Documents/kandi/koodi/lcpLos/json-20131018.jar:/home/elias/Documents/kandi/koodi/lcpLos/build/classes:/home/elias/tmcbeans/platform/modules/ext/junit-4.10.jar:/home/elias/Documents/kandi/koodi/lcpLos/build/test/classes:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar:/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit.jar:/home/elias/tmcbeans/extide/ant/lib/ant-junit4.jar:/usr/share/java/jayatanaag.jar" />
     <property name="do.mkdist" value="true" />
     <property name="libs.absolutelayout.src" value="" />
-    <property name="libs.jpa20-persistence.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar" />
-    <property name="os.version" value="3.19.0-23-generic" />
+    <property name="libs.jpa20-persistence.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar" />
+    <property name="os.version" value="3.13.0-66-generic" />
     <property name="application.args" value="" />
-    <property name="libs.javaee-api-7.0.maven-pom" value="" />
-    <property name="main.class.available" value="true" />
     <property name="sun.awt.enableExtraMouseButtons" value="true" />
+    <property name="main.class.available" value="true" />
     <property name="sun.desktop" value="gnome" />
     <property name="libs.hibernate4-persistence.src" value="" />
     <property name="libs.hibernate4-support.maven-pom" value="" />
-    <property name="libs.JAXB-ENDORSED.classpath" value="/home/elias/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar" />
     <property name="nb.internal.action.name" value="test" />
-    <property name="libs.javaee-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
-    <property name="libs.eclipselink.classpath" value="/home/elias/tmcbeans/java/modules/ext/eclipselink/eclipselink.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/elias/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
-    <property name="libs.beans-binding.javadoc" value="/home/elias/tmcbeans/java/docs/beansbinding-1.2.1-doc.zip" />
+    <property name="libs.JAXB-ENDORSED.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/jaxb/api/jaxb-api.jar" />
+    <property name="libs.eclipselink.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/eclipselink/eclipselink.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/eclipselink/javax.persistence_2.1.0.v201304241213.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/eclipselink/org.eclipse.persistence.jpa.jpql_2.5.2.v20140319-9ad6abd.jar" />
     <property name="java.awt.graphicsenv" value="sun.awt.X11GraphicsEnvironment" />
+    <property name="libs.beans-binding.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/docs/beansbinding-1.2.1-doc.zip" />
     <property name="java.vm.vendor" value="Oracle Corporation" />
-    <property name="libs.CopyLibs.classpath" value="/home/elias/tmcbeans/java/ant/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
-    <property name="libs.spring-framework300.classpath" value="/home/elias/tmcbeans/ide/modules/org-apache-commons-logging.jar:/home/elias/tmcbeans/java/modules/ext/cglib-2.2.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-aop-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-aspects-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-beans-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-build-src-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-context-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-context-support-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-core-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-expression-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-framework-bom-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-instrument-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-instrument-tomcat-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-jdbc-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-jms-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-orm-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-oxm-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-struts-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-test-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-tx-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-web-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-webmvc-3.2.7.RELEASE.jar:/home/elias/tmcbeans/java/modules/ext/spring-3.0/spring-webmvc-portlet-3.2.7.RELEASE.jar" />
-    <property name="libs.jsp-compiler.maven-pom" value="" />
+    <property name="libs.CopyLibs.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/ant/extra/org-netbeans-modules-java-j2seproject-copylibstask.jar" />
+    <property name="libs.spring-framework300.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/org-apache-commons-logging.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/cglib-2.2.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-aop-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-aspects-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-beans-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-build-src-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-context-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-context-support-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-core-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-expression-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-framework-bom-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-instrument-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-instrument-tomcat-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-jdbc-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-jms-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-orm-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-oxm-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-struts-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-test-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-tx-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-web-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-webmvc-3.2.7.RELEASE.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/spring-3.0/spring-webmvc-portlet-3.2.7.RELEASE.jar" />
     <property name="run.jvmargs" value="" />
-    <property name="libs.hibernate4-persistence.classpath" value="/home/elias/tmcbeans/java/modules/ext/hibernate4/antlr-2.7.7.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/c3p0-0.9.2.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-c3p0-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/mchange-commons-java-0.2.3.4.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/dom4j-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/ehcache-core-2.4.3.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-ehcache-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-core-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-logging-3.1.3.GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-commons-annotations-4.0.4.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-entitymanager-4.3.1.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/javassist-3.18.1-GA.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/jboss-transaction-api_1.2_spec-1.0.0.Final.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-api-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/slf4j-simple-1.6.1.jar:/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
-    <property name="libs.JAXB-ENDORSED.src" value="" />
+    <property name="libs.hibernate4-persistence.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/antlr-2.7.7.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/c3p0-0.9.2.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-c3p0-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/mchange-commons-java-0.2.3.4.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/dom4j-1.6.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/ehcache-core-2.4.3.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-ehcache-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-core-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/jboss-logging-3.1.3.GA.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-commons-annotations-4.0.4.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-entitymanager-4.3.1.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/javassist-3.18.1-GA.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/jboss-transaction-api_1.2_spec-1.0.0.Final.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/slf4j-api-1.6.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/slf4j-simple-1.6.1.jar:/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-jpa-2.1-api-1.0.0.Final.jar" />
     <property name="dist.archive.excludes" value="" />
-    <property name="libs.testng.javadoc" value="/home/elias/tmcbeans/platform/docs/testng-6.8.1-javadoc.zip" />
-    <property name="libs.PostgreSQLDriver.classpath" value="/home/elias/tmcbeans/ide/modules/ext/postgresql-9.2-1002.jdbc4.jar" />
-    <property name="libs.jsf12.maven-pom" value="" />
-    <property name="libs.hibernate4-persistencemodelgen.classpath" value="/home/elias/tmcbeans/java/modules/ext/hibernate4/hibernate-jpamodelgen-4.3.1.Final.jar" />
+    <property name="libs.JAXB-ENDORSED.src" value="" />
+    <property name="libs.testng.javadoc" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/platform/docs/testng-6.8.1-javadoc.zip" />
+    <property name="libs.PostgreSQLDriver.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/ide/modules/ext/postgresql-9.2-1002.jdbc4.jar" />
+    <property name="libs.hibernate4-persistencemodelgen.classpath" value="/home/ad/fshome1/u1/e/eannila/Linux/tmcbeans/java/modules/ext/hibernate4/hibernate-jpamodelgen-4.3.1.Final.jar" />
     <property name="libs.junit.src" value="" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
     <property name="main.class" value="lcplos.LcpLos" />
     <property name="libs.CopyLibs.src" value="" />
     <property name="build.dir" value="build" />
-    <property name="libs.jsp-compilation.classpath" value="/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/.tmcbeans/dev/modules/ext/servlet3.1-jsp2.3-api.jar:/home/elias/.tmcbeans/dev/modules/ext/glassfish-jspparser-4.0.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar:/home/elias/.tmcbeans/dev/modules/ext/jstl-api.jar:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.4 compiled on April 29 2014" />
-    <property name="libs.javaee-api-5.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee5.jar" />
     <property name="file.encoding" value="UTF-8" />
     <property name="build.classes.excludes" value="**/*.java,**/*.form" />
     <property name="jdkBug6558476" value="false" />
     <property name="javadoc.nonavbar" value="false" />
-    <property name="libs.spring-webmvc4.0.classpath" value="/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar" />
     <property name="platform.active" value="default_platform" />
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
-    <property name="libs.javaee-web-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.009" />
-  <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.01">
-    <failure message="expected:&lt;[4, []2]&gt; but was:&lt;[4, [3, ]2]&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: expected:&lt;[4, []2]&gt; but was:&lt;[4, [3, ]2]&gt;
-	at logic.PathSearchTest.testShortestPath2(PathSearchTest.java:70)
-</failure>
-  </testcase>
-  <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.003" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.02" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.002" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.001" />
   <system-out><![CDATA[9%
 18%
 27%
@@ -394,6 +323,7 @@ lopetan
 81%
 90%
 lopetan
+no path found
 9%
 18%
 27%
@@ -405,7 +335,6 @@ lopetan
 81%
 90%
 lopetan
-no path found
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

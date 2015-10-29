@@ -38,7 +38,7 @@ public class GeoJsonReader {
         return new JSONObject(data);
     }
 
-    public static NodeLibrary readNodes(File tiedosto, int maxPolygons, FrictionLibrary frictionlib, double step) {
+    public static NodeLibrary readNodes(File tiedosto, int maxPolygons, FrictionLibrary frictionlib, double step, String friction) {
         JSONObject obj = lataaJsonObject(tiedosto);
         JSONArray features = obj.getJSONArray("features");
 
@@ -48,7 +48,7 @@ public class GeoJsonReader {
             if (features.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
                 JSONArray rings = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
 
-                frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble("friction"));
+                frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble(friction));
                 ArrayList<Coordinates> polygon = new ArrayList<Coordinates>();
 
                 for (int i = 0; i < 1/*rings.length()*/; i++) {
@@ -59,7 +59,6 @@ public class GeoJsonReader {
                         JSONArray coordinatePair = coordinates.getJSONArray(k);
 
                         polygon.add(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
-
                     }
                 }
                 polygon = EdgeSplitter.splitEdges(polygon, step);

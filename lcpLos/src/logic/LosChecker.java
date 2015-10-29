@@ -15,33 +15,6 @@ import lcplos.dataStructures.NodeLibrary;
  */
 public class LosChecker {
 
-    //BACKUP
-    public static boolean losBetweenNodes(int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
-        if (startNode == targetNode) {
-            return false;
-        }
-
-        ArrayList<Integer> nodes = nodelib.getNodes(polygon);
-        Coordinates sc = nodelib.getCoordinates(startNode);
-        Coordinates tc = nodelib.getCoordinates(targetNode);
-
-        for (int start = 0; start < nodes.size() - 1; start++) {
-            int end = start + 1;
-            if (end == nodes.size()) {
-                end = 0;
-            }
-            if (edgesIntersect(sc, tc, nodelib.getCoordinates(nodes.get(start)), nodelib.getCoordinates(nodes.get(end)))) {
-//               System.out.println("killing due intersect");
-//                System.out.println("es:" + start + " et: " + end + ", s: " + startNode + " t: " + targetNode);
-
-                return false;
-            }
-        }
-
-        return true;
-
-    }
-
     private static int moveLeft(int node, ArrayList<Integer> nodes) {
         if (node == 0) {
             return nodes.size() - 1;
@@ -56,7 +29,7 @@ public class LosChecker {
         return node + 1;
     }
 
-    private static int polyOrientation(int polygon, NodeLibrary nodelib) {
+    public static int polyOrientation(int polygon, NodeLibrary nodelib) {
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
         int sum = 0;
 
@@ -74,57 +47,90 @@ public class LosChecker {
         return 1;
     }
 
-    public static boolean losBetweenNodes(int startIndex, int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
+    public static boolean losBetweenNodes(int polyOrientation, int startIndex, int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
+
+        int lp = moveLeft(startIndex, nodes);
+        int rp = moveRight(startIndex, nodes);
+
+        Coordinates sc = nodelib.getCoordinates(startNode);
+        Coordinates tc = nodelib.getCoordinates(targetNode);
+        Coordinates rc = nodelib.getCoordinates(nodes.get(rp));
+        Coordinates lc = nodelib.getCoordinates(nodes.get(lp));
+/*
+        if (targetNode == nodelib.getNearestNode(new Coordinates(264432, 6733231)) && polygon == 23 && startNode == nodelib.getNearestNode(new Coordinates(264274, 6733208))) {
+            System.out.println("ro: " + orientation(sc, rc, tc));
+            System.out.println("lo: " + orientation(sc, lc, tc));
+            System.out.println("po: " + polyOrientation);
+
+            System.out.println("l-r o: " + orientation(lc, sc, rc));
+
+            System.out.println("sc: " + sc);
+            System.out.println("tc: " + tc);
+            System.out.println("rc: " + nodelib.getCoordinates(nodes.get(rp)));
+            System.out.println("lc: " + nodelib.getCoordinates(nodes.get(lp)));
+
+            System.out.println("sn: " + startNode);
+            System.out.println("rn: " + nodes.get(rp));
+            System.out.println("ln: " + nodes.get(lp));
+
+            System.out.println("si: " + startIndex);
+            System.out.println("lp: " + lp);
+            System.out.println("rp: " + rp);
+            if (orientation(lc, sc, rc) == polyOrientation) {
+                //convex:
+                System.out.println("convex");
+                if (!(orientation(sc, rc, tc) == polyOrientation && orientation(sc, lc, tc) == -polyOrientation)) {
+                    System.out.println("hylkään");
+                }
+            }
+            if (orientation(lc, sc, rc) == -polyOrientation) {
+                //concave:
+                System.out.println("concave");
+                if (orientation(sc, rc, tc) == -polyOrientation && orientation(sc, lc, tc) == polyOrientation) {
+                    System.out.println("hylkään");
+                }
+            }
+
+        }
+*/
         if (startNode == targetNode) {
             return false;
         }
-        int lp = moveLeft(startIndex, nodes);
-        int rp = moveRight(startIndex, nodes);
 
         if (targetNode == nodes.get(lp) || targetNode == nodes.get(rp)) {
             return true;
         }
 
-        int polyOrient = polyOrientation(polygon, nodelib);
-
-        Coordinates sc = nodelib.getCoordinates(startNode);
-        Coordinates tc = nodelib.getCoordinates(targetNode);
-
-        Coordinates lnc = nodelib.getCoordinates(nodes.get(moveLeft(startIndex, nodes)));
-        Coordinates rnc = nodelib.getCoordinates(nodes.get(moveRight(startIndex, nodes)));
-
-        int aRo = 0;
-        int aLo = 0;
+        if (orientation(lc, sc, rc) == polyOrientation) {
+            //convex:
+            if (!(orientation(sc, rc, tc) == polyOrientation && orientation(sc, lc, tc) == -polyOrientation)) {
+                return false;
+            }
+        }
+        if (orientation(lc, sc, rc) == -polyOrientation) {
+            //concave:
+            if (orientation(sc, rc, tc) == -polyOrientation && orientation(sc, lc, tc) == polyOrientation) {
+                return false;
+            }
+        }
 
         while (nodes.get(lp) != targetNode || nodes.get(rp) != targetNode) {
             if (nodes.get(rp) != targetNode) {
-                rp = moveRight(rp, nodes);
-
-                Coordinates nc = nodelib.getCoordinates(nodes.get(rp));
-                int o = orientation(sc, nc, tc);
-                aRo += o;
-                if (o == polyOrient && aRo > 0) {
+                if (edgesIntersect(sc, tc, nodelib.getCoordinates(nodes.get(rp)), nodelib.getCoordinates(nodes.get(moveRight(rp, nodes))))) {
                     return false;
                 }
-
+                rp = moveRight(rp, nodes);
             }
             if (nodes.get(lp) != targetNode) {
-                lp = moveLeft(lp, nodes);
-
-                Coordinates nc = nodelib.getCoordinates(nodes.get(lp));
-                int o = orientation(sc, nc, tc);
-                aLo += o;
-
-                if (o != polyOrient && aLo < 0) {
+                if (edgesIntersect(sc, tc, nodelib.getCoordinates(nodes.get(lp)), nodelib.getCoordinates(nodes.get(moveLeft(lp, nodes))))) {
                     return false;
                 }
+                lp = moveLeft(lp, nodes);
             }
 
         }
-
         return true;
-
     }
 
     public static boolean edgesIntersect(Coordinates s1, Coordinates s2, Coordinates k1, Coordinates k2) {

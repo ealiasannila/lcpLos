@@ -18,6 +18,7 @@ import static org.junit.Assert.*;
 public class PolygonTest {
 
     private NodeLibrary nodelibrary;
+    private int o = -1;
 
     public PolygonTest() {
 
@@ -42,48 +43,44 @@ public class PolygonTest {
         nodelibrary.addNode(new Coordinates(5, 6), 2);
         nodelibrary.addNode(new Coordinates(6, 6), 2);
         nodelibrary.addNode(new Coordinates(6, 4), 2);
-        
-        
 
     }
 
     @Test
     public void testLosBetweenNodesTriangle() {
-        assertEquals(true, LosChecker.losBetweenNodes(0, 1, this.nodelibrary, 0));
-        assertEquals(true, LosChecker.losBetweenNodes(1, 2, this.nodelibrary, 0));
-        assertEquals(true, LosChecker.losBetweenNodes(2, 0, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o, 0, 0, 1, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o,1, 1, 2, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 2, 0, this.nodelibrary, 0));
 
-        assertEquals(true, LosChecker.losBetweenNodes(1, 0, this.nodelibrary, 0));
-        assertEquals(true, LosChecker.losBetweenNodes(2, 1, this.nodelibrary, 0));
-        assertEquals(true, LosChecker.losBetweenNodes(0, 2, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o,1, 1, 0, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 2, 1, this.nodelibrary, 0));
+        assertEquals(true, LosChecker.losBetweenNodes(o,0, 0, 2, this.nodelibrary, 0));
     }
 
     @Test
     public void testLosBetweenNodesSquare() {
-        assertEquals(true, LosChecker.losBetweenNodes(3, 1, this.nodelibrary, 1));
-        assertEquals(true, LosChecker.losBetweenNodes(3, 4, this.nodelibrary, 1)); //old node
-        assertEquals(true, LosChecker.losBetweenNodes(4, 2, this.nodelibrary, 1)); //old  node
-        assertEquals(true, LosChecker.losBetweenNodes(1, 2, this.nodelibrary, 1)); //old  node
-        assertEquals(true, LosChecker.losBetweenNodes(2, 1, this.nodelibrary, 1));
-        assertEquals(true, LosChecker.losBetweenNodes(4, 1, this.nodelibrary, 1)); //old node
+        assertEquals(true, LosChecker.losBetweenNodes(o,0, 3, 1, this.nodelibrary, 1));
+        assertEquals(true, LosChecker.losBetweenNodes(o,0, 3, 4, this.nodelibrary, 1)); //old node
+        assertEquals(true, LosChecker.losBetweenNodes(o,1, 4, 2, this.nodelibrary, 1)); //old  node
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 1, 2, this.nodelibrary, 1)); //old  node
+        assertEquals(true, LosChecker.losBetweenNodes(o,3, 2, 1, this.nodelibrary, 1));
+        assertEquals(true, LosChecker.losBetweenNodes(o,1, 4, 1, this.nodelibrary, 1)); //old node
 
     }
 
     @Test
     public void testLosBetweenNodesComplex() {
-        assertEquals(false, LosChecker.losBetweenNodes(5, 9, this.nodelibrary, 2));
-        assertEquals(false, LosChecker.losBetweenNodes(5, 8, this.nodelibrary, 2));
-        assertEquals(false, LosChecker.losBetweenNodes(8, 5, this.nodelibrary, 2));
-        assertEquals(false, LosChecker.losBetweenNodes(9, 6, this.nodelibrary, 2));
+        assertEquals(false, LosChecker.losBetweenNodes(o,0, 5, 9, this.nodelibrary, 2));
+        assertEquals(false, LosChecker.losBetweenNodes(o,0, 5, 8, this.nodelibrary, 2));
+        assertEquals(false, LosChecker.losBetweenNodes(o,3, 8, 5, this.nodelibrary, 2));
+        assertEquals(false, LosChecker.losBetweenNodes(o,4, 9, 6, this.nodelibrary, 2));
 
-        assertEquals(true, LosChecker.losBetweenNodes(7, 5, this.nodelibrary, 2));
-        assertEquals(true, LosChecker.losBetweenNodes(7, 10, this.nodelibrary, 2));
-        assertEquals(true, LosChecker.losBetweenNodes(7, 6, this.nodelibrary, 2));
-        
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 7, 5, this.nodelibrary, 2));
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 7, 10, this.nodelibrary, 2));
+        assertEquals(true, LosChecker.losBetweenNodes(o,2, 7, 6, this.nodelibrary, 2));
+
 //        assertEquals(true, Polygon.losBetweenNodes(5, 10, this.nodelibrary, 2));
-        assertEquals(true, LosChecker.losBetweenNodes(10, 5, this.nodelibrary, 2));
-
-
+        assertEquals(true, LosChecker.losBetweenNodes(o,5, 10, 5, this.nodelibrary, 2));
 
     }
 
