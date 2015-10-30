@@ -32,23 +32,44 @@ public class Graph {
             al[i] = new TreeMap<>();
         }
 
+        int oldpercent = 0;
         for (int polyIndex = 0; polyIndex < this.nodelib.getNumOfPolys(); polyIndex++) {
-
+            int percentDone = (int) ((double)polyIndex/this.nodelib.getNumOfPolys()*100);
+            if(oldpercent != percentDone){
+                System.out.println(percentDone + "%");
+                oldpercent = percentDone;
+            }
+            
             ArrayList<Integer> nodes = this.nodelib.getNodes(polyIndex);
+            if(nodes == null || nodes.isEmpty()){
+                continue;
+            }
             for (int startIndex = 0; startIndex < nodes.size(); startIndex++) {
                 int startNode = nodes.get(startIndex);
                 for (int targetIndex = 0; targetIndex < nodes.size(); targetIndex++) {
                     int targetNode = nodes.get(targetIndex);
-                    
+
+                    Coords sc = this.nodelib.getCoordinates(startNode);
+                    Coords tc = this.nodelib.getCoordinates(targetNode);
+
+                    double distance = HelperFunctions.eucDist(sc, tc);
+                    double cost = distance * frictionlib.getFriction(polyIndex);
+
+                    if (this.al[startNode].containsKey(targetNode)) {
+                        if (this.al[startNode].get(targetNode) < cost) {
+                            continue;
+                        }
+                    }
+
                     if (4000 < HelperFunctions.eucDist(nodelib.getCoordinates(startNode), nodelib.getCoordinates(targetNode))) {
                         continue;
                     }
                     if (LosChecker.losBetweenNodes(nodelib.getOrientation(polyIndex),
                             startIndex, targetIndex, nodelib, polyIndex)) {
-                        this.addEdge(startNode, targetNode, frictionlib.getFriction(polyIndex));
+                        this.addEdge(startNode, targetNode, cost);
 
                     }
-                    
+
                 }
             }
         }
@@ -68,21 +89,7 @@ public class Graph {
         return this.al[node1].get(node2) / d;
     }
 
-    private void addEdge(int node1, int node2, double friction) { //absolute node indexes
-        System.out.println(node1);
-        
-        Coords n1c = this.nodelib.getCoordinates(node1);
-        Coords n2c = this.nodelib.getCoordinates(node2);
-
-        double distance = HelperFunctions.eucDist(n1c, n2c);
-        double cost = distance * friction;
-
-        if (this.al[node1].containsKey(node2)) {
-            if (this.al[node1].get(node2) < cost) {
-                return;
-            }
-        }
-
+    private void addEdge(int node1, int node2, double cost) { //absolute node indexes
         this.al[node1].put(node2, cost);
         this.al[node2].put(node1, cost);
 

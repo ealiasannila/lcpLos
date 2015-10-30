@@ -32,7 +32,7 @@ public class LcpLos {
         
         
         FrictionLibrary frictionlib = new FrictionLibrary();
-        NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 6500, frictionlib, Double.MAX_VALUE, "friction");
+        NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 7000, frictionlib, Double.MAX_VALUE, "friction");
         System.out.println("nodelib done: " + nodelib.getNumOfNodes() + " nodes");
         Graph graph = new Graph(nodelib, frictionlib);
         System.out.println("graph done");

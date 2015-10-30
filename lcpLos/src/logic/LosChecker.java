@@ -31,7 +31,6 @@ public class LosChecker {
 
     public static int polyOrientation(int polygon, NodeLibrary nodelib) {
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
-        System.out.println(nodes);
         double sum = 0;
 
         for (int start = 0; start < nodes.size(); start++) {
@@ -78,8 +77,11 @@ public class LosChecker {
 
         Coords sc = nodelib.getCoordinates(startNode);
         Coords tc = nodelib.getCoordinates(targetNode);
-        Coords rc = nodelib.getCoordinates(nodes.get(rp));
-        Coords lc = nodelib.getCoordinates(nodes.get(lp));
+        Coords src = nodelib.getCoordinates(nodes.get(rp));
+        Coords slc = nodelib.getCoordinates(nodes.get(lp));
+        
+        Coords trc = nodelib.getCoordinates(nodes.get(moveRight(targetIndex, nodes)));
+        Coords tlc = nodelib.getCoordinates(nodes.get(moveLeft(targetIndex, nodes)));
 
         if (startNode == targetNode) {
             return false;
@@ -89,7 +91,7 @@ public class LosChecker {
             return true;
         }
         
-        if(!aim(sc, tc, lc, rc, polyOrientation)){
+        if(!aim(sc, tc, slc, src, polyOrientation) || !aim(tc, sc, tlc, trc, polyOrientation)){
             return false;
         }
 
