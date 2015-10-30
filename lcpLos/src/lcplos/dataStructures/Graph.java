@@ -49,8 +49,12 @@ public class Graph {
                         continue;
                     }
 
-                    if (LosChecker.losBetweenNodes(nodelib.getPolyOrientation(node),
-                            targetIndex, targetNode,node, nodelib, polyIndex)) {
+                    /*  if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
+                     continue;
+                     }
+                     */
+                    if (LosChecker.losBetweenNodes(LosChecker.polyOrientation(polyIndex, nodelib),
+                            targetIndex, targetNode, node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
 
                     }
@@ -60,7 +64,7 @@ public class Graph {
 
     }
 
-    public ArrayList<Double> getFrictions(ArrayList<Integer> nodes) {
+     public ArrayList<Double> getFrictions(ArrayList<Integer> nodes) {
         ArrayList<Double> frictions = new ArrayList<>();
         for (int i = 0; i < nodes.size() - 1; i++) {
             frictions.add(this.getFriction(nodes.get(i), nodes.get(i + 1)));

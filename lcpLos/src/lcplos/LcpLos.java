@@ -38,9 +38,10 @@ public class LcpLos {
         System.out.println("n: " + graph.getNumOfNodes());
         
         
-        int node1 = nodelib.getNearestNode(new Coordinates(265553,6786529));
+        int node1 = nodelib.getNearestNode(new Coordinates(262020,6736501));
         int node2 = nodelib.getNearestNode(new Coordinates(332952,6666572));
         
+        node2 = graph.getNumOfNodes() - 10;
         
         PathSearch pathSearch = new PathSearch(graph, node1, node2);
         System.out.println("pathsearch init");
