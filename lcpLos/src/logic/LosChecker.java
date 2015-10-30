@@ -6,7 +6,7 @@
 package logic;
 
 import java.util.ArrayList;
-import lcplos.dataStructures.Coordinates;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.NodeLibrary;
 
 /**
@@ -40,8 +40,8 @@ public class LosChecker {
                 end = 0;
             }
 
-            Coordinates sc = nodelib.getCoordinates(nodes.get(start));
-            Coordinates ec = nodelib.getCoordinates(nodes.get(end));
+            Coords sc = nodelib.getCoordinates(nodes.get(start));
+            Coords ec = nodelib.getCoordinates(nodes.get(end));
             
             sum += (ec.getX() - sc.getX()) * (ec.getY() + sc.getX());
         }
@@ -52,7 +52,7 @@ public class LosChecker {
     }
 
     
-    private static boolean aim(Coordinates sc, Coordinates tc, Coordinates lc, Coordinates rc, int polyOrientation){
+    private static boolean aim(Coords sc, Coords tc, Coords lc, Coords rc, int polyOrientation){
         
         if (orientation(lc, sc, rc) == polyOrientation) {
             //convex:
@@ -68,16 +68,18 @@ public class LosChecker {
         }
         return true;
     }
-    public static boolean losBetweenNodes(int polyOrientation, int startIndex, int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
+    public static boolean losBetweenNodes(int polyOrientation, int startIndex, int targetIndex, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
-
+        int startNode = nodes.get(startIndex);
+        int targetNode = nodes.get(targetIndex);
+        
         int lp = moveLeft(startIndex, nodes);
         int rp = moveRight(startIndex, nodes);
 
-        Coordinates sc = nodelib.getCoordinates(startNode);
-        Coordinates tc = nodelib.getCoordinates(targetNode);
-        Coordinates rc = nodelib.getCoordinates(nodes.get(rp));
-        Coordinates lc = nodelib.getCoordinates(nodes.get(lp));
+        Coords sc = nodelib.getCoordinates(startNode);
+        Coords tc = nodelib.getCoordinates(targetNode);
+        Coords rc = nodelib.getCoordinates(nodes.get(rp));
+        Coords lc = nodelib.getCoordinates(nodes.get(lp));
 
         if (startNode == targetNode) {
             return false;
@@ -109,7 +111,7 @@ public class LosChecker {
         return true;
     }
 
-    public static boolean edgesIntersect(Coordinates s1, Coordinates s2, Coordinates k1, Coordinates k2) {
+    public static boolean edgesIntersect(Coords s1, Coords s2, Coords k1, Coords k2) {
 
         if (s1.equals(k1) || s1.equals(k2) || s2.equals(k1) || s2.equals(k2)) {
             return false;
@@ -148,7 +150,7 @@ public class LosChecker {
 
     }
 
-    private static boolean onSegment(Coordinates s1, Coordinates s2, Coordinates p) {
+    private static boolean onSegment(Coords s1, Coords s2, Coords p) {
         if (s2.getX() <= Math.max(s1.getX(), p.getX()) && s2.getX() >= Math.min(s1.getX(), p.getX())
                 && s2.getY() <= Math.max(s1.getY(), p.getY()) && s2.getY() >= Math.min(s1.getY(), p.getY())) {
             return true;
@@ -169,7 +171,7 @@ public class LosChecker {
      * @param ed2y
      * @return
      */
-    private static int orientation(Coordinates p1, Coordinates p2, Coordinates p3) {
+    private static int orientation(Coords p1, Coords p2, Coords p3) {
         double difference = (p2.getY() - p1.getY()) * (p3.getX() - p2.getX())
                 - (p2.getX() - p1.getX()) * (p3.getY() - p2.getY());
         if (difference < -0.00001) {
@@ -188,14 +190,14 @@ public class LosChecker {
             double px = nodelib.getCoordinates(node).getX() + (nodelib.getCoordinates(targetNode).getX() - nodelib.getCoordinates(node).getX()) / (n + 1) * i;
             double py = nodelib.getCoordinates(node).getY() + (nodelib.getCoordinates(targetNode).getY() - nodelib.getCoordinates(node).getY()) / (n + 1) * i;
 
-            if (!LosChecker.pointInside(new Coordinates(px, py), nodelib, polyIndex)) {
+            if (!LosChecker.pointInside(new Coords(px, py), nodelib, polyIndex)) {
                 return false;
             }
         }
         return true;
     }
 
-    public static boolean pointInside(Coordinates p, NodeLibrary nodelib, int polygon) {
+    public static boolean pointInside(Coords p, NodeLibrary nodelib, int polygon) {
 
         int intersections = 0;
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
@@ -206,8 +208,8 @@ public class LosChecker {
                 end = 0;
             }
 
-            Coordinates sc = nodelib.getCoordinates(nodes.get(start));
-            Coordinates ec = nodelib.getCoordinates(nodes.get(end));
+            Coords sc = nodelib.getCoordinates(nodes.get(start));
+            Coords ec = nodelib.getCoordinates(nodes.get(end));
             if ((Math.abs(sc.getX() - p.getX()) < 0.0001 && Math.abs(ec.getX() - p.getX()) < 0.0001)) {
 
                 if (p.getY() - Math.min(sc.getY(), ec.getY()) > -0.00001 && p.getY() - Math.max(sc.getY(), ec.getY()) < 0.00001) {

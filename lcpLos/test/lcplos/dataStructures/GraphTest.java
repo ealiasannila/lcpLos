@@ -5,6 +5,7 @@
  */
 package lcplos.dataStructures;
 
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -25,13 +26,18 @@ public class GraphTest {
 
         NodeLibrary nodelibrary = new NodeLibrary(2);
 
-        nodelibrary.addNode(new Coordinates(0, 0), 0);
-        nodelibrary.addNode(new Coordinates(0, 1), 0);
-        nodelibrary.addNode(new Coordinates(1, 1), 0);
+        ArrayList<Coords> poly0 = new ArrayList<>();
+        poly0.add(new Coords(0, 0));
+        poly0.add(new Coords(0, 1));
+        poly0.add(new Coords(1, 1));
 
-        nodelibrary.addNode(new Coordinates(0, 2), 1);
-        nodelibrary.addNode(new Coordinates(0, 1), 1);
-        nodelibrary.addNode(new Coordinates(1, 1), 1);
+        ArrayList<Coords> poly1 = new ArrayList<>();
+        poly1.add(new Coords(0, 2));
+        poly1.add(new Coords(0, 1));
+        poly1.add(new Coords(1, 1));
+
+        nodelibrary.addPolygon(poly0, 0);
+        nodelibrary.addPolygon(poly1, 1);
 
         FrictionLibrary frictionlib = new FrictionLibrary();
         frictionlib.addFriction(0, 1);

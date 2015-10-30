@@ -9,7 +9,7 @@ import dataManagement.GeoJsonReader;
 import dataManagement.geoJsonWriter;
 import java.io.File;
 import java.util.ArrayList;
-import lcplos.dataStructures.Coordinates;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.NodeLibrary;
@@ -39,10 +39,10 @@ public class LcpLos {
         System.out.println("n: " + graph.getNumOfNodes());
         
         
-        int node1 = nodelib.getNearestNode(new Coordinates(262020,6736501));
-        int node2 = nodelib.getNearestNode(new Coordinates(332952,6666572));
+        int node1 = nodelib.getNearestNode(new Coords(262020,6736501));
+        int node2 = nodelib.getNearestNode(new Coords(332952,6666572));
         
-        node2 = graph.getNumOfNodes() - 10;
+        node2 = graph.getNumOfNodes() - 100;
         
         PathSearch pathSearch = new PathSearch(graph, node1, node2);
         System.out.println("pathsearch init");

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import lcplos.dataStructures.Coordinates;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.NodeLibrary;
 import logic.EdgeSplitter;
@@ -49,7 +49,7 @@ public class GeoJsonReader {
                 JSONArray rings = features.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
 
                 frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble(friction));
-                ArrayList<Coordinates> polygon = new ArrayList<Coordinates>();
+                ArrayList<Coords> polygon = new ArrayList<Coords>();
 
                 for (int i = 0; i < rings.length(); i++) {
 
@@ -58,7 +58,7 @@ public class GeoJsonReader {
                     for (int k = 0; k < coordinates.length(); k++) {
                         JSONArray coordinatePair = coordinates.getJSONArray(k);
 
-                        polygon.add(new Coordinates(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
+                        polygon.add(new Coords(coordinatePair.getDouble(0), coordinatePair.getDouble(1)));
                     }
                 }
                 polygon = EdgeSplitter.splitEdges(polygon, step);

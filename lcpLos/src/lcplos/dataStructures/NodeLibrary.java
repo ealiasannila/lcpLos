@@ -18,48 +18,48 @@ public class NodeLibrary {
 
     private ArrayList<ArrayList<Integer>> nodeToPolygons;
     private ArrayList<Integer>[] polygonToNodes;
-    private HashMap<Coordinates, Integer> coordinatesToNode;
-    private ArrayList<Coordinates> coordinates;
+    private HashMap<Coords, Integer> coordinatesToNode;
+    private ArrayList<Coords> coordinates;
     private int[] orientations;
+    private int polycounter;
 
     public NodeLibrary(int numOfPolygons) {
         this.nodeToPolygons = new ArrayList<ArrayList<Integer>>();
         this.polygonToNodes = new ArrayList[numOfPolygons];
         this.coordinatesToNode = new HashMap<>();
-        this.coordinates = new ArrayList<Coordinates>();
+        this.coordinates = new ArrayList<Coords>();
         this.orientations = new int[numOfPolygons];
+        this.polycounter = 0;
     }
 
     public ArrayList<Integer> getNodes(int poly) {
         return this.polygonToNodes[poly];
     }
 
-    public ArrayList<Integer>[] getPolygons() {
-        return this.polygonToNodes;
-    }
 
     public ArrayList<Integer> getPolygons(int node) {
         return this.nodeToPolygons.get(node);
     }
 
-    public void addPolygon(ArrayList<Coordinates> nodes, int poly) {
-        for (Coordinates xy : nodes) {
+    public void addPolygon(ArrayList<Coords> nodes, int poly) {
+        for (Coords xy : nodes) {
             this.addNode(xy, poly);
         }
         this.orientations[poly] = LosChecker.polyOrientation(poly, this);
+        this.polycounter++;
     }
 
-    public void addNode(Coordinates xy, int poly) {
+    private void addNode(Coords xy, int poly) {
         if (!this.coordinatesToNode.containsKey(xy)) {
             this.addNewNode(xy);
         }
 
         int node = this.coordinatesToNode.get(xy);
-        
-        if(nodeToPolygons.get(node).contains(poly)){
+
+        if (nodeToPolygons.get(node).contains(poly)) {
             return;
         }
-        
+
         this.nodeToPolygons.get(node).add(poly);
         //System.out.println(poly);
         if (this.polygonToNodes[poly] == null) {
@@ -70,13 +70,13 @@ public class NodeLibrary {
 
     }
 
-    private void addNewNode(Coordinates xy) {
+    private void addNewNode(Coords xy) {
         this.coordinates.add(xy);
         this.nodeToPolygons.add(new ArrayList<Integer>());
         this.coordinatesToNode.put(xy, this.coordinates.size() - 1);
     }
 
-    public Coordinates getCoordinates(int node) {
+    public Coords getCoordinates(int node) {
         return this.coordinates.get(node);
     }
 
@@ -85,21 +85,22 @@ public class NodeLibrary {
     }
 
     public int getNumOfPolys() {
-        return this.polygonToNodes.length;
+        return this.polycounter;
     }
-    public int getNearestNode(Coordinates xy){
+
+    public int getNearestNode(Coords xy) {
         double d = Double.MAX_VALUE;
         int node = -1;
         for (int i = 0; i < this.nodeToPolygons.size(); i++) {
-            if(HelperFunctions.eucDist(this.getCoordinates(i), xy)<d){
-                d= HelperFunctions.eucDist(this.getCoordinates(i), xy);
+            if (HelperFunctions.eucDist(this.getCoordinates(i), xy) < d) {
+                d = HelperFunctions.eucDist(this.getCoordinates(i), xy);
                 node = i;
             }
         }
         return node;
     }
-    
-    public int getOrientation(int poly){
+
+    public int getOrientation(int poly) {
         return this.orientations[poly];
     }
 

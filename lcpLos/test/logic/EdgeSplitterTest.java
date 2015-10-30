@@ -6,7 +6,7 @@
 package logic;
 
 import java.util.ArrayList;
-import lcplos.dataStructures.Coordinates;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.NodeLibrary;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,10 +28,10 @@ public class EdgeSplitterTest {
 
     @Test
     public void testSplitEdges() {
-        ArrayList<Coordinates> triangle = new ArrayList<>();
-        triangle.add(new Coordinates(0, 0));
-        triangle.add(new Coordinates(3, 0));
-        triangle.add(new Coordinates(3, 3));
+        ArrayList<Coords> triangle = new ArrayList<>();
+        triangle.add(new Coords(0, 0));
+        triangle.add(new Coords(3, 0));
+        triangle.add(new Coords(3, 3));
         
         triangle = EdgeSplitter.splitEdges(triangle, 2);
         assertEquals(7, triangle.size());

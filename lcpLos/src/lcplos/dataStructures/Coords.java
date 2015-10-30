@@ -9,11 +9,11 @@ package lcplos.dataStructures;
  *
  * @author elias
  */
-public class Coordinates {
+public class Coords {
     private double x;
     private double y;
 
-    public Coordinates(double x, double y) {
+    public Coords(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -42,7 +42,7 @@ public class Coordinates {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Coordinates other = (Coordinates) obj;
+        final Coords other = (Coords) obj;
         if (Math.abs(this.x-other.x)>0.001) {
             return false;
         }

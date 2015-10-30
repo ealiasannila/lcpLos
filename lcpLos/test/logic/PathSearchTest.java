@@ -5,7 +5,8 @@
  */
 package logic;
 
-import lcplos.dataStructures.Coordinates;
+import java.util.ArrayList;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.NodeLibrary;
@@ -28,22 +29,30 @@ public class PathSearchTest {
     public void setUp() {
         NodeLibrary nodelibrary = new NodeLibrary(5);
 
-        nodelibrary.addNode(new Coordinates(0, 0), 0);
-        nodelibrary.addNode(new Coordinates(0, 1), 0);
-        nodelibrary.addNode(new Coordinates(1, 1), 0);
+        ArrayList<Coords> poly0 = new ArrayList<>();
+        ArrayList<Coords> poly1 = new ArrayList<>();
+        ArrayList<Coords> poly2 = new ArrayList<>();
 
-        nodelibrary.addNode(new Coordinates(1, 3), 1);
-        nodelibrary.addNode(new Coordinates(0, 3), 1);
-        nodelibrary.addNode(new Coordinates(0, 1), 1);
-        nodelibrary.addNode(new Coordinates(1, 1), 1);
+        poly0.add(new Coords(0, 0));
+        poly0.add(new Coords(0, 1));
+        poly0.add(new Coords(1, 1));
 
-        nodelibrary.addNode(new Coordinates(4, 4), 2);
-        nodelibrary.addNode(new Coordinates(4, 5), 2);
-        nodelibrary.addNode(new Coordinates(5, 5), 2);
-        nodelibrary.addNode(new Coordinates(5, 6), 2);
-        nodelibrary.addNode(new Coordinates(6, 6), 2);
-        nodelibrary.addNode(new Coordinates(4, 6), 2);
+        poly1.add(new Coords(1, 3));
+        poly1.add(new Coords(0, 3));
+        poly1.add(new Coords(0, 1));
+        poly1.add(new Coords(1, 1));
 
+        poly2.add(new Coords(4, 4));
+        poly2.add(new Coords(4, 5));
+        poly2.add(new Coords(5, 5));
+        poly2.add(new Coords(5, 6));
+        poly2.add(new Coords(6, 6));
+        poly2.add(new Coords(4, 6));
+
+        nodelibrary.addPolygon(poly0, 0);
+        nodelibrary.addPolygon(poly1, 1);
+        nodelibrary.addPolygon(poly2, 2);
+        
         FrictionLibrary frictionlib = new FrictionLibrary();
         frictionlib.addFriction(0, 100);
         frictionlib.addFriction(1, 1);
@@ -61,7 +70,6 @@ public class PathSearchTest {
         assertEquals("[0, 1, 2]", pathSearch.shortestPath().toString());
     }
 
-    
     @Test
     public void testShortestPath2() {
         PathSearch pathSearch = new PathSearch(graph, 4, 2);

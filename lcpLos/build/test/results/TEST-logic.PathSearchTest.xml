@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.145" timestamp="2015-10-30T17:01:48">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.133" timestamp="2015-10-30T17:40:32">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher2009988192220623350.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit7483613752732873598.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher377316056114511027.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit6394734859673285466.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -222,6 +222,7 @@
     <property name="javadoc.encoding.used" value="UTF-8" />
     <property name="dist.jar" value="dist/lcpLos.jar" />
     <property name="libs.spring-framework400.maven-pom" value="" />
+    <property name="netbeans.automatic.build" value="true" />
     <property name="java.runtime.name" value="OpenJDK Runtime Environment" />
     <property name="ant.project.name" value="lcpLos" />
     <property name="netbeans.hash.code" value="unique=06b043eb1-0d5e-4df2-8075-a35cde5e99db" />
@@ -350,13 +351,13 @@
     <property name="libs.junit.src" value="" />
     <property name="annotation.processing.source.output" value="build/generated-sources/ap-source-output" />
     <property name="main.class" value="lcplos.LcpLos" />
-    <property name="build.dir" value="build" />
     <property name="libs.CopyLibs.src" value="" />
+    <property name="build.dir" value="build" />
     <property name="libs.jsp-compilation.classpath" value="/home/elias/tmcbeans/extide/ant/lib/ant.jar:/home/elias/.tmcbeans/dev/modules/ext/servlet3.1-jsp2.3-api.jar:/home/elias/.tmcbeans/dev/modules/ext/glassfish-jspparser-4.0.jar:/home/elias/.tmcbeans/dev/modules/ext/jsf-2_2/javax.faces.jar:/home/elias/.tmcbeans/dev/modules/ext/jstl-api.jar:/home/elias/tmcbeans/extide/ant/lib/ant-launcher.jar" />
-    <property name="libs.javaee-api-5.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee5.jar" />
     <property name="ant.version" value="Apache Ant(TM) version 1.9.4 compiled on April 29 2014" />
-    <property name="build.classes.excludes" value="**/*.java,**/*.form" />
+    <property name="libs.javaee-api-5.0.classpath" value="/home/elias/.tmcbeans/dev/modules/ext/javaee5.jar" />
     <property name="file.encoding" value="UTF-8" />
+    <property name="build.classes.excludes" value="**/*.java,**/*.form" />
     <property name="jdkBug6558476" value="false" />
     <property name="javadoc.nonavbar" value="false" />
     <property name="libs.spring-webmvc4.0.classpath" value="/home/elias/tmcbeans/java/modules/ext/spring-4/spring-webmvc-4.0.1.RELEASE.jar" />
@@ -366,40 +367,127 @@
   </properties>
   <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.011" />
   <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.003" />
-  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.002" />
-  <system-out><![CDATA[9%
-18%
-27%
-36%
-45%
-54%
-63%
-72%
-81%
-90%
+  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.003" />
+  <system-out><![CDATA[[0, 1, 2]
+[3, 4, 1, 2]
+[5, 6, 7, 8, 9, 10]
+0
+0
+1
+1
+2
+2
+3
+3
+3
+4
+4
+4
+1
+1
+1
+2
+2
+2
+5
+5
+5
+6
+6
+6
+7
+7
+7
+8
+8
+8
+9
+9
+9
+10
+10
+10
 lopetan
-9%
-18%
-27%
-36%
-45%
-54%
-63%
-72%
-81%
-90%
+[0, 1, 2]
+[3, 4, 1, 2]
+[5, 6, 7, 8, 9, 10]
+0
+0
+1
+1
+2
+2
+3
+3
+3
+4
+4
+4
+1
+1
+1
+2
+2
+2
+5
+5
+5
+6
+6
+6
+7
+7
+7
+8
+8
+8
+9
+9
+9
+10
+10
+10
 lopetan
 no path found
-9%
-18%
-27%
-36%
-45%
-54%
-63%
-72%
-81%
-90%
+[0, 1, 2]
+[3, 4, 1, 2]
+[5, 6, 7, 8, 9, 10]
+0
+0
+1
+1
+2
+2
+3
+3
+3
+4
+4
+4
+1
+1
+1
+2
+2
+2
+5
+5
+5
+6
+6
+6
+7
+7
+7
+8
+8
+8
+9
+9
+9
+10
+10
+10
 lopetan
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>

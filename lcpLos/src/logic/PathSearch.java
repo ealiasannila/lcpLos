@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
-import lcplos.dataStructures.Coordinates;
+import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.Minheap;
 
@@ -49,8 +49,8 @@ public class PathSearch {
     }
 
     private double estimateCost(int node) {
-        Coordinates targetc = this.graph.getNodelib().getCoordinates(this.targetnode);
-        Coordinates nodec = this.graph.getNodelib().getCoordinates(node);
+        Coords targetc = this.graph.getNodelib().getCoordinates(this.targetnode);
+        Coords nodec = this.graph.getNodelib().getCoordinates(node);
         return HelperFunctions.eucDist(nodec, targetc) * 0.000001; //0.000001 = minimum friction
     }
 

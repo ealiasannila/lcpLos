@@ -5,6 +5,7 @@
  */
 package lcplos.dataStructures;
 
+import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -24,13 +25,20 @@ public class NodeLibraryTest {
     public void setUp() {
         nodelibrary = new NodeLibrary(10);
 
-        this.nodelibrary.addNode(new Coordinates(0, 0), 0);
-        this.nodelibrary.addNode(new Coordinates(0, 1), 0);
-        this.nodelibrary.addNode(new Coordinates(0, 2), 0);
+        ArrayList<Coords> poly0 = new ArrayList<>();
+        ArrayList<Coords> poly1 = new ArrayList<>();
+        
+        poly0.add(new Coords(0, 0));
+        poly0.add(new Coords(0, 1));
+        poly0.add(new Coords(0, 2));
 
-        this.nodelibrary.addNode(new Coordinates(0, 3), 1);
-        this.nodelibrary.addNode(new Coordinates(0, 1), 1);
-        this.nodelibrary.addNode(new Coordinates(0, 2), 1);
+        poly1.add(new Coords(0, 3));
+        poly1.add(new Coords(0, 1));
+        poly1.add(new Coords(0, 2));
+        
+        nodelibrary.addPolygon(poly0, 0);
+        nodelibrary.addPolygon(poly1, 1);
+        
     }
 
     /**
