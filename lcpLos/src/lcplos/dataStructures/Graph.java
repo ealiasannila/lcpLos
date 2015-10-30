@@ -49,12 +49,8 @@ public class Graph {
                         continue;
                     }
 
-                    /*  if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
-                     continue;
-                     }
-                     */
-                    if (LosChecker.losBetweenNodes(LosChecker.polyOrientation(polyIndex, nodelib),
-                            targetIndex, targetNode, node, nodelib, polyIndex)) {
+                    if (LosChecker.losBetweenNodes(nodelib.getPolyOrientation(node),
+                            targetIndex, targetNode,node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
 
                     }
@@ -64,8 +60,18 @@ public class Graph {
 
     }
 
-    public double isEdge(int node1, int node2) {
-        return this.al[node1].get(node2);
+    public ArrayList<Double> getFrictions(ArrayList<Integer> nodes) {
+        ArrayList<Double> frictions = new ArrayList<>();
+        for (int i = 0; i < nodes.size() - 1; i++) {
+            frictions.add(this.getFriction(nodes.get(i), nodes.get(i + 1)));
+        }
+        return frictions;
+    }
+
+    public double getFriction(int node1, int node2) {
+        double d = HelperFunctions.eucDist(this.nodelib.getCoordinates(node1), this.nodelib.getCoordinates(node2));
+
+        return this.al[node1].get(node2) / d;
     }
 
     private void addEdge(int node1, int node2, double friction) { //absolute node indexes

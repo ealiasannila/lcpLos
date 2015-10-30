@@ -92,4 +92,11 @@ public class PolygonTest {
         assertEquals(true, LosChecker.sample(7, 10, nodelibrary, 2, 3));
     }
 
+    @Test
+    public void testPolyOrientation(){
+        assertEquals(1, LosChecker.polyOrientation(0, nodelibrary));
+        assertEquals(1, LosChecker.polyOrientation(0, nodelibrary));
+    }
+    
+    
 }

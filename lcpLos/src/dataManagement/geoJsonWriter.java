@@ -48,32 +48,35 @@ public class geoJsonWriter {
         return perusjson;
     }
 
-    public static JSONObject muunnaJsonReitti(ArrayList<Integer> kirjoitettava, NodeLibrary nodelib, String crs) {
+    public static JSONObject muunnaJsonReitti(ArrayList<Integer> kirjoitettava, ArrayList<Double> frictions, NodeLibrary nodelib, String crs) {
         JSONObject reitti = perusJson(crs);
 
         JSONArray features = new JSONArray();
-        JSONObject feature = new JSONObject();
 
-        feature.put("type", "Feature");
-        JSONObject properties = new JSONObject();
-        feature.put("properties", properties);
+        for (int i = 0; i < kirjoitettava.size() - 1; i++) {
 
-        JSONObject geometry = new JSONObject();
+            JSONObject feature = new JSONObject();
 
-        JSONArray coordinates = new JSONArray();
+            feature.put("type", "Feature");
+            JSONObject properties = new JSONObject();
+            properties.put("friction",frictions.get(i) );
+            feature.put("properties", properties);
 
-        for (int i = 0; i < kirjoitettava.size(); i++) {
+            JSONObject geometry = new JSONObject();
 
-            double[] reittipiste = new double[]{nodelib.getCoordinates(kirjoitettava.get(i)).getX(), nodelib.getCoordinates(kirjoitettava.get(i)).getY()};
-            coordinates.put(new JSONArray(reittipiste));
+            JSONArray coordinates = new JSONArray();
 
+            double[] reittipiste1 = new double[]{nodelib.getCoordinates(kirjoitettava.get(i)).getX(), nodelib.getCoordinates(kirjoitettava.get(i)).getY()};
+            double[] reittipiste2 = new double[]{nodelib.getCoordinates(kirjoitettava.get(i + 1)).getX(), nodelib.getCoordinates(kirjoitettava.get(i + 1)).getY()};
+
+            coordinates.put(new JSONArray(reittipiste1));
+            coordinates.put(new JSONArray(reittipiste2));
+            geometry.put("coordinates", coordinates);
+
+            geometry.put("type", "LineString");
+            feature.put("geometry", geometry);
+            features.put(feature);
         }
-
-        geometry.put("coordinates", coordinates);
-
-        geometry.put("type", "LineString");
-        feature.put("geometry", geometry);
-        features.put(feature);
 
         reitti.put("features", features);
 

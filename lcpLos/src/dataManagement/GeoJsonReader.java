@@ -51,7 +51,7 @@ public class GeoJsonReader {
                 frictionlib.addFriction(feature, features.getJSONObject(feature).getJSONObject("properties").getDouble(friction));
                 ArrayList<Coordinates> polygon = new ArrayList<Coordinates>();
 
-                for (int i = 0; i < 1/*rings.length()*/; i++) {
+                for (int i = 0; i < rings.length(); i++) {
 
                     JSONArray coordinates = rings.getJSONArray(i);
 
