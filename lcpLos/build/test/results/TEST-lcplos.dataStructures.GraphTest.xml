@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="lcplos.dataStructures.GraphTest" skipped="0" tests="1" time="0.125" timestamp="2015-10-30T16:59:07">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="lcplos.dataStructures.GraphTest" skipped="0" tests="1" time="0.132" timestamp="2015-10-30T17:01:46">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner lcplos.dataStructures.GraphTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-lcplos.dataStructures.GraphTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher538044710891439963.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit5022311037244321852.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner lcplos.dataStructures.GraphTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-lcplos.dataStructures.GraphTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher7747870052049291244.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit3802451624144772511.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -364,28 +364,10 @@
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="lcplos.dataStructures.GraphTest" name="testGetNeighbours" time="0.008" />
-  <system-out><![CDATA[[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-25%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 1, 2]
-[3, 1, 2]
-[3, 1, 2]
+  <testcase classname="lcplos.dataStructures.GraphTest" name="testGetNeighbours" time="0.007" />
+  <system-out><![CDATA[25%
 50%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 1, 2]
-[3, 1, 2]
-[3, 1, 2]
 75%
-[3, 1, 2]
-[3, 1, 2]
-[3, 1, 2]
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

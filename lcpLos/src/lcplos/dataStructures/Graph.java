@@ -47,7 +47,7 @@ public class Graph {
                     if (4000 < HelperFunctions.eucDist(nodelib.getCoordinates(node), nodelib.getCoordinates(targetNode))) {
                         continue;
                     }
-                    if (LosChecker.losBetweenNodes(LosChecker.polyOrientation(polyIndex, nodelib),
+                    if (LosChecker.losBetweenNodes(nodelib.getOrientation(polyIndex),
                             targetIndex, targetNode, node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));
 

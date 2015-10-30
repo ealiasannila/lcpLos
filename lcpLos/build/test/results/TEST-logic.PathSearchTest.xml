@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.161" timestamp="2015-10-30T16:59:09">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="logic.PathSearchTest" skipped="0" tests="3" time="0.145" timestamp="2015-10-30T17:01:48">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher6676103575183060343.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit7022368545187318635.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner logic.PathSearchTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-logic.PathSearchTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher2009988192220623350.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit7483613752732873598.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
@@ -364,226 +364,43 @@
     <property name="awt.toolkit" value="sun.awt.X11.XToolkit" />
     <property name="libs.javaee-web-api-7.0.javadoc" value="/home/elias/.tmcbeans/dev/docs/javaee-doc-api.jar" />
   </properties>
-  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.015" />
-  <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.008" />
-  <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.01" />
-  <system-out><![CDATA[[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-9%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
+  <testcase classname="logic.PathSearchTest" name="testShortestPath2" time="0.011" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath" time="0.003" />
+  <testcase classname="logic.PathSearchTest" name="testShortestPath1" time="0.002" />
+  <system-out><![CDATA[9%
 18%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 27%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 36%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 45%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 54%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 63%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 72%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 81%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 90%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 lopetan
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
 9%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 18%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 27%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 36%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
 45%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 54%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 63%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 72%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 81%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 90%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-lopetan
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-9%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-18%
-[0, 1, 2]
-[0, 1, 2]
-[0, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-27%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-36%
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-[3, 4, 1, 2]
-45%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-54%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-63%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-72%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-81%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-90%
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
-[5, 6, 7, 8, 9, 10]
 lopetan
 no path found
+9%
+18%
+27%
+36%
+45%
+54%
+63%
+72%
+81%
+90%
+lopetan
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

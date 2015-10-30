@@ -8,6 +8,7 @@ package lcplos.dataStructures;
 import java.util.ArrayList;
 import java.util.HashMap;
 import logic.HelperFunctions;
+import logic.LosChecker;
 
 /**
  *
@@ -19,12 +20,14 @@ public class NodeLibrary {
     private ArrayList<Integer>[] polygonToNodes;
     private HashMap<Coordinates, Integer> coordinatesToNode;
     private ArrayList<Coordinates> coordinates;
+    private int[] orientations;
 
     public NodeLibrary(int numOfPolygons) {
         this.nodeToPolygons = new ArrayList<ArrayList<Integer>>();
         this.polygonToNodes = new ArrayList[numOfPolygons];
         this.coordinatesToNode = new HashMap<>();
         this.coordinates = new ArrayList<Coordinates>();
+        this.orientations = new int[numOfPolygons];
     }
 
     public ArrayList<Integer> getNodes(int poly) {
@@ -43,6 +46,7 @@ public class NodeLibrary {
         for (Coordinates xy : nodes) {
             this.addNode(xy, poly);
         }
+        this.orientations[poly] = LosChecker.polyOrientation(poly, this);
     }
 
     public void addNode(Coordinates xy, int poly) {
@@ -95,5 +99,8 @@ public class NodeLibrary {
         return node;
     }
     
+    public int getOrientation(int poly){
+        return this.orientations[poly];
+    }
 
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="sahkolammitin" name="lcplos.dataStructures.NodeLibraryTest" skipped="0" tests="2" time="0.13" timestamp="2015-10-30T16:59:08">
+<testsuite errors="0" failures="0" hostname="sahkolammitin" name="lcplos.dataStructures.NodeLibraryTest" skipped="0" tests="2" time="0.147" timestamp="2015-10-30T17:01:47">
   <properties>
     <property name="libs.jsp-compiler.javadoc" value="" />
     <property name="netbeans.autoupdate.country" value="US" />
@@ -50,7 +50,7 @@
     <property name="copylibs.rebase" value="true" />
     <property name="libs.spring-webmvc3.0.maven-pom" value="" />
     <property name="libs.swing-layout.maven-pom" value="" />
-    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner lcplos.dataStructures.NodeLibraryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-lcplos.dataStructures.NodeLibraryTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher8131841811069933944.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit7725179348902047606.properties" />
+    <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner lcplos.dataStructures.NodeLibraryTest skipNonTests=false filtertrace=true haltOnError=false haltOnFailure=false showoutput=true outputtoformatters=true logfailedtests=true threadid=0 logtestlistenerevents=true formatter=org.apache.tools.ant.taskdefs.optional.junit.BriefJUnitResultFormatter formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/home/elias/Documents/kandi/lcpLos/lcpLos/build/test/results/TEST-lcplos.dataStructures.NodeLibraryTest.xml crashfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junitvmwatcher5205565001813481556.properties propsfile=/home/elias/Documents/kandi/lcpLos/lcpLos/build/junit2901527480827617470.properties" />
     <property name="build.classes.dir" value="build/classes" />
     <property name="build.sysclasspath" value="ignore" />
     <property name="ap.supported.internal" value="true" />
