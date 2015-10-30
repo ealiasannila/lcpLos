@@ -24,7 +24,6 @@ public class Graph {
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
 
         int numOfNodes = nodelib.getNumOfNodes();
-        //boolean[] usedNodes = new boolean[numOfNodes];
 
         this.nodelib = nodelib;
         this.al = new TreeMap[numOfNodes];
@@ -48,11 +47,6 @@ public class Graph {
                     if (4000 < HelperFunctions.eucDist(nodelib.getCoordinates(node), nodelib.getCoordinates(targetNode))) {
                         continue;
                     }
-
-                    /*  if (!LosChecker.sample(node, targetNode, nodelib, polyIndex, 3)) {
-                     continue;
-                     }
-                     */
                     if (LosChecker.losBetweenNodes(LosChecker.polyOrientation(polyIndex, nodelib),
                             targetIndex, targetNode, node, nodelib, polyIndex)) {
                         this.addEdge(node, targetNode, frictionlib.getFriction(polyIndex));

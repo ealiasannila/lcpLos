@@ -31,6 +31,7 @@ public class LosChecker {
 
     public static int polyOrientation(int polygon, NodeLibrary nodelib) {
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
+        System.out.println(nodes);
         double sum = 0;
 
         for (int start = 0; start < nodes.size(); start++) {
@@ -41,17 +42,32 @@ public class LosChecker {
 
             Coordinates sc = nodelib.getCoordinates(nodes.get(start));
             Coordinates ec = nodelib.getCoordinates(nodes.get(end));
-
+            
             sum += (ec.getX() - sc.getX()) * (ec.getY() + sc.getX());
         }
         if (sum < 0) {
             return -1;
         }
-        if (sum > 0) {
-            return 1;
-        }
-        return 0;    }
+        return 1;
+    }
 
+    
+    private static boolean aim(Coordinates sc, Coordinates tc, Coordinates lc, Coordinates rc, int polyOrientation){
+        
+        if (orientation(lc, sc, rc) == polyOrientation) {
+            //convex:
+            if (!(orientation(sc, rc, tc) == polyOrientation && orientation(sc, lc, tc) == -polyOrientation)) {
+                return false;
+            }
+        }
+        if (orientation(lc, sc, rc) == -polyOrientation) {
+            //concave:
+            if (orientation(sc, rc, tc) == -polyOrientation && orientation(sc, lc, tc) == polyOrientation) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean losBetweenNodes(int polyOrientation, int startIndex, int startNode, int targetNode, NodeLibrary nodelib, int polygon) { //target is index within polygon, start absolute node index
         ArrayList<Integer> nodes = nodelib.getNodes(polygon);
 
@@ -70,18 +86,9 @@ public class LosChecker {
         if (targetNode == nodes.get(lp) || targetNode == nodes.get(rp)) {
             return true;
         }
-
-        if (orientation(lc, sc, rc) == polyOrientation) {
-            //convex:
-            if (!(orientation(sc, rc, tc) == polyOrientation && orientation(sc, lc, tc) == -polyOrientation)) {
-                return false;
-            }
-        }
-        if (orientation(lc, sc, rc) == -polyOrientation) {
-            //concave:
-            if (orientation(sc, rc, tc) == -polyOrientation && orientation(sc, lc, tc) == polyOrientation) {
-                return false;
-            }
+        
+        if(!aim(sc, tc, lc, rc, polyOrientation)){
+            return false;
         }
 
         while (nodes.get(lp) != targetNode || nodes.get(rp) != targetNode) {

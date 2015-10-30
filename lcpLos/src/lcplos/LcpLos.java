@@ -28,8 +28,9 @@ public class LcpLos {
      */
     public static void main(String[] args) {
 
-        System.out.println(LosChecker.edgesIntersect(new Coordinates(4, 4), new Coordinates(4, 6), new Coordinates(4, 5), new Coordinates(5, 5)));
-
+        
+        
+        
         FrictionLibrary frictionlib = new FrictionLibrary();
         NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 6500, frictionlib, Double.MAX_VALUE, "friction");
         System.out.println("nodelib done: " + nodelib.getNumOfNodes() + " nodes");
@@ -52,8 +53,6 @@ public class LcpLos {
         geoJsonWriter.kirjoita("testdata/path.geojson", geoJsonWriter.muunnaJsonReitti(shortestPath, frictions, nodelib, "urn:ogc:def:crs:EPSG::3047"));
         System.out.println("shortest patht done");
 
-        System.out.println("!!!");
-        System.out.println("is edge ");
         
 
     }
