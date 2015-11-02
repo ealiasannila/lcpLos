@@ -18,7 +18,7 @@ import static org.junit.Assert.*;
  */
 public class spmTest {
 
-    private spm spm;
+    private SPT spm;
 
     public spmTest() {
     }
@@ -40,7 +40,7 @@ public class spmTest {
             new Coords(1, 2)
         };
         
-        this.spm = new spm(0, new int[]{2, 0, 5, 5, 3, 8, 8, 6, 11, 11, 9, 2}, new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},channelc,1);
+        this.spm = new SPT(0, new int[]{2, 0, 5, 5, 3, 8, 8, 6, 11, 11, 9, 2}, new int[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11},channelc,1);
     }
 
     
