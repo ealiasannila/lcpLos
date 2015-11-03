@@ -62,7 +62,8 @@ public class LcpLos {
         System.out.println("0" + spt.findTriangle(0));
         System.out.println("9" + spt.findTriangle(5));
         
-        spt.createSpt();
+        spt.run();
+        
 
         /*
          FrictionLibrary frictionlib = new FrictionLibrary();

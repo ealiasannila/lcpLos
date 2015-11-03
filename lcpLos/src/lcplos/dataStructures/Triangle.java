@@ -42,6 +42,16 @@ public class Triangle {
         return false;
     }
 
+    public int missing(Triangle triangle) {
+
+        for (int i = 0; i < this.nodes.length; i++) {
+            if (!triangle.contains(this.getNodes()[i])) {
+                return this.getNodes()[i];
+            }
+        }
+        return -1;
+    }
+
     public int[] commonEdge(Triangle triangle) {
         int missing = -1;
         int[] edge = new int[2];
