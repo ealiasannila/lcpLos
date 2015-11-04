@@ -24,4 +24,21 @@ public class HelperFunctions {
     }
 
     
+    public static int isRight(int v1, int v2, int v3, Coords[] coords) {
+        Coords p1 = coords[v1];
+        Coords p2 = coords[v2];
+        Coords p3 = coords[v3];
+
+        double difference = (p2.getY() - p1.getY()) * (p3.getX() - p2.getX())
+                - (p2.getX() - p1.getX()) * (p3.getY() - p2.getY());
+        if (difference < -0.00001) {
+            return -1;
+        }
+        if (difference > 0.00001) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+    
 }

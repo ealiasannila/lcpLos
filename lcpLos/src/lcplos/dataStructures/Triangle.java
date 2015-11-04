@@ -52,6 +52,27 @@ public class Triangle {
         return -1;
     }
 
+    public int[] opposingEdge(int v){
+        
+        for (int i = 0; i < 3; i++) {
+            if(this.nodes[i]==v){
+                int e[] = new int[2];
+                if(i==0){
+                    e[0] = this.nodes[1];
+                    e[1] = this.nodes[2];
+                }if(i==2){
+                    e[0] = this.nodes[0];
+                    e[1] = this.nodes[1];
+                }else{
+                    e[0] = this.nodes[2];
+                    e[1] = this.nodes[0];
+                }
+                return e;
+            }
+        }
+        return null;
+    }
+    
     public int[] commonEdge(Triangle triangle) {
         int missing = -1;
         int[] edge = new int[2];
