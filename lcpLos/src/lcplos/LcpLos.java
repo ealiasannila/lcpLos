@@ -63,7 +63,7 @@ public class LcpLos {
         polygon.addTriangle(new int[]{5, 8, 0});
 
        
-        Spt2 s7 = new Spt2(7, coords.length, coords, polygon);
+        Spt2 s7 = new Spt2(8, coords.length, coords, polygon);
 
         System.out.println("[0, 1, 2, 3, 4, 5, 6, 7, 8]");
         System.out.println(Arrays.toString(s7.getPred()));
