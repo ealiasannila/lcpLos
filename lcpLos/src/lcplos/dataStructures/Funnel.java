@@ -26,8 +26,12 @@ public class Funnel {
 
     }
 
-    public ArrayDeque<Integer> getL() {
-        return l;
+    public Edge getBase() {
+        return new Edge(this.l.peekLast(), this.r.peekLast());
+    }
+
+    public int getApex() {
+        return this.l.peekFirst();
     }
 
     public Funnel(ArrayDeque<Integer> l, ArrayDeque<Integer> r) {
@@ -49,25 +53,49 @@ public class Funnel {
 
         while (!c.isEmpty()) {
             int t = c.pollLast();
+            System.out.println("v: " + v + " c: + " + c +" t: " + t);            
             int tOrient = HelperFunctions.isRight(c.peekFirst(), t, v, coords);
 
             newChannel.addFirst(t);
-            if (orient == tOrient) {
-                newChannel.addFirst(t);
+            if (orient != -tOrient) {
                 c.addLast(t);
+                c.addLast(v);
                 return;
             }
         }
     }
 
+    @Override
+    public String toString() {
+        return "Funnel{" + "l=" + l + ", r=" + r + '}';
+    }
+
+    public boolean lIsEmpty() {
+        return this.l.size() == 1;
+    }
+
+    public boolean rIsEmpty() {
+        return this.l.size() == 1;
+    }
+
     public int locatePred(int v, Coords[] coords, ArrayDeque newChannel) {
         int apex = l.pollFirst();
         r.pollFirst();
-
         int l1 = HelperFunctions.isRight(apex, this.l.peekFirst(), v, coords);
         int r1 = HelperFunctions.isRight(apex, this.r.peekFirst(), v, coords);
         l.addFirst(apex);
         r.addFirst(apex);
+
+        if (l1 == 1 && r1 == -1) {
+            while(!this.l.isEmpty()){
+                newChannel.addLast(this.l.pollFirst());
+            }
+            System.out.println("zeor");
+            l.add(apex);
+            l.add(v);
+
+            return 0;
+        }
         if (l1 != 1) {
             this.predInChannel(v, coords, l, newChannel, -1);
             return -1;
@@ -75,14 +103,8 @@ public class Funnel {
         if (r1 != -1) {
             this.predInChannel(v, coords, r, newChannel, 1);
             return 1;
-        } else {
-            newChannel = this.l;
-            
-            this.l = new ArrayDeque<Integer>();
-            l.add(apex);
-            l.add(v);
-
-            return 0;
         }
+        System.out.println("some wierd");
+        return -99;
     }
 }

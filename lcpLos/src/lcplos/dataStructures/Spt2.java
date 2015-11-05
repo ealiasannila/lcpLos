@@ -7,6 +7,8 @@ package lcplos.dataStructures;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Set;
+import logic.HelperFunctions;
 
 /**
  *
@@ -15,63 +17,149 @@ import java.util.ArrayList;
 public class Spt2 {
 
     private int[] pred;
+    private Polygon polygon;
     private Coords[] coords;
 
-    public Spt2(int s, Triangle[] triangles, int n, Coords[] coords) {
+    public Spt2(int s, int n, Coords[] coords, Polygon polygon) {
         this.pred = new int[n];
+        for (int i = 0; i < this.pred.length; i++) {
+            pred[i] = -1;
+        }
+        this.polygon = polygon;
         this.coords = coords;
-        ArrayList<Integer> sTriangles = new ArrayList<>();
-        for (int i = 0; i < triangles.length; i++) {
-            if (triangles[i].contains(s)) {
-                sTriangles.add(i);
+
+        for (Edge e : this.polygon.getOpposingEdge(s)) {
+            this.pred[e.getR()] = s;
+            this.pred[e.getL()] = s;
+
+            int l;
+            int r;
+
+            if (HelperFunctions.isRight(s, e.getL(), e.getR(), coords) == -1) {
+                l = e.getR();
+                r = e.getL();
+            } else {
+                l = e.getL();
+                r = e.getR();
             }
-        }
 
-        for (Integer i : sTriangles) {
-            int[] e = triangles[i].opposingEdge(s);
-            this.pred[e[0]] = s;
-            this.pred[e[1]] = s;
-            Funnel funnel = new Funnel(e[0], s, e[1]);
-            this.split(e, funnel);
+            Funnel funnel = new Funnel(l, s, r);
+            this.split(funnel);
         }
 
     }
 
-    private boolean isPolygonEdge(int[] e) {
-        return false;
+    private boolean isPolygonEdge(Edge e) {
+        return this.polygon.isPolygonEdge(e);
     }
 
-    private int locateOppositeVertex(int[] e) {
-        return -1;
+    private int locateOppositeVertex(Edge e, int apex) {
+        Edge cross = this.polygon.locateCrossingEdge(e);
+        if (HelperFunctions.isRight(e.getL(), e.getR(), apex, this.coords) == -HelperFunctions.isRight(e.getL(), e.getR(), cross.getL(), this.coords)) {
+            return cross.getL();
+        } else {
+            return cross.getR();
+        }
     }
 
-    public void split(int[] e, Funnel f) {
+    private void restart(int apex, int v, int orient) {
+        System.out.println("restart, v: " + v + " a: " + apex + " o: " + orient);
+        Set<Edge> opposingEdge = this.polygon.getOpposingEdge(apex);
+        Edge cross = this.polygon.locateCrossingEdge(new Edge(apex, v));
+        if (cross == null) {
+            return;
+        }
+        if ((cross.getR() == -1) || (cross.getL() == -1)) {
+            return;
+        }
+
+        int cl;
+        int cr;
+        System.out.println("cr: " + cross);
+        if (HelperFunctions.isRight(apex, v, cross.getR(), coords) == 1) {
+            cl = cross.getL();
+            cr = cross.getR();
+        } else {
+            cl = cross.getR();
+            cr = cross.getL();
+        }
+
+        int l;
+        int r;
+        if (orient == -1) {
+            l = cl;
+            r = v;
+        } else {
+            l = v;
+            r = cr;
+        }
+        if (!opposingEdge.contains(new Edge(l, r))) {
+            return;
+        }
+
+        Funnel funnel = new Funnel(l, apex, r);
+        System.out.println("respred: " + l + " to " + apex);
+        System.out.println("respred: " + r + " to " + apex);
+
+        this.pred[l] = apex;
+        this.pred[l] = apex;
+        this.split(funnel);
+        if (orient == -1) {
+            restart(apex, l, orient);
+        } else {
+            restart(apex, r, orient);
+        }
+    }
+
+    private void split(Funnel f) {
+        System.out.println("---split---");
+        System.out.println(f);
+        Edge e = f.getBase();
+
         if (this.isPolygonEdge(e)) {
             return;
         }
-        int v = this.locateOppositeVertex(e);
+        int v = this.locateOppositeVertex(e, f.getApex());
+        System.out.println("v: " + v);
 
         ArrayDeque<Integer> sf1 = new ArrayDeque<>();
         int sChannel = f.locatePred(v, this.coords, sf1);
-        int t = sf1.getFirst();
+        System.out.println("sf1_ " + sf1);
+        int t = sf1.peekFirst();
+        System.out.println("t: " + t);
+        System.out.println("asspred: " + v + " to " + t);
+        this.pred[v] = t;
 
         ArrayDeque<Integer> sf2 = new ArrayDeque<>();
         sf2.addLast(t);
         sf2.addLast(v);
 
-        
-        
-        int[] e1 = new int[]{e[0], v};
-        int[] e2 = new int[]{v, e[1]};
+        Edge e1 = new Edge(e.getL(), v);
+        Edge e2 = new Edge(v, e.getR());
+        System.out.println("e1: " + e1);
+        System.out.println("e2: " + e2);
+        Funnel suffix;
+
         if (sChannel == 1) { //suffix in right channel
-            Funnel suffix = new Funnel(sf2, sf1);
-            this.split(e1, f);
-            this.split(e2, suffix);
+            suffix = new Funnel(sf2, sf1);
         } else {
-            Funnel suffix = new Funnel(sf1, sf2);
-            this.split(e1, suffix);
-            this.split(e2, f);
+            suffix = new Funnel(sf1, sf2);
         }
+        System.out.println("s: " + suffix);
+        System.out.println("f: " + f);
+        if (suffix.lIsEmpty()) {
+            this.restart(suffix.getApex(), v, HelperFunctions.isRight(f.getApex(), suffix.getApex(), v, coords));
+        } else if (suffix.rIsEmpty()) {
+            this.restart(suffix.getApex(), v, HelperFunctions.isRight(f.getApex(), suffix.getApex(), v, coords));
+        } else {
+            this.split(suffix);
+        }
+        this.split(f);
 
     }
+
+    public int[] getPred() {
+        return pred;
+    }
+
 }

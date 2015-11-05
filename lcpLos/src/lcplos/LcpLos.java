@@ -14,9 +14,12 @@ import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.NodeLibrary;
+import lcplos.dataStructures.Polygon;
 import lcplos.dataStructures.SPT;
+import lcplos.dataStructures.Spt2;
 import lcplos.dataStructures.Triangle;
 import logic.EdgeSplitter;
+import logic.HelperFunctions;
 import logic.PathSearch;
 import logic.LosChecker;
 
@@ -31,39 +34,41 @@ public class LcpLos {
      */
     public static void main(String[] args) {
 
-        Triangle[] triangles = new Triangle[]{
-            new Triangle(new int[]{11, 0, 1}, new int[]{1}, 0),
-            new Triangle(new int[]{11, 1, 10}, new int[]{0, 2}, 1),
-            new Triangle(new int[]{10, 1, 7}, new int[]{1, 5, 3}, 2),
-            new Triangle(new int[]{10, 7, 9}, new int[]{2, 4}, 3),
-            new Triangle(new int[]{9, 7, 8}, new int[]{3}, 4),
-            new Triangle(new int[]{1, 4, 7}, new int[]{2, 6, 8}, 5),
-            new Triangle(new int[]{1, 3, 4}, new int[]{5, 7}, 6),
-            new Triangle(new int[]{1, 2, 3}, new int[]{6}, 7),
-            new Triangle(new int[]{7, 4, 6}, new int[]{5, 9}, 8),
-            new Triangle(new int[]{4, 5, 6}, new int[]{8}, 9)};
+        Coords[] coords = new Coords[9];
+        coords[0] = new Coords(1, 0);
+        coords[1] = new Coords(1, 1);
+        coords[2] = new Coords(0, 2);
+        coords[3] = new Coords(0, 3);
+        coords[4] = new Coords(0.5, 3);
+        coords[5] = new Coords(2, 2);
+        coords[6] = new Coords(2, 3);
+        coords[7] = new Coords(3, 2);
+        coords[8] = new Coords(3, 0);
 
-        Coords[] channelc = new Coords[]{
-            new Coords(2, 3),
-            new Coords(2, 2),
-            new Coords(3, 2),
-            new Coords(3, 1),
-            new Coords(2, 1),
-            new Coords(2, 0),
-            new Coords(1, 0),
-            new Coords(1, 1),
-            new Coords(0, 1),
-            new Coords(0, 2),
-            new Coords(1, 2),
-            new Coords(1, 3),};
-
-        SPT spt = new SPT(0, 9, triangles, channelc, 1);
-
-        System.out.println("0" + spt.findTriangle(0));
-        System.out.println("9" + spt.findTriangle(5));
+        System.out.println("--asd");
+        System.out.println(HelperFunctions.isRight(1, 4, 2, coords));
+        System.out.println(HelperFunctions.isRight(1, 4, 4, coords));
+        System.out.println(HelperFunctions.isRight(1, 4, 5, coords));
         
-        spt.run();
+
         
+        Polygon polygon = new Polygon();
+
+        polygon.addTriangle(new int[]{0, 1, 5});
+        polygon.addTriangle(new int[]{1, 2, 4});
+        polygon.addTriangle(new int[]{2, 3, 4});
+        polygon.addTriangle(new int[]{4, 5, 1});
+        polygon.addTriangle(new int[]{5, 6, 7});
+        polygon.addTriangle(new int[]{5, 7, 8});
+        polygon.addTriangle(new int[]{5, 8, 0});
+
+       
+        Spt2 s7 = new Spt2(7, coords.length, coords, polygon);
+
+        System.out.println("[0, 1, 2, 3, 4, 5, 6, 7, 8]");
+        System.out.println(Arrays.toString(s7.getPred()));
+        
+      
 
         /*
          FrictionLibrary frictionlib = new FrictionLibrary();
