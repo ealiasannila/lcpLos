@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lcplos.dataStructures;
+package visiGraph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import lcplos.dataStructures.Coords;
 import logic.HelperFunctions;
 
 /**
@@ -49,20 +50,36 @@ public class Funnel {
         this.r.addLast(a);
     }
 
-    private void predInChannel(int v, Coords[] coords, ArrayDeque<Integer> c, ArrayDeque<Integer> newChannel, int orient) {
-
+    public ArrayDeque<Integer> splitLeftChannel(int v, Coords[] coords) {
+        return this.splitChannel(v, coords, l, -1);
+    }
+    
+    public ArrayDeque<Integer> splitRightChannel(int v, Coords[] coords) {
+        return this.splitChannel(v, coords, r, 1);
+    }
+    
+    private ArrayDeque<Integer> splitChannel(int v, Coords[] coords, ArrayDeque<Integer> c, int orient) {
+        ArrayDeque<Integer> newChannel = new ArrayDeque<>();
+        int apex = c.peekFirst();
+        
         while (!c.isEmpty()) {
             int t = c.pollLast();
-            System.out.println("v: " + v + " c: + " + c +" t: " + t);            
-            int tOrient = HelperFunctions.isRight(c.peekFirst(), t, v, coords);
-
             newChannel.addFirst(t);
+            
+            if(t==apex){
+                c.addLast(t);
+                c.addLast(v);
+                return newChannel;
+            }
+            
+            int tOrient = HelperFunctions.isRight(c.peekLast(), t, v, coords);
             if (orient != -tOrient) {
                 c.addLast(t);
                 c.addLast(v);
-                return;
+                return newChannel;
             }
         }
+        return null;
     }
 
     @Override
@@ -78,33 +95,28 @@ public class Funnel {
         return this.l.size() == 1;
     }
 
-    public int locatePred(int v, Coords[] coords, ArrayDeque newChannel) {
+    public int inRightChannel(int v, Coords[] coords){
         int apex = l.pollFirst();
         r.pollFirst();
-        int l1 = HelperFunctions.isRight(apex, this.l.peekFirst(), v, coords);
-        int r1 = HelperFunctions.isRight(apex, this.r.peekFirst(), v, coords);
-        l.addFirst(apex);
+        int lf = l.peekFirst();
+        int rf = r.peekFirst();
         r.addFirst(apex);
-
-        if (l1 == 1 && r1 == -1) {
-            while(!this.l.isEmpty()){
-                newChannel.addLast(this.l.pollFirst());
-            }
-            System.out.println("zeor");
-            l.add(apex);
-            l.add(v);
-
+        l.addFirst(apex);
+        int l1 = HelperFunctions.isRight(apex, lf, v, coords);
+        int r1 = HelperFunctions.isRight(apex, rf, v, coords);
+        
+        if(l1==1 && r1 == -1){
             return 0;
-        }
-        if (l1 != 1) {
-            this.predInChannel(v, coords, l, newChannel, -1);
+        }else if(l1 == 1 ){
+            return 1;
+        }else if(r1 == -1){
             return -1;
         }
-        if (r1 != -1) {
-            this.predInChannel(v, coords, r, newChannel, 1);
-            return 1;
-        }
-        System.out.println("some wierd");
+        System.out.println("somewierdshit");
         return -99;
+        
+        
     }
+    
+    
 }

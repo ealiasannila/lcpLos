@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package lcplos.dataStructures;
+package visiGraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +19,13 @@ import logic.LosChecker;
  *
  * @author elias
  */
-public class Polygon {
+public class PolygonOma {
 
     private Map<Edge, Edge> crossingEdges;
     private Set<Edge> polygonEdges;
     private Map<Integer, Set<Edge>> opposingEdges;
 
-    public Polygon() {
+    public PolygonOma() {
         this.crossingEdges = new HashMap<>();
         this.polygonEdges = new HashSet<>();
         this.opposingEdges = new HashMap<>();
