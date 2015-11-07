@@ -23,17 +23,20 @@ public class Triangulator {
 
     private Polygon polygon;
     private HashMap<Coords, Integer> coordsToVertex;
+    private List<Integer> vertices;
 
-    public Triangulator(Coords[] coords) {
-        int end = coords.length;
-        if (coords[0].equals( coords[coords.length - 1])) {
+    public Triangulator(Coords[] coords, List<Integer> vertices) {
+        this.vertices = vertices;
+        int end = vertices.size()-1;
+        if (coords[vertices.get(0)].equals(coords[vertices.get(end)])) {
             end--;
         }
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
         for (int i = 0; i < end; i++) {
-            this.coordsToVertex.put(coords[i], i);
-            PolygonPoint point = new PolygonPoint(coords[i].getX(), coords[i].getY());
+            int v = this.vertices.get(i);
+            this.coordsToVertex.put(coords[v], v);
+            PolygonPoint point = new PolygonPoint(coords[v].getX(), coords[v].getY());
             points.add(point);
         }
         this.polygon = new Polygon(points);

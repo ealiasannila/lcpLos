@@ -7,7 +7,9 @@ package visiGraph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lcplos.dataStructures.Coords;
@@ -19,22 +21,23 @@ import logic.HelperFunctions;
  */
 public class Spt2 {
 
-    private int[] pred;
+    private Map<Integer,Integer> pred;
     private PolygonOma polygon;
     private Coords[] coords;
 
-    public Spt2(int s, int n, Coords[] coords, PolygonOma polygon) {
-        this.pred = new int[n];
-        for (int i = 0; i < this.pred.length; i++) {
-            pred[i] = -1;
-        }
+    public Spt2(int s, Coords[] coords, PolygonOma polygon) {
+        this.pred = new TreeMap<Integer, Integer>();
+        
         this.polygon = polygon;
         this.coords = coords;
 
+        this.pred.put(s, -1);
+        
         for (Edge e : this.polygon.getOpposingEdge(s)) {
-            this.pred[e.getR()] = s;
-            this.pred[e.getL()] = s;
-
+            
+            this.pred.put(e.getL(), s);
+            this.pred.put(e.getR(), s);
+            
             int l;
             int r;
 
@@ -86,11 +89,11 @@ public class Spt2 {
             if (sChannel == -1) {
                 this.splitSuffix(t, l, f, suffixOuter, sChannel);
                 suffixOuter.addLast(l);
-                this.pred[l] = suffixOuter.peekFirst();
+                this.pred.put(l, suffixOuter.peekFirst());
             } else {
                 this.splitSuffix(t, r, f, suffixOuter, sChannel);
                 suffixOuter.addLast(r);
-                this.pred[r] = suffixOuter.peekFirst();
+                this.pred.put(r, suffixOuter.peekFirst());
             }
 
         }
@@ -127,13 +130,13 @@ public class Spt2 {
         }
 
         int t = suffixOuter.peekFirst();
-        this.pred[v] = t;
+        this.pred.put(v, t);
         this.split(f);
         this.splitSuffix(t, v, f, suffixOuter, sChannel);
 
     }
 
-    public int[] getPred() {
+    public Map<Integer,Integer> getPred() {
         return pred;
     }
 

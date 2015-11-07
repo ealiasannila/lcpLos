@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.NodeLibrary;
 import org.json.JSONArray;
@@ -67,8 +68,7 @@ public class geoJsonWriter2 {
 
             JSONArray rings = new JSONArray();
             JSONArray coordinates = new JSONArray();
-            
-            
+
             for (int j = 0; j < 3; j++) {
                 int v = triangles.get(i)[j];
                 double[] reittipiste = new double[]{coords[v].getX(), coords[v].getY()};
@@ -89,13 +89,46 @@ public class geoJsonWriter2 {
 
     }
 
-    public static JSONObject muunnaJsonReitti(Coords[] coords, int[] pred, String crs) {
+   
+    public static JSONObject boundary(Coords[] coords, Map<Integer, Integer> pred, String crs) {
+        JSONObject polygons = perusJson(crs);
+        JSONArray features = new JSONArray();
+        JSONObject feature = new JSONObject();
+        feature.put("type", "Feature");
+        JSONObject properties = new JSONObject();
+        feature.put("properties", properties);
+        JSONObject geometry = new JSONObject();
+        JSONArray rings = new JSONArray();
+        JSONArray coordinates = new JSONArray();
+
+        for (Integer v : pred.keySet()) {
+            if(pred.get(v)==-1){
+                continue;
+            }
+            double[] reittipiste = new double[]{coords[v].getX(), coords[v].getY()};
+
+            coordinates.put(new JSONArray(reittipiste));
+        }
+        rings.put(coordinates);
+        geometry.put("coordinates", rings);
+
+        geometry.put("type", "Polygon");
+        feature.put("geometry", geometry);
+        features.put(feature);
+
+        polygons.put(
+                "features", features);
+
+        return polygons;
+
+    }
+    public static JSONObject muunnaJsonReitti(Coords[] coords, Map<Integer,Integer> pred, String crs) {
         JSONObject reitti = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (int i = 0; i < pred.length; i++) {
-            if (pred[i] == -1) {
+        for (Integer v :pred.keySet()) {
+            if (pred.get(v) == -1) {
                 continue;
             }
 
@@ -109,8 +142,8 @@ public class geoJsonWriter2 {
 
             JSONArray coordinates = new JSONArray();
 
-            double[] reittipiste1 = new double[]{coords[i].getX(), coords[i].getY()};
-            double[] reittipiste2 = new double[]{coords[pred[i]].getX(), coords[pred[i]].getY()};
+            double[] reittipiste1 = new double[]{coords[v].getX(), coords[v].getY()};
+            double[] reittipiste2 = new double[]{coords[pred.get(v)].getX(), coords[pred.get(v)].getY()};
 
             coordinates.put(new JSONArray(reittipiste1));
             coordinates.put(new JSONArray(reittipiste2));

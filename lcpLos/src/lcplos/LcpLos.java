@@ -11,6 +11,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.Graph;
@@ -40,7 +42,12 @@ public class LcpLos {
 
         Coords[] coords = GeoJsonReader2.readPolygon(new File("testdata/testipolygon.geojson"));
 
-        Triangulator tri = new Triangulator(coords);
+        
+        List<Integer> vertices = new ArrayList<Integer>();
+        for (int i = 0; i < coords.length; i++) {
+            vertices.add(i);
+        }
+        Triangulator tri = new Triangulator(coords, vertices);
         List<int[]> triangles = tri.triangulate();
 
         PolygonOma poly = new PolygonOma();
@@ -53,12 +60,35 @@ public class LcpLos {
             poly.addTriangle(triangle);
         }
         System.out.println("doen");
-        Spt2 testpolygon = new Spt2(200, coords.length, coords, poly);
+        Spt2 testpolygon = new Spt2(100, coords, poly);
         geoJsonWriter2.kirjoita("testdata/spt.geojson",
                 geoJsonWriter2.muunnaJsonReitti(coords, testpolygon.getPred(), "urn:ogc:def:crs:EPSG::3047"));
+
+        Spt2 testpolygon2 = new Spt2(101, coords, poly);
+        geoJsonWriter2.kirjoita("testdata/spt2.geojson",
+                geoJsonWriter2.muunnaJsonReitti(coords, testpolygon2.getPred(), "urn:ogc:def:crs:EPSG::3047"));
+
+        
+        Map<Integer, Integer> dif = new TreeMap<>();
+        Map<Integer, Integer> dif2 = new TreeMap<>();
+        
+        for (Integer v : testpolygon2.getPred().keySet()) {
+            
+            if (testpolygon.getPred().get(v) != testpolygon2.getPred().get(v)) {
+                dif.put(v, testpolygon.getPred().get(v));
+                dif2.put(v, testpolygon2.getPred().get(v));
+            }
+        }
+        geoJsonWriter2.kirjoita("testdata/dif.geojson",
+                geoJsonWriter2.muunnaJsonReitti(coords, dif, "urn:ogc:def:crs:EPSG::3047"));
+
+        geoJsonWriter2.kirjoita("testdata/dif2.geojson",
+                geoJsonWriter2.muunnaJsonReitti(coords, dif2, "urn:ogc:def:crs:EPSG::3047"));
+        geoJsonWriter2.kirjoita("testdata/bound.geojson",
+                geoJsonWriter2.boundary(coords, dif2, "urn:ogc:def:crs:EPSG::3047"));
+
         geoJsonWriter2.kirjoita("testdata/triangulation.geojson",
                 geoJsonWriter2.triangles(triangles, coords, "urn:ogc:def:crs:EPSG::3047"));
-        System.out.println(Arrays.toString(testpolygon.getPred()));
 
         /*
          Coords[] coords = new Coords[9];

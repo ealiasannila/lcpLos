@@ -41,6 +41,9 @@ public class Graph {
             }
             
             ArrayList<Integer> nodes = this.nodelib.getNodes(polyIndex);
+            
+            
+            
             if(nodes == null || nodes.isEmpty()){
                 continue;
             }
