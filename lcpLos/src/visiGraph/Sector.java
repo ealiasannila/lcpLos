@@ -1,5 +1,6 @@
 package visiGraph;
 
+import java.util.Map;
 import lcplos.dataStructures.Coords;
 import logic.HelperFunctions;
 
@@ -17,21 +18,19 @@ public class Sector {
     private int apex;
     private int l;
     private int r;
-    private Coords[] coords;
 
-    public Sector(int apex, int l, int r, Coords[] coords) {
+    public Sector(int apex, int l, int r) {
         this.apex = apex;
         this.l = l;
         this.r = r;
-        this.coords = coords;
     }
 
-    private boolean convex() {
+    private boolean convex(Coords[] coords) {
         return HelperFunctions.isRight(this.apex, this.l, this.r, coords) == -1;
     }
 
-    public boolean inside(int v) {
-        if (!this.convex()) {
+    public boolean inside(int v, Coords[] coords) {
+        if (!this.convex(coords)) {
             return HelperFunctions.isRight(this.apex, this.l, v, coords) == 1
                     && HelperFunctions.isRight(this.apex, this.r, v, coords) == -1;
         } else {
@@ -40,32 +39,18 @@ public class Sector {
         }
     }
 
-    public boolean outside(Edge edge) {
-        System.out.println("sector: " + this);
-        boolean debug = edge.equals( new Edge(112, 75));
-        if (this.convex()) {
-            if(debug){
-                System.out.println("convexxo");
-            }
+    public boolean outside(Edge edge, Coords[] coords) {
+        if (this.convex(coords)) {
             if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), coords) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), coords) != 1
                     && HelperFunctions.isRight(this.apex, this.r, edge.getL(), coords) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), coords) != -1) {
                 return true;
             }
             return false;
         } else {
-            if(debug){
-                System.out.println("concave");
-            }
             if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), coords) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), coords) != 1) {
-                if(debug){
-                    System.out.println("both left");
-                }
                 return true;
             }
             if (HelperFunctions.isRight(this.apex, this.r, edge.getL(), coords) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), coords) != -1) {
-                if(debug){
-                    System.out.println("both right");
-                }
                 return true;
             }
             return false;

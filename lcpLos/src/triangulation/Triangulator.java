@@ -8,6 +8,7 @@ package triangulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lcplos.dataStructures.Coords;
 import org.poly2tri.Poly2Tri;
 import org.poly2tri.geometry.polygon.Polygon;
@@ -23,18 +24,13 @@ public class Triangulator {
 
     private Polygon polygon;
     private HashMap<Coords, Integer> coordsToVertex;
-    private List<Integer> vertices;
 
-    public Triangulator(Coords[] coords, List<Integer> vertices) {
-        this.vertices = vertices;
-        int end = vertices.size()-1;
-        if (coords[vertices.get(0)].equals(coords[vertices.get(end)])) {
-            end--;
-        }
+    public Triangulator(Coords[] coords) {
+        
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
-        for (int i = 0; i < end; i++) {
-            int v = this.vertices.get(i);
+        for (int v = 0; v<coords.length; v++) {
+            
             this.coordsToVertex.put(coords[v], v);
             PolygonPoint point = new PolygonPoint(coords[v].getX(), coords[v].getY());
             points.add(point);
@@ -43,7 +39,9 @@ public class Triangulator {
 
     }
 
-    public List<int[]> triangulate() {
+    public List<int[]> triangulate() throws Exception {
+
+        
         Poly2Tri.triangulate(polygon);
         ArrayList<int[]> triangles = new ArrayList<>();
         for (DelaunayTriangle triangle : polygon.getTriangles()) {

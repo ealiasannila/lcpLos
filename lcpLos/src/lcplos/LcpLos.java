@@ -10,22 +10,31 @@ import dataManagement.geoJsonWriter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.FrictionLibrary;
 import lcplos.dataStructures.Graph;
 import lcplos.dataStructures.NodeLibrary;
 import visiGraph.PolygonOma;
-import lcplos.dataStructures.SPT;
 import visiGraph.Spt2;
 import lcplos.dataStructures.Triangle;
 import logic.EdgeSplitter;
 import logic.HelperFunctions;
 import logic.PathSearch;
 import logic.LosChecker;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import triangulation.Triangulator;
+import visiGraph.CoordEdge;
+import visiGraph.Edge;
 import visiGraph.GeoJsonReader2;
 import visiGraph.Sector;
 import visiGraph.geoJsonWriter2;
@@ -41,144 +50,53 @@ public class LcpLos {
      */
     public static void main(String[] args) {
 
-        Coords[] testc = new Coords[4];
-        testc[0] = new Coords(1,0);
-        testc[1] = new Coords(0,1);
-        testc[2] = new Coords(2,1);
-        testc[3] = new Coords(1.5,100);
+        JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/toobig.geojson"));
+        Set<CoordEdge> visigraph = new HashSet<>();
         
-        Sector tc = new Sector(0,1,2,testc);
-        System.out.println("!!!" + tc.inside(3));
-
-        Coords[] coords = GeoJsonReader2.readPolygon(new File("testdata/testipolygon.geojson"));
-
-        List<Integer> vertices = new ArrayList<Integer>();
-        for (int i = 0; i < coords.length; i++) {
-            vertices.add(i);
-        }
-        Triangulator tri = new Triangulator(coords, vertices);
-        List<int[]> triangles = tri.triangulate();
-
-        PolygonOma poly = new PolygonOma();
-        for (int[] triangle : triangles) {
-            for (int i = 0; i < 3; i++) {
-                if (triangle[i] == 1) {
-                    System.out.println(Arrays.toString(triangle));
-                }
+        int oldPercent = 0;
+        System.out.println("JSONObject done");
+        for (int i = 0; i < polygons.length(); i++) {
+            int percentDone = (int) ((double) i / polygons.length() * 100);
+            if (oldPercent != percentDone) {
+                System.out.println(percentDone + "%");
+                oldPercent = percentDone;
             }
-            poly.addTriangle(triangle);
-        }
-        System.out.println("doen");
-        int s1 = 87;
-        Spt2 testpolygon = new Spt2(s1, coords, poly);
-        geoJsonWriter2.kirjoita("testdata/spt.geojson",
-                geoJsonWriter2.muunnaJsonReitti(coords, testpolygon.getPred(), "urn:ogc:def:crs:EPSG::3047"));
-
-        int s2 = 86;
-        Spt2 testpolygon2 = new Spt2(s2, coords, poly);
-        geoJsonWriter2.kirjoita("testdata/spt2.geojson",
-                geoJsonWriter2.muunnaJsonReitti(coords, testpolygon2.getPred(), "urn:ogc:def:crs:EPSG::3047"));
-
-        Map<Integer, Integer> dif = new TreeMap<>();
-        Map<Integer, Integer> dif2 = new TreeMap<>();
-        Map<Integer, Integer> visi1 = new TreeMap<>();
-        Map<Integer, Integer> visi2 = new TreeMap<>();
-
-        for (Integer v : testpolygon.getPred().keySet()) {
-            if (testpolygon.getPred().get(v) == s1 || v == s1) {
-                visi1.put(v, testpolygon.getPred().get(v));
-            }
-        }
-
-        for (Integer v : testpolygon2.getPred().keySet()) {
-            if (testpolygon2.getPred().get(v) == s2 || v == s2) {
-                visi2.put(v, testpolygon2.getPred().get(v));
-            }
-            if (testpolygon.getPred().get(v) == null) {
+            Coords[] coords = GeoJsonReader2.readPolygon(polygons, i);
+            if (coords == null || coords.length < 4) {
                 continue;
             }
+            Triangulator tri = new Triangulator(coords);
+            List<int[]> triangles;
+            try {
+                triangles = tri.triangulate();
+            } catch (Exception ex) {
+                System.out.println("exception");
+                System.out.println(ex);
+                System.out.println("polygon: " + i);
+                continue;
+            }
+           
+            PolygonOma poly = new PolygonOma();
+            for (int[] triangle : triangles) {
+                poly.addTriangle(triangle);
+            }
 
-            if (testpolygon.getPred().get(v) - testpolygon2.getPred().get(v) != 0) {
-                dif.put(v, testpolygon.getPred().get(v));
-                dif2.put(v, testpolygon2.getPred().get(v));
+            for (int s1 = 0; s1 < coords.length; s1++) {
+                boolean debug = false;
+                if (debug) {
+                    System.out.println("");
+                    System.out.println("START " + s1);
+                }
+                Spt2 spt = new Spt2(s1, coords, poly, visigraph);
+
             }
         }
 
-        geoJsonWriter2.kirjoita("testdata/visi1.geojson",
-                geoJsonWriter2.muunnaJsonReitti(coords, visi1, "urn:ogc:def:crs:EPSG::3047"));
-
-        geoJsonWriter2.kirjoita("testdata/visi2.geojson",
-                geoJsonWriter2.muunnaJsonReitti(coords, visi2, "urn:ogc:def:crs:EPSG::3047"));
-
-        geoJsonWriter2.kirjoita("testdata/visi1b.geojson",
-                geoJsonWriter2.boundary(coords, visi1, "urn:ogc:def:crs:EPSG::3047"));
-
-        geoJsonWriter2.kirjoita("testdata/visi2b.geojson",
-                geoJsonWriter2.boundary(coords, visi2, "urn:ogc:def:crs:EPSG::3047"));
-
-        System.out.println(testpolygon.getUncharted());
-
-        /*
-         System.out.println(testpolygon.getPred().get(153));
-         System.out.println(testpolygon2.getPred().get(153));
-         geoJsonWriter2.kirjoita("testdata/dif.geojson",
-         geoJsonWriter2.muunnaJsonReitti(coords, dif, "urn:ogc:def:crs:EPSG::3047"));
-
-         geoJsonWriter2.kirjoita("testdata/dif2.geojson",
-         geoJsonWriter2.muunnaJsonReitti(coords, dif2, "urn:ogc:def:crs:EPSG::3047"));
-         geoJsonWriter2.kirjoita("testdata/bound.geojson",
-         geoJsonWriter2.boundary(coords, dif2, "urn:ogc:def:crs:EPSG::3047"));
-
-         geoJsonWriter2.kirjoita("testdata/triangulation.geojson",
-         geoJsonWriter2.triangles(triangles, coords, "urn:ogc:def:crs:EPSG::3047"));
-
-         *//*
-         Coords[] coords = new Coords[9];
-         coords[0] = new Coords(1, 0);
-         coords[1] = new Coords(1, 1);
-         coords[2] = new Coords(0, 2);
-         coords[3] = new Coords(0, 3);
-         coords[4] = new Coords(0.5, 3);
-         coords[5] = new Coords(2, 2);
-         coords[6] = new Coords(2, 3);
-         coords[7] = new Coords(3, 2);
-         coords[8] = new Coords(3, 0);
-         System.out.println("--asd");
-         System.out.println(HelperFunctions.isRight(1, 4, 2, coords));
-         System.out.println(HelperFunctions.isRight(1, 4, 4, coords));
-         System.out.println(HelperFunctions.isRight(1, 4, 5, coords));
-         Polygon polygon = new Polygon();
-         polygon.addTriangle(new int[]{0, 1, 5});
-         polygon.addTriangle(new int[]{1, 2, 4});
-         polygon.addTriangle(new int[]{2, 3, 4});
-         polygon.addTriangle(new int[]{4, 5, 1});
-         polygon.addTriangle(new int[]{5, 6, 7});
-         polygon.addTriangle(new int[]{5, 7, 8});
-         polygon.addTriangle(new int[]{5, 8, 0});
-         Spt2 s7 = new Spt2(8, coords.length, coords, polygon);
-         System.out.println("[0, 1, 2, 3, 4, 5, 6, 7, 8]");
-         System.out.println(Arrays.toString(s7.getPred()));
+        System.out.println("visigraph done");
+        /*  geoJsonWriter2.kirjoita("testdata/visigraph.geojson",
+         geoJsonWriter2.muunnaJsonReitti(visigraph, "urn:ogc:def:crs:EPSG::3047"));
+         System.out.println("writing done");
          */
-        /*
-         FrictionLibrary frictionlib = new FrictionLibrary();
-         NodeLibrary nodelib = GeoJsonReader.readNodes(new File("testdata/testarea.geojson"), 7000, frictionlib, Double.MAX_VALUE, "friction");
-         System.out.println("nodelib done: " + nodelib.getNumOfNodes() + " nodes");
-         Graph graph = new Graph(nodelib, frictionlib);
-         System.out.println("graph done");
-         System.out.println("n: " + graph.getNumOfNodes());
-         int node1 = nodelib.getNearestNode(new Coords(262020,6736501));
-         int node2 = nodelib.getNearestNode(new Coords(332952,6666572));
-         node2 = graph.getNumOfNodes() - 100;
-         PathSearch pathSearch = new PathSearch(graph, node1, node2);
-         System.out.println("pathsearch init");
-         pathSearch.aStar();
-         System.out.println("astar done");
-         ArrayList<Integer> shortestPath = pathSearch.shortestPath();
-         ArrayList<Double> frictions = graph.getFrictions(shortestPath);
-         geoJsonWriter.kirjoita("testdata/path.geojson", geoJsonWriter.muunnaJsonReitti(shortestPath, frictions, nodelib, "urn:ogc:def:crs:EPSG::3047"));
-         System.out.println("shortest patht done");
-         */
-
     }
 
 }

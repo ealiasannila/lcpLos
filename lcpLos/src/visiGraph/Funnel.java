@@ -7,6 +7,7 @@ package visiGraph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Map;
 import lcplos.dataStructures.Coords;
 import logic.HelperFunctions;
 
@@ -102,7 +103,6 @@ public class Funnel {
         int rf = r.peekFirst();
         r.addFirst(apex);
         l.addFirst(apex);
-        System.out.println("v:" + v);
         int l1 = HelperFunctions.isRight(apex, lf, v, coords);
         int r1 = HelperFunctions.isRight(apex, rf, v, coords);
         

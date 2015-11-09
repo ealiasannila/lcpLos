@@ -22,12 +22,10 @@ import logic.LosChecker;
 public class PolygonOma {
 
     private Map<Edge, Edge> crossingEdges;
-    private Set<Edge> polygonEdges;
     private Map<Integer, Set<Edge>> opposingEdges;
 
     public PolygonOma() {
         this.crossingEdges = new HashMap<>();
-        this.polygonEdges = new HashSet<>();
         this.opposingEdges = new HashMap<>();
     }
 
@@ -56,24 +54,19 @@ public class PolygonOma {
                 e = 0;
             }
             if (!this.opposingEdges.containsKey(vertices[s])) {
+                
                 this.opposingEdges.put(vertices[s], new HashSet<Edge>());
             }
 
             this.opposingEdges.get(vertices[s]).add(this.opposingEdge(s, vertices));
 
             Edge edge = new Edge(vertices[s], vertices[e]);
-            if (this.polygonEdges.contains(edge)) {
-                this.polygonEdges.remove(edge);
+            if (this.isPolygonEdge(edge)) {
 
                 int opposite = vertices[this.thirdCorner(s, e)];
-                if (this.crossingEdges.get(edge).getR() == -1) {
-                    this.crossingEdges.get(edge).setE(opposite);
-                } else {
-                    System.out.println("trying to set opposite on already full edge!");
-                }
+                this.crossingEdges.get(edge).setE(opposite);
 
             } else {
-                this.polygonEdges.add(edge);
                 int opposite = vertices[this.thirdCorner(s, e)];
                 Edge crossing = new Edge(opposite, -1);
                 this.crossingEdges.put(edge, crossing);
@@ -86,6 +79,9 @@ public class PolygonOma {
     }
 
     public boolean isPolygonEdge(Edge edge) {
-        return this.polygonEdges.contains(edge);
+        if (!this.crossingEdges.containsKey(edge)) {
+            return false;
+        }
+        return this.crossingEdges.get(edge).getR() == -1;
     }
 }

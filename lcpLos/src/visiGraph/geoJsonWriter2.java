@@ -12,6 +12,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.NodeLibrary;
 import org.json.JSONArray;
@@ -52,7 +53,7 @@ public class geoJsonWriter2 {
         return perusjson;
     }
 
-    public static JSONObject triangles(List<int[]> triangles, Coords[] coords, String crs) {
+    public static JSONObject triangles(List<int[]> triangles, Map<Integer, Coords> coords, String crs) {
         JSONObject polygons = perusJson(crs);
 
         JSONArray features = new JSONArray();
@@ -71,7 +72,7 @@ public class geoJsonWriter2 {
 
             for (int j = 0; j < 3; j++) {
                 int v = triangles.get(i)[j];
-                double[] reittipiste = new double[]{coords[v].getX(), coords[v].getY()};
+                double[] reittipiste = new double[]{coords.get(v).getX(), coords.get(v).getY()};
 
                 coordinates.put(new JSONArray(reittipiste));
             }
@@ -90,7 +91,7 @@ public class geoJsonWriter2 {
     }
 
    
-    public static JSONObject boundary(Coords[] coords, Map<Integer, Integer> pred, String crs) {
+    public static JSONObject boundary(Map<Integer, Coords> coords, Map<Integer, Integer> pred, String crs) {
         JSONObject polygons = perusJson(crs);
         JSONArray features = new JSONArray();
         JSONObject feature = new JSONObject();
@@ -103,7 +104,7 @@ public class geoJsonWriter2 {
 
         for (Integer v : pred.keySet()) {
            
-            double[] reittipiste = new double[]{coords[v].getX(), coords[v].getY()};
+            double[] reittipiste = new double[]{coords.get(v).getX(), coords.get(v).getY()};
 
             coordinates.put(new JSONArray(reittipiste));
         }
@@ -120,15 +121,13 @@ public class geoJsonWriter2 {
         return polygons;
 
     }
-    public static JSONObject muunnaJsonReitti(Coords[] coords, Map<Integer,Integer> pred, String crs) {
+    public static JSONObject muunnaJsonReitti( Set<CoordEdge> edges, String crs) {
         JSONObject reitti = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (Integer v :pred.keySet()) {
-            if (pred.get(v) == -1) {
-                continue;
-            }
+        for (CoordEdge edge :edges) {
+            
 
             JSONObject feature = new JSONObject();
 
@@ -140,8 +139,8 @@ public class geoJsonWriter2 {
 
             JSONArray coordinates = new JSONArray();
 
-            double[] reittipiste1 = new double[]{coords[v].getX(), coords[v].getY()};
-            double[] reittipiste2 = new double[]{coords[pred.get(v)].getX(), coords[pred.get(v)].getY()};
+            double[] reittipiste1 = new double[]{edge.getL().getX(), edge.getL().getY()};
+            double[] reittipiste2 = new double[]{edge.getR().getX(), edge.getR().getY()};
 
             coordinates.put(new JSONArray(reittipiste1));
             coordinates.put(new JSONArray(reittipiste2));

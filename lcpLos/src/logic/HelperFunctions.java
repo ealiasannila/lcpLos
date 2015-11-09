@@ -5,6 +5,7 @@
  */
 package logic;
 
+import java.util.Map;
 import lcplos.dataStructures.Coords;
 
 /**
@@ -23,27 +24,27 @@ public class HelperFunctions {
                 + Math.pow(Math.abs(x1 - x2), 2);
     }
 
-    public static int moveRight(int n, int max, int polyOrient) {
-        n -= polyOrient;
-        if (n == max) {
-            return 0;
-        } else {
-            return n;
+    public static int polyOrientation(int s, Map<Integer, Coords> coords) {
+        double sum = 0;
+
+        for (int start = s; start < start + coords.size(); start++) {
+            int end = start + 1;
+            if (end == start+coords.size()) {
+                end = 0;
+            }
+
+            Coords sc = coords.get(start);
+            Coords ec = coords.get(end);
+
+            sum += (ec.getX() - sc.getX()) * (ec.getY() + sc.getX());
         }
+        if (sum < 0) {
+            return -1;
+        }
+        return 1;
     }
 
-    public static int moveLeft(int n, int max, int polyOrient) {
-        n += polyOrient;
-
-        if (n == 0) {
-            return max;
-        } else {
-            return n;
-        }
-
-    }
-
-    public static int isRight(int v1, int v2, int v3, Coords[] coords) {
+    public static int isRight(int v1, int v2, int v3,Coords[] coords) {
         Coords p1 = coords[v1];
         Coords p2 = coords[v2];
         Coords p3 = coords[v3];
