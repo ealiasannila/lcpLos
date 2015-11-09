@@ -102,6 +102,7 @@ public class Funnel {
         int rf = r.peekFirst();
         r.addFirst(apex);
         l.addFirst(apex);
+        System.out.println("v:" + v);
         int l1 = HelperFunctions.isRight(apex, lf, v, coords);
         int r1 = HelperFunctions.isRight(apex, rf, v, coords);
         

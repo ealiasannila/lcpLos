@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import logic.HelperFunctions;
 import logic.LosChecker;
+import triangulation.Triangulator;
 
 /**
  *
@@ -20,9 +21,10 @@ public class Graph {
 
     private NodeLibrary nodelib;
     private Map<Integer, Double>[] al; //adjacency list
+    private Coords coords[];
 
     public Graph(NodeLibrary nodelib, FrictionLibrary frictionlib) {
-
+        
         int numOfNodes = nodelib.getNumOfNodes();
 
         this.nodelib = nodelib;
@@ -42,7 +44,10 @@ public class Graph {
             
             ArrayList<Integer> nodes = this.nodelib.getNodes(polyIndex);
             
-            
+            //Triangulate -> deal with coords...
+            // build polygon
+            // build spt for all the nodes in polygon.
+            // from each spt add paths of length 1 to al
             
             if(nodes == null || nodes.isEmpty()){
                 continue;

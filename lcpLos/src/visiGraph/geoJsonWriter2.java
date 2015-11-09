@@ -102,9 +102,7 @@ public class geoJsonWriter2 {
         JSONArray coordinates = new JSONArray();
 
         for (Integer v : pred.keySet()) {
-            if(pred.get(v)==-1){
-                continue;
-            }
+           
             double[] reittipiste = new double[]{coords[v].getX(), coords[v].getY()};
 
             coordinates.put(new JSONArray(reittipiste));

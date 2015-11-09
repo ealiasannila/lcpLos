@@ -12,7 +12,7 @@ import lcplos.dataStructures.Coords;
  * @author elias
  */
 public class HelperFunctions {
-    
+
     public static double eucDist(Coords p1, Coords p2) {
         return Math.sqrt(eucDistSquared(p1.getX(), p1.getY(), p2.getX(), p2.getY()));
 
@@ -23,7 +23,26 @@ public class HelperFunctions {
                 + Math.pow(Math.abs(x1 - x2), 2);
     }
 
-    
+    public static int moveRight(int n, int max, int polyOrient) {
+        n -= polyOrient;
+        if (n == max) {
+            return 0;
+        } else {
+            return n;
+        }
+    }
+
+    public static int moveLeft(int n, int max, int polyOrient) {
+        n += polyOrient;
+
+        if (n == 0) {
+            return max;
+        } else {
+            return n;
+        }
+
+    }
+
     public static int isRight(int v1, int v2, int v3, Coords[] coords) {
         Coords p1 = coords[v1];
         Coords p2 = coords[v2];
@@ -40,5 +59,5 @@ public class HelperFunctions {
             return 0;
         }
     }
-    
+
 }

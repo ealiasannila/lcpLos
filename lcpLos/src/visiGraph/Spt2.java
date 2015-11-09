@@ -7,6 +7,8 @@ package visiGraph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
@@ -21,23 +23,32 @@ import logic.HelperFunctions;
  */
 public class Spt2 {
 
-    private Map<Integer,Integer> pred;
+    private Map<Integer, Integer> pred;
     private PolygonOma polygon;
     private Coords[] coords;
+    private List<Sector> uncharted;
+    private ArrayDeque<Funnel> splitQueue;
 
     public Spt2(int s, Coords[] coords, PolygonOma polygon) {
+        this.splitQueue = new ArrayDeque<Funnel>();
         this.pred = new TreeMap<Integer, Integer>();
-        
+        this.uncharted = new ArrayList<Sector>();
+
         this.polygon = polygon;
         this.coords = coords;
 
         this.pred.put(s, -1);
-        
+
+        int ln = HelperFunctions.moveLeft(s, coords.length - 1, 1); //UPDATE TO USE REAL POLY ORIENTATION
+        int rn = HelperFunctions.moveRight(s, coords.length - 1, 1);//UPDATE TO USE REAL POLY ORIENTATION
+
+        this.uncharted.add(new Sector(s, ln, rn, coords));
+
         for (Edge e : this.polygon.getOpposingEdge(s)) {
-            
+
             this.pred.put(e.getL(), s);
             this.pred.put(e.getR(), s);
-            
+
             int l;
             int r;
 
@@ -50,7 +61,10 @@ public class Spt2 {
             }
 
             Funnel funnel = new Funnel(l, s, r);
-            this.split(funnel);
+            this.splitQueue.addLast(funnel);
+        }
+        while (!this.splitQueue.isEmpty()) {
+            this.split(this.splitQueue.pollFirst());
         }
 
     }
@@ -70,31 +84,32 @@ public class Spt2 {
 
     private void splitSuffix(int t, int v, Funnel f, ArrayDeque<Integer> suffixOuter, int sChannel) {
         if (suffixOuter.size() == 1) {
+            return;
+            /* Edge tv = new Edge(t, v);
+             if (this.polygon.isPolygonEdge(tv)) {
+             return;
+             }
+             Edge cross = this.polygon.locateCrossingEdge(tv);
+             int l;
+             int r;
+             if (HelperFunctions.isRight(t, v, cross.getR(), coords) == 1) {
+             l = cross.getL();
+             r = cross.getR();
+             } else {
+             l = cross.getR();
+             r = cross.getL();
+             }
 
-            Edge tv = new Edge(t, v);
-            if (this.polygon.isPolygonEdge(tv)) {
-                return;
-            }
-            Edge cross = this.polygon.locateCrossingEdge(tv);
-            int l;
-            int r;
-            if (HelperFunctions.isRight(t, v, cross.getR(), coords) == 1) {
-                l = cross.getL();
-                r = cross.getR();
-            } else {
-                l = cross.getR();
-                r = cross.getL();
-            }
-
-            if (sChannel == -1) {
-                this.splitSuffix(t, l, f, suffixOuter, sChannel);
-                suffixOuter.addLast(l);
-                this.pred.put(l, suffixOuter.peekFirst());
-            } else {
-                this.splitSuffix(t, r, f, suffixOuter, sChannel);
-                suffixOuter.addLast(r);
-                this.pred.put(r, suffixOuter.peekFirst());
-            }
+             if (sChannel == -1) {
+             this.splitSuffix(t, l, f, suffixOuter, sChannel);
+             suffixOuter.addLast(l);
+             this.pred.put(l, suffixOuter.peekFirst());
+             } else {
+             this.splitSuffix(t, r, f, suffixOuter, sChannel);
+             suffixOuter.addLast(r);
+             this.pred.put(r, suffixOuter.peekFirst());
+             }
+             */
 
         }
 
@@ -110,18 +125,108 @@ public class Spt2 {
             suffix = new Funnel(suffixInner, suffixOuter);
         }
 
-        this.split(suffix);
+        this.splitQueue.addLast(suffix);
 
     }
 
-    private void split(Funnel f) {
-    Edge e = f.getBase();
+    private boolean adjustSectors(Edge e, boolean polygonEdge) {
+        Sector previous = null;
+        for (Iterator<Sector> it = this.uncharted.iterator(); it.hasNext();) {
 
-        if (this.isPolygonEdge(e)) {
+            Sector sector = it.next();
+            if (sector.outside(e)) {
+                if (!it.hasNext()) {
+                    System.out.println("not inside: " + e);
+                    return false;
+                }
+                previous = sector;
+
+                continue;
+            }
+
+            if (sector.inside(e.getL()) && sector.inside(e.getR()) && polygonEdge) {
+                if (HelperFunctions.isRight(sector.getApex(), e.getL(), e.getR(), coords) == 1) {
+                    Sector sr = new Sector(sector.getApex(), e.getR(), sector.getR(), coords);
+                    this.uncharted.add(this.uncharted.indexOf(sector) + 1, sr);
+                    sector.setR(e.getL());
+
+                } else {
+                    System.out.println("some wierd coming from wrong side inside sector");
+                }
+                return false;
+            } else if (sector.inside(e.getL()) && polygonEdge) {
+                if (HelperFunctions.isRight(sector.getApex(), sector.getR(), e.getR(), coords) != -1) {
+                    //edge R outside sector R
+                    System.out.println("sL: " + sector.getL() + "->" + e.getL());
+                    sector.setR(e.getL());
+                    if (it.hasNext()) {
+                        Sector next = it.next();
+                        if (next.inside(sector.getR())) {
+                            sector.setR(next.getR());
+                            it.remove();
+                        }
+                    }
+
+                } else if (HelperFunctions.isRight(sector.getApex(), sector.getL(), e.getR(), coords) != 1) {
+                    //edge R outside sector L                    
+                    //is this even possible?
+                    System.out.println("coming from wrong side!");
+                    System.out.println("sL: " + sector.getL() + "->" + e.getL());
+                    sector.setL(e.getL());
+
+                } else {
+                    System.out.println("some wierd at sector edge L");
+                    System.out.println(e + " " + sector);
+                }
+                return false; //return because base = polygonEdge
+            } else if (sector.inside(e.getR()) && polygonEdge) {
+                if (HelperFunctions.isRight(sector.getApex(), sector.getR(), e.getL(), coords) != -1) {
+                    //edge L outside sector R
+                    //is this even possible?
+                    System.out.println("coming from wrong side!");
+                    System.out.println("sR: " + sector.getR() + "->" + e.getR());
+
+                    sector.setR(e.getR());
+                } else if (HelperFunctions.isRight(sector.getApex(), sector.getL(), e.getL(), coords) != 1) {
+                    //edge L outside sector L  
+                    System.out.println("sR: " + sector.getR() + "->" + e.getR());
+                    sector.setL(e.getR());
+                    if (previous != null) {
+                        if (previous.inside(sector.getL())) {
+                            previous.setR(sector.getR());
+                            it.remove();
+                        }
+                    }
+                } else {
+                    System.out.println("some wierd at sector edge R");
+                    System.out.println(e + " " + sector);
+
+                }
+
+                return false; //return because base = polygonEdge
+            }
+            return true;
+        }
+        return true;
+    }
+
+    private void split(Funnel f) {
+        System.out.println("");
+        System.out.println(this.uncharted);
+
+        Edge e = f.getBase();
+        System.out.println(e);
+        boolean polygonEdge = this.isPolygonEdge(e);
+        if (!this.adjustSectors(e, polygonEdge)) {
             return;
         }
+        if (polygonEdge) {
+            return;
+        }
+
         int v = this.locateOppositeVertex(e, f.getApex());
         ArrayDeque<Integer> suffixOuter;
+        System.out.println("pv: " + v);
         int sChannel = f.inRightChannel(v, coords);
         if (sChannel == -1) {
             suffixOuter = f.splitLeftChannel(v, coords);
@@ -131,13 +236,17 @@ public class Spt2 {
 
         int t = suffixOuter.peekFirst();
         this.pred.put(v, t);
-        this.split(f);
+        this.splitQueue.addLast(f);
         this.splitSuffix(t, v, f, suffixOuter, sChannel);
 
     }
 
-    public Map<Integer,Integer> getPred() {
+    public Map<Integer, Integer> getPred() {
         return pred;
+    }
+
+    public List<Sector> getUncharted() {
+        return uncharted;
     }
 
 }
