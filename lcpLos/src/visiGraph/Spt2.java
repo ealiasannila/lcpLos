@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lcplos.dataStructures.Coords;
 import logic.HelperFunctions;
+import shortestPath.PathNode;
 
 /**
  *
@@ -23,58 +24,60 @@ import logic.HelperFunctions;
  */
 public class Spt2 {
 
-    private Set<CoordEdge> visi;
-    private PolygonOma polygon;
+    private List<Coords> neighbours;
+    private EdgeLocator polygon;
     private Coords[] coords;
     private List<Sector> uncharted;
     private ArrayDeque<Funnel> splitQueue;
     private int startVertex;
 
-    public Spt2(int s, Coords[] coords, PolygonOma polygon, Set<CoordEdge> visi) {
+
+    
+    public Spt2(int s, Coords[] coords, EdgeLocator polygon) {
         this.splitQueue = new ArrayDeque<Funnel>();
         this.uncharted = new ArrayList<Sector>();
-        this.visi = visi;
         this.polygon = polygon;
         this.coords = coords;
         this.startVertex = s;
+        this.neighbours = new ArrayList<Coords>();
 
         int secr = -1;
         int secl = -1;
        
-        if (this.polygon.getOpposingEdge(s) == null ) {
-            System.out.println("s: " + s);
+        if (this.polygon.getOpposingEdge(this.startVertex) == null ) {
+            System.out.println("s: " + this.startVertex);
             return;
         }
-        if(this.polygon.getOpposingEdge(s).isEmpty()){
-            System.out.println("s: " + s +"e");
+        if(this.polygon.getOpposingEdge(this.startVertex).isEmpty()){
+            System.out.println("s: " + this.startVertex +"e");
             return;
         }
-        for (Edge e : this.polygon.getOpposingEdge(s)) {
-
-            this.visi.add(new CoordEdge(this.coords[e.getL()], this.coords[s]));
-            this.visi.add(new CoordEdge(this.coords[e.getR()], this.coords[s]));
+        for (Edge e : this.polygon.getOpposingEdge(this.startVertex)) {
+            
+            this.neighbours.add(this.coords[e.getL()]);
+            this.neighbours.add(this.coords[e.getR()]);
 
             int l;
             int r;
 
-            if (HelperFunctions.isRight(s, e.getL(), e.getR(), coords) == -1) {
+            if (HelperFunctions.isRight(this.startVertex, e.getL(), e.getR(), coords) == -1) {
                 l = e.getR();
                 r = e.getL();
             } else {
                 l = e.getL();
                 r = e.getR();
             }
-            if (this.polygon.isPolygonEdge(new Edge(r, s))) {
+            if (this.polygon.isPolygonEdge(new Edge(r, this.startVertex))) {
                 secr = r;
             }
-            if (this.polygon.isPolygonEdge(new Edge(l, s))) {
+            if (this.polygon.isPolygonEdge(new Edge(l, this.startVertex))) {
                 secl = l;
             }
-            Funnel funnel = new Funnel(l, s, r);
+            Funnel funnel = new Funnel(l, this.startVertex, r);
             this.splitQueue.addLast(funnel);
         }
 
-        this.uncharted.add(new Sector(s, secl, secr));
+        this.uncharted.add(new Sector(this.startVertex, secl, secr));
 
         while (!this.splitQueue.isEmpty()) {
             this.split(this.splitQueue.pollFirst());
@@ -263,11 +266,15 @@ public class Spt2 {
 
         int t = suffixOuter.peekFirst();
         if (t == this.startVertex) {
-            this.visi.add(new CoordEdge(this.coords[v], this.coords[t]));
+            this.neighbours.add(this.coords[v]);
         }
         this.splitQueue.addLast(f);
         this.splitSuffix(t, v, f, suffixOuter, sChannel);
 
+    }
+
+    public List<Coords> getNeighbours() {
+        return neighbours;
     }
 
     public List<Sector> getUncharted() {

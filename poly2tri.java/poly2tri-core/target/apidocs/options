@@ -1,0 +1,24 @@
+-classpath
+'/home/eannila/.m2/repository/org/slf4j/slf4j-jdk14/1.5.10/slf4j-jdk14-1.5.10.jar:/home/eannila/.m2/repository/org/slf4j/slf4j-api/1.5.10/slf4j-api-1.5.10.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/poly2tri.java/poly2tri-core/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2015. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/poly2tri.java/poly2tri-core/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'Poly2Tri Core 0.1.1-SNAPSHOT API'
+-linkoffline
+'http://docs.oracle.com/javase/6/docs/api' '/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/poly2tri.java/poly2tri-core/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'Poly2Tri Core 0.1.1-SNAPSHOT API'
