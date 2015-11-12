@@ -8,6 +8,7 @@ package lcplos;
 import java.io.File;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.VertexLib;
@@ -15,7 +16,6 @@ import visiGraph.EdgeLocator;
 import visiGraph.Spt2;
 import org.json.JSONArray;
 import shortestPath.NeighbourFinder;
-import shortestPath.PathNode;
 import shortestPath.PathSearch2;
 import triangulation.Triangulator;
 import visiGraph.CoordEdge;
@@ -35,6 +35,7 @@ public class LcpLos {
     public static void main(String[] args) {
 
         JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/testarea.geojson"));
+        System.out.println("read done: " + polygons.length());
         VertexLib vlib = new VertexLib(polygons.length());
         for (int p = 0; p < polygons.length(); p++) {
             Coords[] coords = GeoJsonReader2.readPolygon(polygons, p);
@@ -46,21 +47,31 @@ public class LcpLos {
                 vlib.addPolygon(coords, p);
             }
         }
-        System.out.println(polygons.length());
-        System.out.println(vlib.pSize());
-        System.out.println("vlib done");
+        System.out.println("vlib done" + vlib.pSize());
 
         NeighbourFinder finder = new NeighbourFinder(vlib);
-        PathSearch2 search = new PathSearch2(vlib.getPolygon(0)[0], vlib.getPolygon(64)[0], finder);
+        
+        Coords start = vlib.getPolygon(15)[0];
+        System.out.println("start: " + start);
+        Coords target = vlib.getPolygon(8)[0];
+        System.out.println("target: " + target);
+        PathSearch2 search = new PathSearch2(start, target, finder);
         System.out.println("init done");
-        PathNode target = search.aStar();
-        System.out.println("search done");
+        boolean pathFound = search.aStar();
+        if (pathFound) {
+            System.out.println("path found");
+        } else {
+            System.out.println("no path found");
+            return;
+        }
 
         Set<CoordEdge> path = new HashSet<>();
-        while (target.getPred() != null) {
-            Coords old = target.getCoords();
-            target = target.getPred();
-            path.add(new CoordEdge(old, target.getCoords()));
+        Map<Coords, Coords> pred = search.getPred();
+        Coords node = target;
+        while (pred.get(node) != null) {
+            Coords old = node;
+            node = pred.get(node);
+            path.add(new CoordEdge(old, node));
         }
 
         System.out.println("path done");

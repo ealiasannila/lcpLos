@@ -32,8 +32,10 @@ public class NeighbourFinder {
 
     }
 
-    public Coords[] getNeighbours(PathNode node) {
-        List<Integer> polygons = this.vlib.vertexBelongsTo(node.getCoords());
+    public Coords[] getNeighbours(Coords node) {
+        List<Integer> polygons = this.vlib.vertexBelongsTo(node);
+        System.out.println("belongs to polygons: ");
+        System.out.println(polygons);
         Set<Coords> neighbours = new HashSet<Coords>();
         for (int p : polygons) {
 
@@ -60,7 +62,7 @@ public class NeighbourFinder {
             }
 
             for (int i = 0; i < coords.length; i++) {
-                if (coords[i].equals(node.getCoords())) {
+                if (coords[i].equals(node)) {
                     this.spt = new Spt2(i, coords, this.locator);
                     break;
                 }

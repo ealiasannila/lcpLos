@@ -16,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import lcplos.dataStructures.Coords;
 import logic.HelperFunctions;
-import shortestPath.PathNode;
 
 /**
  *
