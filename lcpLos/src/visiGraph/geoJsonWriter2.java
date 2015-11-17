@@ -188,7 +188,7 @@ public class geoJsonWriter2 {
         return points;
 
     }
-
+/*
     public static JSONObject removeRings(JSONArray features, String crs, VertexLib vlib) {
         for (int i = 0; i < features.length(); i++) {
             List<Integer> polygon = vlib.getPolygon(i);
@@ -220,5 +220,5 @@ public class geoJsonWriter2 {
         object.put("features", features);
         return object;
     }
-
+*/
 }

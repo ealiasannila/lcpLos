@@ -54,6 +54,7 @@ public class NeighbourFinder {
                 } catch (Exception ex) {
                     System.out.println("exception");
                     System.out.println(ex);
+                    ex.printStackTrace();
                     System.out.println("polygon: " + p);
                     continue;
                 }

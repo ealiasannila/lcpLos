@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -41,30 +42,35 @@ public class GeoJsonReader2 {
         String data = lukija.next();
 
         return new JSONObject(data).getJSONArray("features");
-        
+
     }
 
-    public static Coords[] readPolygon(JSONArray polygonFeatures, int feature) {
-        Coords[] coords = null;
+    public static List<Coords[]> readPolygon(JSONArray polygonFeatures, int feature) {
+        List<Coords[]> polygon = new ArrayList<>();
 
         if (polygonFeatures.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
-            JSONArray coordinates = polygonFeatures.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates").getJSONArray(0);
-            int end = coordinates.length();
-            if (new Coords(coordinates.getJSONArray(0).getDouble(0), coordinates.getJSONArray(0).getDouble(1))
-                    .equals(new Coords(coordinates.getJSONArray(coordinates.length() - 1).getDouble(0), coordinates.getJSONArray(coordinates.length() - 1).getDouble(1)))) {
-                end--;
-            }
+            JSONArray rings = polygonFeatures.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
+            for (int i = 0; i < rings.length(); i++) {
 
-            coords = new Coords[end];
+                JSONArray coordinates = rings.getJSONArray(i);
+                int end = coordinates.length();
+                if (new Coords(coordinates.getJSONArray(0).getDouble(0), coordinates.getJSONArray(0).getDouble(1))
+                        .equals(new Coords(coordinates.getJSONArray(coordinates.length() - 1).getDouble(0), coordinates.getJSONArray(coordinates.length() - 1).getDouble(1)))) {
+                    end--;
+                }
 
-            for (int k = 0; k < end; k++) {
-                JSONArray coordinatePair = coordinates.getJSONArray(k);
-                coords[k] = new Coords(coordinatePair.getDouble(0), coordinatePair.getDouble(1));
+                Coords[] coords = new Coords[end];
+
+                for (int k = 0; k < end; k++) {
+                    JSONArray coordinatePair = coordinates.getJSONArray(k);
+                    coords[k] = new Coords(coordinatePair.getDouble(0), coordinatePair.getDouble(1));
+                }
+                polygon.add(coords);
             }
 
         }
 
-        return coords;
+        return polygon;
     }
 
 }

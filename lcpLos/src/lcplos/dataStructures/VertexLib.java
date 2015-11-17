@@ -22,7 +22,7 @@ public class VertexLib {
 
     private List<Set<Integer>> nodeToPolygons;
     private List<Coords> vertices;
-    private List<Integer>[] polygonToNodes;
+    private List<List<Integer>>[] polygonToNodes;
     private HashMap<Coords, Integer> coordsToVertex;
     private double[] frictions;
 
@@ -31,38 +31,44 @@ public class VertexLib {
         this.vertices = new ArrayList<Coords>();
         this.polygonToNodes = new List[nPoly];
         this.coordsToVertex = new HashMap<>();
-        this.frictions = new double[nPoly]; 
+        this.frictions = new double[nPoly];
 
     }
 
-    public void addPolygon(Coords[] coords, int p, double friction) {
+    public void addPolygon(List<Coords[]> coords, int p, double friction) {
         this.frictions[p] = friction;
-        this.polygonToNodes[p] = new ArrayList<Integer>();
-        for (int i = 0; i < coords.length; i++) {
-            int v;
-            if (!this.coordsToVertex.containsKey(coords[i])) {
-                v = this.vertices.size();
-                this.vertices.add(coords[i]);
-                this.coordsToVertex.put(coords[i], v);
-                this.nodeToPolygons.add(new TreeSet<Integer>());
-            } else {
-                v = this.coordsToVertex.get(coords[i]);
+        this.polygonToNodes[p] = new ArrayList<List<Integer>>();
+        for (int ring = 0; ring < coords.size(); ring++) {
+            if(coords.get(ring).length<4){
+                continue;
             }
-            this.polygonToNodes[p].add(v);
-            this.nodeToPolygons.get(v).add(p);
+            this.polygonToNodes[p].add(new ArrayList<Integer>());
+            for (int i = 0; i < coords.get(ring).length; i++) {
+                int v;
+                if (!this.coordsToVertex.containsKey(coords.get(ring)[i])) {
+                    v = this.vertices.size();
+                    this.vertices.add(coords.get(ring)[i]);
+                    this.coordsToVertex.put(coords.get(ring)[i], v);
+                    this.nodeToPolygons.add(new TreeSet<Integer>());
+                } else {
+                    v = this.coordsToVertex.get(coords.get(ring)[i]);
+                }
+                this.polygonToNodes[p].get(ring).add(v);
+                this.nodeToPolygons.get(v).add(p);
+            }
         }
+
     }
 
     public double getFriction(int p) {
         return frictions[p];
     }
-    
 
-    public Coords getCoords(int v){
+    public Coords getCoords(int v) {
         return this.vertices.get(v);
     }
-    
-    public List<Integer> getPolygon(int p) {
+
+    public List<List<Integer>> getPolygon(int p) {
         return this.polygonToNodes[p];
     }
 
@@ -78,15 +84,8 @@ public class VertexLib {
         return vertices;
     }
 
-    public List<Integer>[] getPolygonToNodes() {
-        return polygonToNodes;
-    }
-
     public HashMap<Coords, Integer> getCoordsToVertex() {
         return coordsToVertex;
     }
-    
-    
-
 
 }

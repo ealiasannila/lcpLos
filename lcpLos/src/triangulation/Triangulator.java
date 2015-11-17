@@ -8,13 +8,11 @@ package triangulation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.VertexLib;
 import org.poly2tri.Poly2Tri;
 import org.poly2tri.geometry.polygon.Polygon;
 import org.poly2tri.geometry.polygon.PolygonPoint;
-import org.poly2tri.triangulation.TriangulationPoint;
 import org.poly2tri.triangulation.delaunay.DelaunayTriangle;
 
 /**
@@ -26,12 +24,11 @@ public class Triangulator {
     private Polygon polygon;
     private HashMap<Coords, Integer> coordsToVertex;
 
-    public Triangulator(List<Integer> vertices, VertexLib vlib) {
-        
+    public Triangulator(List<List<Integer>> vertices, VertexLib vlib) {
+
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
-        for (int v : vertices) {
-            
+        for (int v : vertices.get(0)) {
             Coords coords = vlib.getCoords(v);
             this.coordsToVertex.put(coords, v);
             PolygonPoint point = new PolygonPoint(coords.getX(), coords.getY());
@@ -39,10 +36,30 @@ public class Triangulator {
         }
         this.polygon = new Polygon(points);
 
+        if (vertices.size() > 1) {
+            for (int i = 1; i < vertices.size(); i++) {
+                if(vertices.get(i).size()<4){
+                    continue;
+                }
+                List hole = new ArrayList<PolygonPoint>();
+
+                for (int v : vertices.get(i)) {
+                    Coords coords = vlib.getCoords(v);
+                    if(this.coordsToVertex.containsKey(coords)){
+                        System.out.println("trying to add weakly simple polygon");
+                        return;
+                    }
+                    this.coordsToVertex.put(coords, v);
+                    PolygonPoint point = new PolygonPoint(coords.getX(), coords.getY());
+                    hole.add(point);
+                }
+                this.polygon.addHole(new Polygon(hole));
+            }
+        }
+
     }
 
     public List<int[]> triangulate() throws Exception {
-
         
         Poly2Tri.triangulate(polygon);
         ArrayList<int[]> triangles = new ArrayList<>();
