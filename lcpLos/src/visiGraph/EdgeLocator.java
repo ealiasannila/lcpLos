@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import logic.HelperFunctions;
 import logic.LosChecker;
+import org.poly2tri.triangulation.delaunay.DelaunayTriangle;
 
 /**
  *
@@ -72,6 +73,10 @@ public class EdgeLocator {
                 this.crossingEdges.put(edge, crossing);
             }
         }
+    }
+    
+    public void addTriangle(DelaunayTriangle triangle){
+        
     }
 
     public Edge locateCrossingEdge(Edge edge) {

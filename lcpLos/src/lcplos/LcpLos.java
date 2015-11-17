@@ -85,6 +85,8 @@ public class LcpLos {
         geoJsonWriter2.kirjoita("testdata/path.geojson",
                 geoJsonWriter2.muunnaJsonReitti(path, "urn:ogc:def:crs:EPSG::3047"));
         System.out.println("writing done");
+        
+        
         /*
          Set<CoordEdge> visigraph = new HashSet<>();
 

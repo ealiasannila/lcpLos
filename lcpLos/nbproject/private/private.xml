@@ -3,20 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Sector.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/CoordsWrapper.java</file>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/triangulation/Triangulator.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/GeoJsonReader2.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/shortestPath/Graph2.java</file>
+            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/lcplos/LcpLos.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/EdgeLocator.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Spt2.java</file>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Funnel.java</file>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/shortestPath/PathSearch2.java</file>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/VertexLib.java</file>
-            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/lcplos/LcpLos.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/logic/HelperFunctions.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/visiGraph/geoJsonWriter2.java</file>
+            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/shortestPath/PathSearch2.java</file>
             <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/shortestPath/NeighbourFinder.java</file>
+            <file>file:/home/ad/fshome1/u1/e/eannila/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/VertexLib.java</file>
         </group>
     </open-files>
 </project-private>
