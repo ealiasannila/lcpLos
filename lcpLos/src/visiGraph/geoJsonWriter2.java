@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.NodeLibrary;
+import lcplos.dataStructures.VertexLib;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -90,7 +91,6 @@ public class geoJsonWriter2 {
 
     }
 
-   
     public static JSONObject boundary(Map<Integer, Coords> coords, Map<Integer, Integer> pred, String crs) {
         JSONObject polygons = perusJson(crs);
         JSONArray features = new JSONArray();
@@ -103,7 +103,7 @@ public class geoJsonWriter2 {
         JSONArray coordinates = new JSONArray();
 
         for (Integer v : pred.keySet()) {
-           
+
             double[] reittipiste = new double[]{coords.get(v).getX(), coords.get(v).getY()};
 
             coordinates.put(new JSONArray(reittipiste));
@@ -121,13 +121,13 @@ public class geoJsonWriter2 {
         return polygons;
 
     }
-    public static JSONObject muunnaJsonReitti( Set<CoordEdge> edges, String crs) {
+
+    public static JSONObject muunnaJsonReitti(Set<CoordEdge> edges, String crs) {
         JSONObject reitti = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (CoordEdge edge :edges) {
-            
+        for (CoordEdge edge : edges) {
 
             JSONObject feature = new JSONObject();
 
@@ -156,4 +156,69 @@ public class geoJsonWriter2 {
         return reitti;
 
     }
+
+    public static JSONObject vertices(List<Coords> vertices, String crs) {
+        JSONObject points = perusJson(crs);
+
+        JSONArray features = new JSONArray();
+
+        for (int v = 0; v < vertices.size(); v++) {
+            Coords vertex = vertices.get(v);
+
+            JSONObject feature = new JSONObject();
+
+            feature.put("type", "Feature");
+            JSONObject properties = new JSONObject();
+            properties.put("vertex", v);
+            feature.put("properties", properties);
+
+            JSONObject geometry = new JSONObject();
+
+            double[] coordinates = new double[]{vertex.getX(), vertex.getY()};
+
+            geometry.put("coordinates", coordinates);
+
+            geometry.put("type", "Point");
+            feature.put("geometry", geometry);
+            features.put(feature);
+        }
+
+        points.put("features", features);
+
+        return points;
+
+    }
+
+    public static JSONObject removeRings(JSONArray features, String crs, VertexLib vlib) {
+        for (int i = 0; i < features.length(); i++) {
+            List<Integer> polygon = vlib.getPolygon(i);
+            boolean hole = true;
+            if(polygon==null || polygon.isEmpty()){
+                features.remove(i);
+                continue;
+            }
+            for (int v: polygon) {
+                if(vlib.vertexBelongsTo(v).size()>1){
+                    hole = false;
+                    break;
+                }
+            }
+            if(hole){
+               features.remove(i);
+               continue;
+            }
+            
+            JSONObject feature = features.getJSONObject(i);
+            JSONObject geometry = feature.getJSONObject("geometry");
+            JSONArray outline = geometry.getJSONArray("coordinates").getJSONArray(0);
+            geometry.remove("coordinates");
+            JSONArray rings = new JSONArray();
+            rings.put(outline);
+            geometry.put("coordinates", rings);
+        }
+        JSONObject object = perusJson(crs);
+        object.put("features", features);
+        return object;
+    }
+
 }

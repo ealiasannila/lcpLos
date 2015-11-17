@@ -2,6 +2,7 @@ package visiGraph;
 
 import java.util.Map;
 import lcplos.dataStructures.Coords;
+import lcplos.dataStructures.VertexLib;
 import logic.HelperFunctions;
 
 /*
@@ -18,39 +19,42 @@ public class Sector {
     private int apex;
     private int l;
     private int r;
+    private VertexLib vlib;
 
-    public Sector(int apex, int l, int r) {
+    public Sector(int apex, int l, int r, VertexLib vlib) {
         this.apex = apex;
         this.l = l;
         this.r = r;
+        this.vlib = vlib;
     }
 
-    private boolean convex(Coords[] coords) {
-        return HelperFunctions.isRight(this.apex, this.l, this.r, coords) == -1;
+    private boolean convex() {
+        return HelperFunctions.isRight(this.apex, this.l, this.r, vlib) == -1;
     }
 
-    public boolean inside(int v, Coords[] coords) {
-        if (!this.convex(coords)) {
-            return HelperFunctions.isRight(this.apex, this.l, v, coords) == 1
-                    && HelperFunctions.isRight(this.apex, this.r, v, coords) == -1;
+    public boolean inside(int v) {
+        if (!this.convex()) {
+            return HelperFunctions.isRight(this.apex, this.l, v, vlib) == 1
+                    && HelperFunctions.isRight(this.apex, this.r, v, vlib) == -1;
         } else {
-            return HelperFunctions.isRight(this.apex, this.l, v, coords) == 1
-                    || HelperFunctions.isRight(this.apex, this.r, v, coords) == -1;
+
+            return HelperFunctions.isRight(this.apex, this.l, v, vlib) == 1
+                    || HelperFunctions.isRight(this.apex, this.r, v, vlib) == -1;
         }
     }
 
-    public boolean outside(Edge edge, Coords[] coords) {
-        if (this.convex(coords)) {
-            if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), coords) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), coords) != 1
-                    && HelperFunctions.isRight(this.apex, this.r, edge.getL(), coords) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), coords) != -1) {
+    public boolean outside(Edge edge) {
+        if (this.convex()) {
+            if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), vlib) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), vlib) != 1
+                    && HelperFunctions.isRight(this.apex, this.r, edge.getL(), vlib) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), vlib) != -1) {
                 return true;
             }
             return false;
         } else {
-            if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), coords) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), coords) != 1) {
+            if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), vlib) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), vlib) != 1) {
                 return true;
             }
-            if (HelperFunctions.isRight(this.apex, this.r, edge.getL(), coords) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), coords) != -1) {
+            if (HelperFunctions.isRight(this.apex, this.r, edge.getL(), vlib) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), vlib) != -1) {
                 return true;
             }
             return false;

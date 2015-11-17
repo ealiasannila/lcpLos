@@ -36,26 +36,33 @@ public class LcpLos {
 
         JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/testarea.geojson"));
         System.out.println("read done: " + polygons.length());
+
+
         VertexLib vlib = new VertexLib(polygons.length());
         for (int p = 0; p < polygons.length(); p++) {
             Coords[] coords = GeoJsonReader2.readPolygon(polygons, p);
+            double friction  = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Vertices");
             if (coords == null || coords.length < 4) {
                 continue;
             }
-            for (int j = 0; j < coords.length; j++) {
-                vlib.addVertex(coords[j], p);
-                vlib.addPolygon(coords, p);
-            }
-        }
-        System.out.println("vlib done" + vlib.pSize());
+            vlib.addPolygon(coords, p, friction);
 
-        NeighbourFinder finder = new NeighbourFinder(vlib);
+        }
+        System.out.println("vcount: " + vlib.getVertices().size());
+//        geoJsonWriter2.kirjoita("testdata/toobig.geojson", geoJsonWriter2.removeRings(polygons, "urn:ogc:def:crs:EPSG::3047", vlib));
+
         
-        Coords start = vlib.getPolygon(15)[0];
+         List<Coords> vertices = vlib.getVertices();
+         geoJsonWriter2.kirjoita("testdata/vertices.geojson", geoJsonWriter2.vertices(vertices, "urn:ogc:def:crs:EPSG::3047"));
+        
+        NeighbourFinder finder = new NeighbourFinder(vlib);
+
+        int start = 200;
         System.out.println("start: " + start);
-        Coords target = vlib.getPolygon(8)[0];
+        int target = 1299;
         System.out.println("target: " + target);
-        PathSearch2 search = new PathSearch2(start, target, finder);
+        PathSearch2 search = new PathSearch2(start, target, finder, vlib);
+
         System.out.println("init done");
         boolean pathFound = search.aStar();
         if (pathFound) {
@@ -66,12 +73,12 @@ public class LcpLos {
         }
 
         Set<CoordEdge> path = new HashSet<>();
-        Map<Coords, Coords> pred = search.getPred();
-        Coords node = target;
+        Map<Integer, Integer> pred = search.getPred();
+        int node = target;
         while (pred.get(node) != null) {
-            Coords old = node;
+            int old = node;
             node = pred.get(node);
-            path.add(new CoordEdge(old, node));
+            path.add(new CoordEdge(vlib.getCoords(old), vlib.getCoords(node)));
         }
 
         System.out.println("path done");

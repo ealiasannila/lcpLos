@@ -6,9 +6,11 @@
 package shortestPath;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.VertexLib;
@@ -23,54 +25,52 @@ import visiGraph.Spt2;
 public class NeighbourFinder {
 
     private VertexLib vlib;
-    private EdgeLocator locator;
     private Triangulator triangulator;
     private Spt2 spt;
+    private Map<Integer, EdgeLocator> loclib;
 
     public NeighbourFinder(VertexLib vlib) {
         this.vlib = vlib;
+        this.loclib = new HashMap<>();
 
     }
 
-    public Coords[] getNeighbours(Coords node) {
-        List<Integer> polygons = this.vlib.vertexBelongsTo(node);
-        System.out.println("belongs to polygons: ");
-        System.out.println(polygons);
-        Set<Coords> neighbours = new HashSet<Coords>();
+    public Map<Integer, Set<Integer>> getNeighbours(int node) {
+
+        Set<Integer> polygons = this.vlib.vertexBelongsTo(node);
+        //System.out.println("belongs to polygons: ");
+        //System.out.println(polygons);
+        Map<Integer, Set<Integer>> neighboursInPolygons = new HashMap<>();
         for (int p : polygons) {
-
-            Coords[] coords = vlib.getPolygon(p);
-            if(coords==null){
-                System.out.println("no nodes p: " + p);
-                return  neighbours.toArray(new Coords[neighbours.size()]);
-            }
-
-            this.triangulator = new Triangulator(coords);
-            List<int[]> triangles;
-            try {
-                triangles = this.triangulator.triangulate();
-            } catch (Exception ex) {
-                System.out.println("exception");
-                System.out.println(ex);
-                System.out.println("polygon: " + p);
-                continue;
-            }
-
-            this.locator = new EdgeLocator();
-            for (int[] triangle : triangles) {
-                locator.addTriangle(triangle);
-            }
-
-            for (int i = 0; i < coords.length; i++) {
-                if (coords[i].equals(node)) {
-                    this.spt = new Spt2(i, coords, this.locator);
-                    break;
+            Set<Integer> neighbours = new HashSet<>();
+            EdgeLocator locator;
+            if (this.loclib.containsKey(p)) {
+                locator = this.loclib.get(p);
+            } else {
+                this.triangulator = new Triangulator(vlib.getPolygon(p), vlib);
+                List<int[]> triangles;
+                try {
+                    triangles = this.triangulator.triangulate();
+                } catch (Exception ex) {
+                    System.out.println("exception");
+                    System.out.println(ex);
+                    System.out.println("polygon: " + p);
+                    continue;
                 }
+
+                locator = new EdgeLocator();
+                for (int[] triangle : triangles) {
+                    locator.addTriangle(triangle);
+                }
+                this.loclib.put(p, locator);
             }
             
+            this.spt = new Spt2(node, locator, vlib);
             neighbours.addAll(this.spt.getNeighbours());
+            neighboursInPolygons.put(p, neighbours);
         }
-        return neighbours.toArray(new Coords[neighbours.size()]);
+
+        return neighboursInPolygons;
     }
 
 }

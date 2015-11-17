@@ -41,6 +41,7 @@ public class GeoJsonReader2 {
         String data = lukija.next();
 
         return new JSONObject(data).getJSONArray("features");
+        
     }
 
     public static Coords[] readPolygon(JSONArray polygonFeatures, int feature) {

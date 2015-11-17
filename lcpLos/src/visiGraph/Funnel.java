@@ -9,6 +9,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Map;
 import lcplos.dataStructures.Coords;
+import lcplos.dataStructures.VertexLib;
 import logic.HelperFunctions;
 
 /**
@@ -19,12 +20,14 @@ public class Funnel {
 
     private ArrayDeque<Integer> l;
     private ArrayDeque<Integer> r;
+    private VertexLib vlib;
 
-    public Funnel(int l, int a, int r) {
+    public Funnel(int l, int a, int r, VertexLib vlib) {
         this.l = new ArrayDeque< Integer>();
         this.r = new ArrayDeque<Integer>();
         this.Add(a);
         this.Add(l, r);
+        this.vlib = vlib;
 
     }
 
@@ -36,9 +39,10 @@ public class Funnel {
         return this.l.peekFirst();
     }
 
-    public Funnel(ArrayDeque<Integer> l, ArrayDeque<Integer> r) {
+    public Funnel(ArrayDeque<Integer> l, ArrayDeque<Integer> r, VertexLib vlib) {
         this.l = l;
         this.r = r;
+        this.vlib = vlib;
     }
 
     public void Add(int l, int r) {
@@ -51,15 +55,15 @@ public class Funnel {
         this.r.addLast(a);
     }
 
-    public ArrayDeque<Integer> splitLeftChannel(int v, Coords[] coords) {
-        return this.splitChannel(v, coords, l, -1);
+    public ArrayDeque<Integer> splitLeftChannel(int v) {
+        return this.splitChannel(v, l, -1);
     }
     
-    public ArrayDeque<Integer> splitRightChannel(int v, Coords[] coords) {
-        return this.splitChannel(v, coords, r, 1);
+    public ArrayDeque<Integer> splitRightChannel(int v) {
+        return this.splitChannel(v, r, 1);
     }
     
-    private ArrayDeque<Integer> splitChannel(int v, Coords[] coords, ArrayDeque<Integer> c, int orient) {
+    private ArrayDeque<Integer> splitChannel(int v, ArrayDeque<Integer> c, int orient) {
         ArrayDeque<Integer> newChannel = new ArrayDeque<>();
         int apex = c.peekFirst();
         
@@ -73,7 +77,7 @@ public class Funnel {
                 return newChannel;
             }
             
-            int tOrient = HelperFunctions.isRight(c.peekLast(), t, v, coords);
+            int tOrient = HelperFunctions.isRight(c.peekLast(), t, v, this.vlib);
             if (orient != -tOrient) {
                 c.addLast(t);
                 c.addLast(v);
@@ -96,15 +100,15 @@ public class Funnel {
         return this.l.size() == 1;
     }
 
-    public int inRightChannel(int v, Coords[] coords){
+    public int inRightChannel(int v){
         int apex = l.pollFirst();
         r.pollFirst();
         int lf = l.peekFirst();
         int rf = r.peekFirst();
         r.addFirst(apex);
         l.addFirst(apex);
-        int l1 = HelperFunctions.isRight(apex, lf, v, coords);
-        int r1 = HelperFunctions.isRight(apex, rf, v, coords);
+        int l1 = HelperFunctions.isRight(apex, lf, v, this.vlib);
+        int r1 = HelperFunctions.isRight(apex, rf, v, this.vlib);
         
         if(l1==1 && r1 == -1){
             return 0;

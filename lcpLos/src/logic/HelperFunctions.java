@@ -7,6 +7,7 @@ package logic;
 
 import java.util.Map;
 import lcplos.dataStructures.Coords;
+import lcplos.dataStructures.VertexLib;
 
 /**
  *
@@ -29,7 +30,7 @@ public class HelperFunctions {
 
         for (int start = s; start < start + coords.size(); start++) {
             int end = start + 1;
-            if (end == start+coords.size()) {
+            if (end == start + coords.size()) {
                 end = 0;
             }
 
@@ -44,10 +45,11 @@ public class HelperFunctions {
         return 1;
     }
 
-    public static int isRight(int v1, int v2, int v3,Coords[] coords) {
-        Coords p1 = coords[v1];
-        Coords p2 = coords[v2];
-        Coords p3 = coords[v3];
+    public static int isRight(int v1, int v2, int v3, VertexLib vlib) {
+       
+        Coords p1 = vlib.getCoords(v1);
+        Coords p2 = vlib.getCoords(v2);
+        Coords p3 = vlib.getCoords(v3);
 
         double difference = (p2.getY() - p1.getY()) * (p3.getX() - p2.getX())
                 - (p2.getX() - p1.getX()) * (p3.getY() - p2.getY());

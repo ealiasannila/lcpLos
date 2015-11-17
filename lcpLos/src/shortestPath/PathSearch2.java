@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Set;
 import lcplos.dataStructures.Coords;
+import lcplos.dataStructures.VertexLib;
 
 /**
  *
@@ -22,17 +23,18 @@ import lcplos.dataStructures.Coords;
  */
 public class PathSearch2 {
 
-    private Coords startnode;
-    private Map<Coords, Double> toStart;
-    private Map<Coords, Double> toEnd;
-    private Map<Coords, Coords> pred;
-    private Coords target;
-    private PriorityQueue<Coords> minheap;
+    private int startnode;
+    private Map<Integer, Double> toStart;
+    private Map<Integer, Double> toEnd;
+    private Map<Integer, Integer> pred;
+    private int target;
+    private PriorityQueue<Integer> minheap;
     private NeighbourFinder finder;
+    private VertexLib vlib;
 
-    public PathSearch2(Coords start, Coords end, NeighbourFinder finder) {
+    public PathSearch2(int start, int end, NeighbourFinder finder, VertexLib vlib) {
         this.finder = finder;
-        double d = HelperFunctions.eucDist(start, end);
+        this.vlib = vlib;
 
         this.startnode = start;
         this.target = end;
@@ -42,11 +44,11 @@ public class PathSearch2 {
         this.pred = new HashMap<>();
 
         this.toStart.put(this.startnode, 0.0);
-        this.toEnd.put(this.startnode, this.cost(start, end));
+        this.toEnd.put(this.startnode, this.estimate(start, end));
 
-        Comparator<Coords> smallestEstimate = new Comparator<Coords>() {
+        Comparator<Integer> smallestEstimate = new Comparator<Integer>() {
             @Override
-            public int compare(Coords n1, Coords n2) {
+            public int compare(Integer n1, Integer n2) {
                 double d1;
                 double d2;
                 if (!toStart.containsKey(n1)) {
@@ -59,60 +61,68 @@ public class PathSearch2 {
                 } else {
                     d2 = toStart.get(n2) + toEnd.get(n2);
                 }
-
                 return (int) (d1 - d2);
             }
+
         };
 
         this.minheap = new PriorityQueue<>(20, smallestEstimate);
         this.minheap.add(startnode);
     }
 
-    public boolean  aStar() {
+    public boolean aStar() {
         while (!this.minheap.isEmpty()) {
-            Coords node = this.minheap.poll();
-            System.out.println("node: " + node);
+            int node = this.minheap.poll();
+            //System.out.println("node: " + node);
             // System.out.println(node.getCoords());
             // System.out.println(node);
-            if (node.equals(this.target)) {
+            if (node == this.target) {
                 return true;
             }
-            
-            Coords[] neighbourcoords = this.finder.getNeighbours(node);
-            for (int i = 0; i < neighbourcoords.length; i++) {
-                Coords nc = neighbourcoords[i];
-                // System.out.println("neighbour: " + nc);
-                if (!this.toStart.containsKey(nc)) {
-                    this.toEnd.put(nc, this.cost(nc, this.target));
-                    this.toStart.put(nc, this.toStart.get(node) + this.cost(node, nc));
-                    this.pred.put(nc, node);
-                    this.minheap.add(nc);
-                } else {
-                    if(this.relax(node, nc)){
-                        this.minheap.remove(nc);
-                        this.minheap.add(nc);
+
+            Map<Integer, Set<Integer>> neighbours = this.finder.getNeighbours(node);
+            for (int polygon : neighbours.keySet()) {
+                Set<Integer> neighboursInPolygon = neighbours.get(polygon);
+                double friction = this.vlib.getFriction(polygon);
+                for (int neighbour : neighboursInPolygon) {
+                    // System.out.println("neighbour: " + nc);
+                    if (!this.toStart.containsKey(neighbour)) {
+                        this.toEnd.put(neighbour, this.estimate(neighbour, this.target));
+                        this.toStart.put(neighbour, this.toStart.get(node) + this.cost(node, neighbour, friction));
+                        this.pred.put(neighbour, node);
+                        this.minheap.add(neighbour);
+                    } else {
+                        if (this.relax(node, neighbour, friction)) {
+                            this.minheap.remove(neighbour);
+                            this.minheap.add(neighbour);
+                        }
                     }
                 }
+
             }
         }
         return false;
     }
 
-    public Map<Coords, Coords> getPred() {
+    public Map<Integer, Integer> getPred() {
         return pred;
     }
 
-    private boolean relax(Coords node, Coords nc) {
-        if (this.toStart.get(node) + this.cost(node, nc) < this.toStart.get(nc)) {
-            this.toStart.put(nc, this.toStart.get(node) + this.cost(node, nc));
-            this.pred.put(nc, node);
+    private boolean relax(int node, int neighbour, double cost) {
+        if (this.toStart.get(node) + this.cost(node, neighbour, cost) < this.toStart.get(neighbour)) {
+            this.toStart.put(neighbour, this.toStart.get(node) + this.cost(node, neighbour, cost));
+            this.pred.put(neighbour, node);
             return true;
         }
         return false;
     }
 
-    private double cost(Coords n1, Coords n2) {
-        return HelperFunctions.eucDist(n1, n2);
+    private double estimate(int n1, int n2) {
+        return HelperFunctions.eucDist(this.vlib.getCoords(n1), this.vlib.getCoords(n2));
+    }
+
+    private double cost(int n1, int n2, double friction) {
+        return HelperFunctions.eucDist(this.vlib.getCoords(n1), this.vlib.getCoords(n2)) * friction;
     }
 
 }

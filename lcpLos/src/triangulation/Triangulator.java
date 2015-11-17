@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lcplos.dataStructures.Coords;
+import lcplos.dataStructures.VertexLib;
 import org.poly2tri.Poly2Tri;
 import org.poly2tri.geometry.polygon.Polygon;
 import org.poly2tri.geometry.polygon.PolygonPoint;
@@ -25,14 +26,15 @@ public class Triangulator {
     private Polygon polygon;
     private HashMap<Coords, Integer> coordsToVertex;
 
-    public Triangulator(Coords[] coords) {
+    public Triangulator(List<Integer> vertices, VertexLib vlib) {
         
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
-        for (int v = 0; v<coords.length; v++) {
+        for (int v : vertices) {
             
-            this.coordsToVertex.put(coords[v], v);
-            PolygonPoint point = new PolygonPoint(coords[v].getX(), coords[v].getY());
+            Coords coords = vlib.getCoords(v);
+            this.coordsToVertex.put(coords, v);
+            PolygonPoint point = new PolygonPoint(coords.getX(), coords.getY());
             points.add(point);
         }
         this.polygon = new Polygon(points);
