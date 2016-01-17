@@ -25,13 +25,15 @@ public class VertexLib {
     private List<List<Integer>>[] polygonToNodes;
     private HashMap<Coords, Integer> coordsToVertex;
     private double[] frictions;
+    private double maxdist;
 
-    public VertexLib(int nPoly) {
+    public VertexLib(int nPoly, double maxdist) {
         this.nodeToPolygons = new ArrayList<>();
         this.vertices = new ArrayList<Coords>();
         this.polygonToNodes = new List[nPoly];
         this.coordsToVertex = new HashMap<>();
         this.frictions = new double[nPoly];
+        this.maxdist = maxdist;
 
     }
 
@@ -39,25 +41,57 @@ public class VertexLib {
         this.frictions[p] = friction;
         this.polygonToNodes[p] = new ArrayList<List<Integer>>();
         for (int ring = 0; ring < coords.size(); ring++) {
-            if(coords.get(ring).length<4){
+            if (coords.get(ring).length < 4) {
                 continue;
             }
             this.polygonToNodes[p].add(new ArrayList<Integer>());
             for (int i = 0; i < coords.get(ring).length; i++) {
-                int v;
-                if (!this.coordsToVertex.containsKey(coords.get(ring)[i])) {
-                    v = this.vertices.size();
-                    this.vertices.add(coords.get(ring)[i]);
-                    this.coordsToVertex.put(coords.get(ring)[i], v);
-                    this.nodeToPolygons.add(new TreeSet<Integer>());
-                } else {
-                    v = this.coordsToVertex.get(coords.get(ring)[i]);
+                Coords c = coords.get(ring)[i];
+                this.addPoint(c, p, ring);
+
+                int next = i + 1;
+                if (next == coords.get(ring).length) {
+                    next = 0;
                 }
-                this.polygonToNodes[p].get(ring).add(v);
-                this.nodeToPolygons.get(v).add(p);
+                Coords nc = coords.get(ring)[next];
+                this.addExtraPoints(p, ring, c, nc);
             }
         }
+    }
 
+    private void addPoint(Coords coords, int p, int ring) {
+        int v;
+        if (!this.coordsToVertex.containsKey(coords)) {
+            v = this.vertices.size();
+            this.vertices.add(coords);
+            this.coordsToVertex.put(coords, v);
+            this.nodeToPolygons.add(new TreeSet<Integer>());
+        } else {
+            v = this.coordsToVertex.get(coords);
+        }
+        this.polygonToNodes[p].get(ring).add(v);
+        this.nodeToPolygons.get(v).add(p);
+    }
+
+    private void addExtraPoints(int p, int ring, Coords sc, Coords ec) {
+        double length = HelperFunctions.eucDist(sc, ec);
+        if (length > this.maxdist) {
+            int nodesToAdd = (int) (length / this.maxdist);
+            for (int i = 0; i < nodesToAdd; i++) {
+                Coords loc = calcLoc(sc, ec, nodesToAdd, i + 1);
+                this.addPoint(loc, p, ring);
+            }
+        }
+    }
+
+    private static double pointFromSegment(double a, double b, int n, int m) {
+        return a + (b - a) / (n + 1) * m;
+    }
+
+    private static Coords calcLoc(Coords sc, Coords ec, int nodesToadd, int n) {
+        double px = pointFromSegment(sc.getX(), ec.getX(), nodesToadd, n);
+        double py = pointFromSegment(sc.getY(), ec.getY(), nodesToadd, n);
+        return new Coords(px, py);
     }
 
     public double getFriction(int p) {

@@ -34,32 +34,30 @@ public class LcpLos {
      */
     public static void main(String[] args) {
 
-        JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/toobig.geojson"));
+        JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/testarea.geojson"));
         System.out.println("read done: " + polygons.length());
 
-
-        VertexLib vlib = new VertexLib(polygons.length());
+        VertexLib vlib = new VertexLib(polygons.length(), 50);
         for (int p = 0; p < polygons.length(); p++) {
             List<Coords[]> coords = GeoJsonReader2.readPolygon(polygons, p);
-            double friction  = polygons.getJSONObject(p).getJSONObject("properties").getDouble("friction");
+            double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("friction");
             if (coords.get(0) == null || coords.get(0).length < 4) {
                 continue;
             }
-            vlib.addPolygon(coords, p, friction);
+            vlib.addPolygon(coords, p, p);
 
         }
         System.out.println("vcount: " + vlib.getVertices().size());
 //        geoJsonWriter2.kirjoita("testdata/toobig.geojson", geoJsonWriter2.removeRings(polygons, "urn:ogc:def:crs:EPSG::3047", vlib));
 
-        /*
-         List<Coords> vertices = vlib.getVertices();
-         geoJsonWriter2.kirjoita("testdata/vertices.geojson", geoJsonWriter2.vertices(vertices, "urn:ogc:def:crs:EPSG::3047"));
-        */
+        List<Coords> vertices = vlib.getVertices();
+        geoJsonWriter2.kirjoita("testdata/vertices.geojson", geoJsonWriter2.vertices(vertices, "urn:ogc:def:crs:EPSG::3047"));
+
         NeighbourFinder finder = new NeighbourFinder(vlib);
 
-        int start = 3;
+        int start = 204;
         System.out.println("start: " + start);
-        int target = 395;
+        int target = 1851;
         System.out.println("target: " + target);
         PathSearch2 search = new PathSearch2(start, target, finder, vlib);
 
@@ -85,8 +83,7 @@ public class LcpLos {
         geoJsonWriter2.kirjoita("testdata/path.geojson",
                 geoJsonWriter2.muunnaJsonReitti(path, "urn:ogc:def:crs:EPSG::3047"));
         System.out.println("writing done");
-        
-        
+
         /*
          Set<CoordEdge> visigraph = new HashSet<>();
 
