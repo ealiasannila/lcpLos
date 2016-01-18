@@ -30,9 +30,9 @@ public class VertexLib {
     public VertexLib(int nPoly, double maxdist) {
         this.nodeToPolygons = new ArrayList<>();
         this.vertices = new ArrayList<Coords>();
-        this.polygonToNodes = new List[nPoly];
+        this.polygonToNodes = new List[nPoly+1];
         this.coordsToVertex = new HashMap<>();
-        this.frictions = new double[nPoly];
+        this.frictions = new double[nPoly+1];
         this.maxdist = maxdist;
 
     }
@@ -41,9 +41,9 @@ public class VertexLib {
         this.frictions[p] = friction;
         this.polygonToNodes[p] = new ArrayList<List<Integer>>();
         for (int ring = 0; ring < coords.size(); ring++) {
-            if (coords.get(ring).length < 4) {
+            /*if (coords.get(ring).length < 4) {
                 continue;
-            }
+            }*/
             this.polygonToNodes[p].add(new ArrayList<Integer>());
             for (int i = 0; i < coords.get(ring).length; i++) {
                 Coords c = coords.get(ring)[i];
@@ -59,6 +59,16 @@ public class VertexLib {
         }
     }
 
+    public void addInsidePoint(Coords coords, int p){
+        this.polygonToNodes[p].add(new ArrayList<Integer>());
+        System.out.println("ring: " + (this.polygonToNodes[p].size()-1));
+        this.addPoint(coords, p, this.polygonToNodes[p].size()-1);
+        this.addPoint(new Coords(coords.getX(), coords.getY()+0.001), p, this.polygonToNodes[p].size()-1);
+        this.addPoint(new Coords(coords.getX()+0.001, coords.getY()+0.001), p, this.polygonToNodes[p].size()-1);
+        this.addPoint(new Coords(coords.getX()+0.001, coords.getY()), p, this.polygonToNodes[p].size()-1);
+          
+    }
+    
     private void addPoint(Coords coords, int p, int ring) {
         int v;
         if (!this.coordsToVertex.containsKey(coords)) {
