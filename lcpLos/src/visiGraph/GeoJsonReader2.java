@@ -45,6 +45,17 @@ public class GeoJsonReader2 {
 
     }
 
+    public static Coords[] readPoints(JSONArray points) {
+        System.out.println(points);
+        
+        Coords[] coords = new Coords[points.length()];
+        for (int i = 0; i < coords.length; i++) {
+            JSONArray coordinates = points.getJSONObject(i).getJSONObject("geometry").getJSONArray("coordinates");
+            coords[i] = new Coords(coordinates.getDouble(0), coordinates.getDouble(1));
+        }
+        return coords;
+    }
+
     public static List<Coords[]> readPolygon(JSONArray polygonFeatures, int feature) {
         List<Coords[]> polygon = new ArrayList<>();
 

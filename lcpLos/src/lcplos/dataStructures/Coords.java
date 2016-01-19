@@ -43,10 +43,10 @@ public class Coords {
             return false;
         }
         final Coords other = (Coords) obj;
-        if (Math.abs(this.x-other.x)>0.001) {
+        if (Math.abs(this.x-other.x)>0.000001) {
             return false;
         }
-        if (Math.abs(this.y-other.y)>0.001) {
+        if (Math.abs(this.y-other.y)>0.000001) {
             return false;
         }
         

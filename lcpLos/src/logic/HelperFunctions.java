@@ -46,7 +46,8 @@ public class HelperFunctions {
     }
 
     public static int isRight(int v1, int v2, int v3, VertexLib vlib) {
-       
+        
+        
         Coords p1 = vlib.getCoords(v1);
         Coords p2 = vlib.getCoords(v2);
         Coords p3 = vlib.getCoords(v3);

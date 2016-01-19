@@ -3,19 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/CoordEdge.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/Graph.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/LcpLos.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/triangulation/Triangulator.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/logic/HelperFunctions.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Funnel.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Sector.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/VertexLib.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/NodeLibrary.java</file>
             <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Spt2.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/LcpLos.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/Coords.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/triangulation/Triangulator.java</file>
             <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/shortestPath/NeighbourFinder.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/geoJsonWriter2.java</file>
-            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/Edge.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/shortestPath/PathSearch2.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/visiGraph/GeoJsonReader2.java</file>
+            <file>file:/home/elias/Documents/kandi/lcpLos/lcpLos/src/lcplos/dataStructures/VertexLib.java</file>
         </group>
     </open-files>
 </project-private>

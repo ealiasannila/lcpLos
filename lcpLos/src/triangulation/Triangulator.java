@@ -24,8 +24,8 @@ public class Triangulator {
     private Polygon polygon;
     private HashMap<Coords, Integer> coordsToVertex;
 
-    public Triangulator(List<List<Integer>> vertices, VertexLib vlib) {
-
+    public Triangulator(int p, VertexLib vlib) {
+        List<List<Integer>> vertices = vlib.getPolygon(p);
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
         for (int v : vertices.get(0)) {
@@ -38,14 +38,23 @@ public class Triangulator {
 
         if (vertices.size() > 1) {
             for (int i = 1; i < vertices.size(); i++) {
-                if(vertices.get(i).size()<4){
+                if (vertices.get(i).size() == 1) {
+                    //System.out.println("adding point");
+                    Coords coords = vlib.getCoords(vertices.get(i).get(0));
+                    PolygonPoint point = new PolygonPoint(coords.getX(), coords.getY());
+                    this.polygon.addSteinerPoint(point);
+                    this.coordsToVertex.put(coords, vertices.get(i).get(0));
+
+                    continue;
+                }
+                if (vertices.get(i).size() < 4) {
                     continue;
                 }
                 List hole = new ArrayList<PolygonPoint>();
 
                 for (int v : vertices.get(i)) {
                     Coords coords = vlib.getCoords(v);
-                    if(this.coordsToVertex.containsKey(coords)){
+                    if (this.coordsToVertex.containsKey(coords)) {
                         System.out.println("trying to add weakly simple polygon");
                         return;
                     }
@@ -60,12 +69,12 @@ public class Triangulator {
     }
 
     public List<int[]> triangulate() throws Exception {
-        
+
         Poly2Tri.triangulate(polygon);
         ArrayList<int[]> triangles = new ArrayList<>();
         for (DelaunayTriangle triangle : polygon.getTriangles()) {
             int[] tri = new int[3];
-            for (int i = 0; i < triangle.points.length; i++) {
+            for (int i = 0; i < 3; i++) {
                 tri[i] = this.coordsToVertex.get(new Coords(triangle.points[i].getX(), triangle.points[i].getY()));
             }
             triangles.add(tri);

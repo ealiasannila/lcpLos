@@ -30,9 +30,9 @@ public class VertexLib {
     public VertexLib(int nPoly, double maxdist) {
         this.nodeToPolygons = new ArrayList<>();
         this.vertices = new ArrayList<Coords>();
-        this.polygonToNodes = new List[nPoly+1];
+        this.polygonToNodes = new List[nPoly];
         this.coordsToVertex = new HashMap<>();
-        this.frictions = new double[nPoly+1];
+        this.frictions = new double[nPoly];
         this.maxdist = maxdist;
 
     }
@@ -42,8 +42,8 @@ public class VertexLib {
         this.polygonToNodes[p] = new ArrayList<List<Integer>>();
         for (int ring = 0; ring < coords.size(); ring++) {
             /*if (coords.get(ring).length < 4) {
-                continue;
-            }*/
+             continue;
+             }*/
             this.polygonToNodes[p].add(new ArrayList<Integer>());
             for (int i = 0; i < coords.get(ring).length; i++) {
                 Coords c = coords.get(ring)[i];
@@ -59,16 +59,85 @@ public class VertexLib {
         }
     }
 
-    public void addInsidePoint(Coords coords, int p){
-        this.polygonToNodes[p].add(new ArrayList<Integer>());
-        System.out.println("ring: " + (this.polygonToNodes[p].size()-1));
-        this.addPoint(coords, p, this.polygonToNodes[p].size()-1);
-        this.addPoint(new Coords(coords.getX(), coords.getY()+0.001), p, this.polygonToNodes[p].size()-1);
-        this.addPoint(new Coords(coords.getX()+0.001, coords.getY()+0.001), p, this.polygonToNodes[p].size()-1);
-        this.addPoint(new Coords(coords.getX()+0.001, coords.getY()), p, this.polygonToNodes[p].size()-1);
-          
+    public void addInsidePoints(Coords[] points) {
+        for (Coords point : points) {
+            this.addInsidePoint(point);
+        }
     }
-    
+
+    public void addInsidePoint(Coords coords) {
+        this.addInsidePoint(coords, this.pointInsidePolygon(coords));
+    }
+
+    public void addInsidePoint(Coords coords, int p) {
+
+        this.polygonToNodes[p].add(new ArrayList<Integer>());
+        this.addPoint(coords, p, this.polygonToNodes[p].size() - 1);
+        /*
+        this.addPoint(new Coords(coords.getX(), coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
+        this.addPoint(new Coords(coords.getX() + 1, coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
+        this.addPoint(new Coords(coords.getX() + 1, coords.getY()), p, this.polygonToNodes[p].size() - 1);
+*/
+    }
+
+    public int pointInsidePolygon(Coords coords) {
+        for (int p = 0; p < this.frictions.length; p++) {
+            if (this.pointInside(coords, p)) {
+                return p;
+            }
+        }
+        return -1;
+    }
+
+    private boolean pointInside(Coords coords, int p) {
+
+        List<List<Integer>> polygon = this.getPolygon(p);
+        for (int i = 0; i < polygon.size(); i++) {
+            List<Integer> ring = polygon.get(i);
+            int intersections = 0;
+            for (int start = 0; start < ring.size(); start++) {
+                int end = start + 1;
+                if (start == ring.size() - 1) { //last to first
+                    end = 0;
+                }
+
+                Coords sc = this.getCoords(ring.get(start));
+                Coords ec = this.getCoords(ring.get(end));
+
+                if ((Math.abs(sc.getX() - coords.getX()) < 0.0001 && Math.abs(ec.getX() - coords.getX()) < 0.0001)) {
+
+                    if (coords.getY() - Math.min(sc.getY(), ec.getY()) > -0.00001 && coords.getY() - Math.max(sc.getY(), ec.getY()) < 0.00001) {
+                        return true;
+                    }
+                }
+
+                //raycasting method, ray shot due north
+                if ((sc.getX() <= coords.getX() && ec.getX() > coords.getX()) || (sc.getX() > coords.getX() && ec.getX() <= coords.getX())) { //point between edge x coordinates
+                    double proportionOfSegment = (coords.getX() - sc.getX()) / (ec.getX() - sc.getX());
+                    double intersectY = sc.getY() + proportionOfSegment * (ec.getY() - sc.getY());
+
+                    if (Math.abs(coords.getY() - intersectY) < 0.0001) { //point on edge
+                        return true;
+                    }
+                    if (coords.getY() < intersectY) {
+                        intersections++;
+                    }
+
+                }
+            }
+            if (intersections % 2 != 0) {
+                if (i != 0) {
+                    return false;
+                }
+            } else {
+                if (i == 0) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private void addPoint(Coords coords, int p, int ring) {
         int v;
         if (!this.coordsToVertex.containsKey(coords)) {
@@ -109,6 +178,9 @@ public class VertexLib {
     }
 
     public Coords getCoords(int v) {
+        if(v==-1){
+            System.out.println("-1");
+        }
         return this.vertices.get(v);
     }
 
@@ -132,4 +204,8 @@ public class VertexLib {
         return coordsToVertex;
     }
 
+    public int nPoly(){
+        return this.frictions.length;
+    }
+    
 }

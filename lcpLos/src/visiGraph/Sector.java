@@ -22,6 +22,9 @@ public class Sector {
     private VertexLib vlib;
 
     public Sector(int apex, int l, int r, VertexLib vlib) {
+        if(l == -1){
+            System.out.println("-1 in sector");
+        }
         this.apex = apex;
         this.l = l;
         this.r = r;
@@ -70,6 +73,7 @@ public class Sector {
     }
 
     public void setL(int l) {
+      
         this.l = l;
     }
 

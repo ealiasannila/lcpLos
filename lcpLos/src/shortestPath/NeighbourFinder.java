@@ -47,7 +47,7 @@ public class NeighbourFinder {
             if (this.loclib.containsKey(p)) {
                 locator = this.loclib.get(p);
             } else {
-                this.triangulator = new Triangulator(vlib.getPolygon(p), vlib);
+                this.triangulator = new Triangulator(p, vlib);
                 List<int[]> triangles;
                 try {
                     triangles = this.triangulator.triangulate();
@@ -65,7 +65,6 @@ public class NeighbourFinder {
                 }
                 this.loclib.put(p, locator);
             }
-            
             this.spt = new Spt2(node, locator, vlib);
             neighbours.addAll(this.spt.getNeighbours());
             neighboursInPolygons.put(p, neighbours);

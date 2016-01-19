@@ -54,7 +54,7 @@ public class geoJsonWriter2 {
         return perusjson;
     }
 
-    public static JSONObject triangles(List<int[]> triangles, Map<Integer, Coords> coords, String crs) {
+    public static JSONObject triangles(List<int[]> triangles, VertexLib vlib, String crs) {
         JSONObject polygons = perusJson(crs);
 
         JSONArray features = new JSONArray();
@@ -73,7 +73,7 @@ public class geoJsonWriter2 {
 
             for (int j = 0; j < 3; j++) {
                 int v = triangles.get(i)[j];
-                double[] reittipiste = new double[]{coords.get(v).getX(), coords.get(v).getY()};
+                double[] reittipiste = new double[]{vlib.getCoords(v).getX(), vlib.getCoords(v).getY()};
 
                 coordinates.put(new JSONArray(reittipiste));
             }

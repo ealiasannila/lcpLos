@@ -31,9 +31,6 @@ public class Spt2 {
     private int startVertex;
     private VertexLib vlib;
 
-
-    
-    
     public Spt2(int s, EdgeLocator polygon, VertexLib vlib) {
         this.splitQueue = new ArrayDeque<Funnel>();
         this.uncharted = new ArrayList<Sector>();
@@ -44,17 +41,16 @@ public class Spt2 {
 
         int secr = -1;
         int secl = -1;
-       
-        if (this.polygon.getOpposingEdge(this.startVertex) == null ) {
+
+        if (this.polygon.getOpposingEdge(this.startVertex) == null) {
             System.out.println("s: " + this.startVertex);
             return;
         }
-        if(this.polygon.getOpposingEdge(this.startVertex).isEmpty()){
-            System.out.println("s: " + this.startVertex +"e");
+        if (this.polygon.getOpposingEdge(this.startVertex).isEmpty()) {
+            System.out.println("s: " + this.startVertex + "e");
             return;
         }
         for (Edge e : this.polygon.getOpposingEdge(this.startVertex)) {
-
             this.neighbours.add(e.getL());
             this.neighbours.add(e.getR());
 
@@ -78,9 +74,15 @@ public class Spt2 {
             this.splitQueue.addLast(funnel);
         }
 
-        this.uncharted.add(new Sector(this.startVertex, secl, secr, this.vlib));
-
+        if (secl == -1) {
+            System.out.println("secl -1");
+        }
+        if (secl != -1 && secr != -1) {
+            this.uncharted.add(new Sector(this.startVertex, secl, secr, this.vlib));
+        }
         while (!this.splitQueue.isEmpty()) {
+            //System.out.println(this.splitQueue.peekFirst());
+
             this.split(this.splitQueue.pollFirst());
         }
 
@@ -92,9 +94,9 @@ public class Spt2 {
 
     private int locateOppositeVertex(Edge e, int apex) {
         Edge cross = this.polygon.locateCrossingEdge(e);
-        
-        if (HelperFunctions.isRight(e.getL(), e.getR(), apex, vlib) == 
-                -HelperFunctions.isRight(e.getL(), e.getR(), cross.getL(), vlib)) {
+
+        if (HelperFunctions.isRight(e.getL(), e.getR(), apex, vlib)
+                == -HelperFunctions.isRight(e.getL(), e.getR(), cross.getL(), vlib)) {
             return cross.getL();
         } else {
             return cross.getR();
@@ -205,6 +207,10 @@ public class Spt2 {
                         System.out.println("coming from wrong side!");
                         System.out.println("sL: " + sector.getL() + "->" + e.getL());
                         sector.setL(e.getL());
+                        if (e.getR() == -1) {
+                            System.out.println("setting -1");
+                        }
+
                     }
                 } else {
                     if (debug) {
@@ -226,6 +232,7 @@ public class Spt2 {
                 } else if (HelperFunctions.isRight(sector.getApex(), sector.getL(), e.getL(), vlib) != 1) {
                     //edge L outside sector L  
                     sector.setL(e.getR());
+
                     if (previous != null) {
                         if (previous.inside(sector.getL())) {
                             previous.setR(sector.getR());
