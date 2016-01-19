@@ -22,9 +22,7 @@ public class Sector {
     private VertexLib vlib;
 
     public Sector(int apex, int l, int r, VertexLib vlib) {
-        if(l == -1){
-            System.out.println("-1 in sector");
-        }
+        
         this.apex = apex;
         this.l = l;
         this.r = r;
@@ -33,6 +31,10 @@ public class Sector {
 
     private boolean convex() {
         return HelperFunctions.isRight(this.apex, this.l, this.r, vlib) == -1;
+    }
+
+    private boolean concave() {
+        return HelperFunctions.isRight(this.apex, this.l, this.r, vlib) == 1;
     }
 
     public boolean inside(int v) {
@@ -47,21 +49,34 @@ public class Sector {
     }
 
     public boolean outside(Edge edge) {
+        boolean debug = false;
+        
+        
         if (this.convex()) {
             if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), vlib) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), vlib) != 1
                     && HelperFunctions.isRight(this.apex, this.r, edge.getL(), vlib) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), vlib) != -1) {
+                if(debug){
+                    System.out.println("convex outisde");
+                }
                 return true;
             }
             return false;
         } else {
             if (HelperFunctions.isRight(this.apex, this.l, edge.getL(), vlib) != 1 && HelperFunctions.isRight(this.apex, this.l, edge.getR(), vlib) != 1) {
+                if(debug){
+                    System.out.println("concave outside");
+                }
                 return true;
             }
             if (HelperFunctions.isRight(this.apex, this.r, edge.getL(), vlib) != -1 && HelperFunctions.isRight(this.apex, this.r, edge.getR(), vlib) != -1) {
+                if(debug){
+                    System.out.println("concave outside");
+                }
                 return true;
             }
             return false;
-        }
+        } 
+
     }
 
     public int getApex() {
@@ -73,7 +88,7 @@ public class Sector {
     }
 
     public void setL(int l) {
-      
+
         this.l = l;
     }
 

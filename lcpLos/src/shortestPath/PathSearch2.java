@@ -163,6 +163,8 @@ public class PathSearch2 {
             }
 
             Map<Integer, Set<Integer>> neighbours = this.finder.getNeighbours(node);
+           // System.out.println("node: " + node);
+           // System.out.println("neighbours: \n" + neighbours);
             for (int polygon : neighbours.keySet()) {
                 Set<Integer> neighboursInPolygon = neighbours.get(polygon);
                 double friction = this.vlib.getFriction(polygon);

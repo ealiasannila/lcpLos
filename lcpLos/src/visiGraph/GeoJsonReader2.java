@@ -46,7 +46,6 @@ public class GeoJsonReader2 {
     }
 
     public static Coords[] readPoints(JSONArray points) {
-        System.out.println(points);
         
         Coords[] coords = new Coords[points.length()];
         for (int i = 0; i < coords.length; i++) {

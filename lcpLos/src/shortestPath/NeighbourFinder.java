@@ -64,6 +64,7 @@ public class NeighbourFinder {
                 }
                 this.loclib.put(p, locator);
             }
+            //System.out.println("polygon: " + p);
             this.spt = new Spt2(node, locator, vlib);
             neighbours.addAll(this.spt.getNeighbours());
             neighboursInPolygons.put(p, neighbours);

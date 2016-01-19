@@ -156,6 +156,7 @@ public class LcpLos {
         System.out.println("vert+tri");
         
         NeighbourFinder finder = new NeighbourFinder(vlib);
+        //System.out.println("strtn: " + finder.getNeighbours(start));
         
 
         Set<Integer> targets = new HashSet<Integer>();
