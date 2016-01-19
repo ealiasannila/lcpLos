@@ -35,7 +35,7 @@ public class LcpLos {
      * @param args the command line arguments
      */
     private static VertexLib createVlib(JSONArray polygons) {
-        VertexLib vlib = new VertexLib(polygons.length(), 50);
+        VertexLib vlib = new VertexLib(polygons.length(), 25);
         for (int p = 0; p < polygons.length(); p++) {
             List<Coords[]> coords = GeoJsonReader2.readPolygon(polygons, p);
             double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Vertices");
@@ -43,7 +43,7 @@ public class LcpLos {
                 continue;
             }
 
-            vlib.addPolygon(coords, p, friction);
+            vlib.addPolygon(coords, p, 1);
         }
         return vlib;
     }
@@ -88,9 +88,7 @@ public class LcpLos {
 
         Set<CoordEdge> path = new HashSet<>();
         Map<Integer, Integer> pred = search.getPred();
-        System.out.println(targets);
         for (int node : targets) {
-            System.out.println("target " + node);
             while (pred.get(node) != null) {
                 int old = node;
                 node = pred.get(node);
@@ -119,7 +117,8 @@ public class LcpLos {
                 System.out.println("exception");
                 System.out.println(ex);
                 ex.printStackTrace();
-                System.out.println("polygon: " + p);
+                System.out.println("Cold no triangulate polygon: " + p + "exiting");
+                
                 System.exit(1);
                 return;
             }
@@ -157,6 +156,7 @@ public class LcpLos {
         System.out.println("vert+tri");
         
         NeighbourFinder finder = new NeighbourFinder(vlib);
+        
 
         Set<Integer> targets = new HashSet<Integer>();
         for (int i = start+1; i < vlib.getVertices().size(); i++) {
@@ -167,7 +167,7 @@ public class LcpLos {
         //System.out.println("targets: " + targets);
         //Set<CoordEdge> path = aStar(start, target, finder, vlib);
         Set<CoordEdge> path = dijkstra(start, targets, finder, vlib);
-        System.out.println("path: " + path);
+        //System.out.println("path: " + path);
 
         geoJsonWriter2.kirjoita("testdata/path.geojson",
                 geoJsonWriter2.muunnaJsonReitti(path, "urn:ogc:def:crs:EPSG::3047"));

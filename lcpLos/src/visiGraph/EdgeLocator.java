@@ -75,9 +75,6 @@ public class EdgeLocator {
         }
     }
     
-    public void addTriangle(DelaunayTriangle triangle){
-        
-    }
 
     public Edge locateCrossingEdge(Edge edge) {
         return this.crossingEdges.get(edge);

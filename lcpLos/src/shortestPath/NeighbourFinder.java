@@ -36,7 +36,6 @@ public class NeighbourFinder {
     }
 
     public Map<Integer, Set<Integer>> getNeighbours(int node) {
-
         Set<Integer> polygons = this.vlib.vertexBelongsTo(node);
         //System.out.println("belongs to polygons: ");
         //System.out.println(polygons);

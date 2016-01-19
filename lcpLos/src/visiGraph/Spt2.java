@@ -32,6 +32,9 @@ public class Spt2 {
     private VertexLib vlib;
 
     public Spt2(int s, EdgeLocator polygon, VertexLib vlib) {
+        if (s == 5288) {
+        //    System.out.println("spt 5288");
+        }
         this.splitQueue = new ArrayDeque<Funnel>();
         this.uncharted = new ArrayList<Sector>();
         this.polygon = polygon;
@@ -74,15 +77,17 @@ public class Spt2 {
             this.splitQueue.addLast(funnel);
         }
 
-        if (secl == -1) {
-            System.out.println("secl -1");
-        }
         if (secl != -1 && secr != -1) {
             this.uncharted.add(new Sector(this.startVertex, secl, secr, this.vlib));
+        }else{
+            int neighbour = this.polygon.getOpposingEdge(this.startVertex).iterator().next().getL();
+            this.uncharted.add(new Sector(this.startVertex,neighbour, neighbour, this.vlib));
         }
         while (!this.splitQueue.isEmpty()) {
             //System.out.println(this.splitQueue.peekFirst());
-
+            if (s == 5288) {
+               // System.out.println(this.splitQueue.peekFirst().getApex());
+            }
             this.split(this.splitQueue.pollFirst());
         }
 
@@ -106,32 +111,6 @@ public class Spt2 {
     private void splitSuffix(int t, int v, Funnel f, ArrayDeque<Integer> suffixOuter, int sChannel) {
         if (suffixOuter.size() == 1) {
             return;
-            /* Edge tv = new Edge(t, v);
-             if (this.polygon.isPolygonEdge(tv)) {
-             return;
-             }
-             Edge cross = this.polygon.locateCrossingEdge(tv);
-             int l;
-             int r;
-             if (HelperFunctions.isRight(t, v, cross.getR(), coords) == 1) {
-             l = cross.getL();
-             r = cross.getR();
-             } else {
-             l = cross.getR();
-             r = cross.getL();
-             }
-
-             if (sChannel == -1) {
-             this.splitSuffix(t, l, f, suffixOuter, sChannel);
-             suffixOuter.addLast(l);
-             this.pred.put(l, suffixOuter.peekFirst());
-             } else {
-             this.splitSuffix(t, r, f, suffixOuter, sChannel);
-             suffixOuter.addLast(r);
-             this.pred.put(r, suffixOuter.peekFirst());
-             }
-             */
-
         }
 
         ArrayDeque<Integer> suffixInner = new ArrayDeque<>();
@@ -155,7 +134,7 @@ public class Spt2 {
         boolean debug = false;
         Sector previous = null;
         for (Iterator<Sector> it = this.uncharted.iterator(); it.hasNext();) {
-
+            
             Sector sector = it.next();
             if (sector.outside(e)) {
                 if (!it.hasNext()) {
@@ -255,10 +234,15 @@ public class Spt2 {
     }
 
     private void split(Funnel f) {
-
+        if(f.getApex() == 5228){
+        //    System.out.println(f);
+        }
         Edge e = f.getBase();
         boolean polygonEdge = this.isPolygonEdge(e);
         if (!this.adjustSectors(e, polygonEdge)) {
+            if(f.getApex()==5228){
+             //   System.out.println("returning");
+            }
             return;
         }
         if (polygonEdge) {
