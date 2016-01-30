@@ -13,6 +13,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import logic.HelperFunctions;
 import logic.LosChecker;
+import visiGraph.EdgeLocator;
 
 /**
  *
@@ -26,6 +27,8 @@ public class VertexLib {
     private HashMap<Coords, Integer> coordsToVertex;
     private double[] frictions;
     private double maxdist;
+    private Map<Integer, EdgeLocator> loclib;
+    private Map<Integer, Map<Integer, List<Integer>>> neighbourhood;
 
     public VertexLib(int nPoly, double maxdist) {
         this.nodeToPolygons = new ArrayList<>();
@@ -34,7 +37,21 @@ public class VertexLib {
         this.coordsToVertex = new HashMap<>();
         this.frictions = new double[nPoly];
         this.maxdist = maxdist;
+        this.loclib = new HashMap<>();
+        this.neighbourhood = new HashMap<>();
+    }
 
+    public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood){
+            this.neighbourhood.put(v, neighbourhood);
+        
+    }
+    
+    public Map<Integer, List<Integer>> getNeighbourhood(int v){
+        return this.neighbourhood.get(v);
+    }
+    
+    public Map<Integer, EdgeLocator> getLoclib() {
+        return this.loclib;
     }
 
     public void addPolygon(List<Coords[]> coords, int p, double friction) {
@@ -74,10 +91,10 @@ public class VertexLib {
         this.polygonToNodes[p].add(new ArrayList<Integer>());
         this.addPoint(coords, p, this.polygonToNodes[p].size() - 1);
         /*
-        this.addPoint(new Coords(coords.getX(), coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
-        this.addPoint(new Coords(coords.getX() + 1, coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
-        this.addPoint(new Coords(coords.getX() + 1, coords.getY()), p, this.polygonToNodes[p].size() - 1);
-*/
+         this.addPoint(new Coords(coords.getX(), coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
+         this.addPoint(new Coords(coords.getX() + 1, coords.getY() + 1), p, this.polygonToNodes[p].size() - 1);
+         this.addPoint(new Coords(coords.getX() + 1, coords.getY()), p, this.polygonToNodes[p].size() - 1);
+         */
     }
 
     public int pointInsidePolygon(Coords coords) {
@@ -178,7 +195,7 @@ public class VertexLib {
     }
 
     public Coords getCoords(int v) {
-        if(v==-1){
+        if (v == -1) {
             System.out.println("-1");
         }
         return this.vertices.get(v);
@@ -204,8 +221,8 @@ public class VertexLib {
         return coordsToVertex;
     }
 
-    public int nPoly(){
+    public int nPoly() {
         return this.frictions.length;
     }
-    
+
 }

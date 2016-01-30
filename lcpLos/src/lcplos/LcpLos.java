@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.VertexLib;
@@ -35,7 +36,7 @@ public class LcpLos {
      * @param args the command line arguments
      */
     private static VertexLib createVlib(JSONArray polygons) {
-        VertexLib vlib = new VertexLib(polygons.length(), 25);
+        VertexLib vlib = new VertexLib(polygons.length(), 40);
         for (int p = 0; p < polygons.length(); p++) {
             List<Coords[]> coords = GeoJsonReader2.readPolygon(polygons, p);
             double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Vertices");
@@ -118,13 +119,29 @@ public class LcpLos {
                 System.out.println(ex);
                 ex.printStackTrace();
                 System.out.println("Cold no triangulate polygon: " + p + "exiting");
-                
+
                 System.exit(1);
                 return;
             }
             all.addAll(triangles);
         }
         geoJsonWriter2.kirjoita("testdata/triangles.geojson", geoJsonWriter2.triangles(all, vlib, "urn:ogc:def:crs:EPSG::3047"));
+    }
+
+    private static void writeVisibleBoundary(int v, VertexLib vlib, NeighbourFinder finder) {
+        System.out.println(finder.getNeighbours(v));
+        geoJsonWriter2.kirjoita("testdata/boundary.geojson", geoJsonWriter2.boundary(vlib, finder.getNeighbours(v), "urn:ogc:def:crs:EPSG::3047"));
+    }
+
+    private static void writeNeighboursAsLines(int v, VertexLib vlib, NeighbourFinder finder) {
+        Map<Integer, List<Integer>> neighbours = finder.getNeighbours(v);
+        Set<CoordEdge> lines = new HashSet<>();
+        for (List<Integer> list : neighbours.values()) {
+            for (int n : list) {
+                lines.add(new CoordEdge(vlib.getCoords(v), vlib.getCoords(n)));
+            }
+        }
+        geoJsonWriter2.kirjoita("testdata/boundary.geojson", geoJsonWriter2.muunnaJsonReitti(lines, "urn:ogc:def:crs:EPSG::3047"));
     }
 
     public static void main(String[] args) {
@@ -142,33 +159,37 @@ public class LcpLos {
 
         //if no target specified search to all.
         System.out.println("polygon vertices: " + vlib.getVertices().size());
-        
+
         int start = vlib.getVertices().size();
-        
+
         vlib.addInsidePoint(startPoint);
+        // vlib.addInsidePoint(new Coords(267705,6734689));
         vlib.addInsidePoints(targetPoints);
-        
-        
         System.out.println("vcount: " + vlib.getVertices().size());
         writeTriangles(vlib);
         writeVertices(vlib);
-        
-        System.out.println("vert+tri");
-        
+
         NeighbourFinder finder = new NeighbourFinder(vlib);
-        //System.out.println("strtn: " + finder.getNeighbours(start));
-        
+        /*
+         writeNeighboursAsLines(781, vlib, finder);
+
+         System.exit(1);
+         */
+        System.out.println("vert+tri");
 
         Set<Integer> targets = new HashSet<Integer>();
-        for (int i = start+1; i < vlib.getVertices().size(); i++) {
+        /*
+         Random random = new Random();
+         for (int i = 0; i < 20; i++) {
+         targets.add(random.nextInt(vlib.getVertices().size()));
+         }
+         */
+        for (int i = start; i < vlib.getVertices().size(); i++) {
             targets.add(i);
         }
 
-        System.out.println("start: " + start);
-        //System.out.println("targets: " + targets);
-        //Set<CoordEdge> path = aStar(start, target, finder, vlib);
         Set<CoordEdge> path = dijkstra(start, targets, finder, vlib);
-        //System.out.println("path: " + path);
+        //Set<CoordEdge> path = aStar(6600, start, finder, vlib);
 
         geoJsonWriter2.kirjoita("testdata/path.geojson",
                 geoJsonWriter2.muunnaJsonReitti(path, "urn:ogc:def:crs:EPSG::3047"));

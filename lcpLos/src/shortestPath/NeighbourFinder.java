@@ -27,24 +27,25 @@ public class NeighbourFinder {
     private VertexLib vlib;
     private Triangulator triangulator;
     private Spt2 spt;
-    private Map<Integer, EdgeLocator> loclib;
 
     public NeighbourFinder(VertexLib vlib) {
         this.vlib = vlib;
-        this.loclib = new HashMap<>();
-
     }
 
-    public Map<Integer, Set<Integer>> getNeighbours(int node) {
+    public Map<Integer, List<Integer>> getNeighbours(int node) {
+        System.out.println("n: " + node);
+        if(this.vlib.getNeighbourhood(node)!=null){
+            return this.vlib.getNeighbourhood(node);
+        }
         Set<Integer> polygons = this.vlib.vertexBelongsTo(node);
         //System.out.println("belongs to polygons: ");
         //System.out.println(polygons);
-        Map<Integer, Set<Integer>> neighboursInPolygons = new HashMap<>();
+        Map<Integer, List<Integer>> neighboursInPolygons = new HashMap<>();
         for (int p : polygons) {
-            Set<Integer> neighbours = new HashSet<>();
+            List<Integer> neighbours = new ArrayList<Integer>();
             EdgeLocator locator;
-            if (this.loclib.containsKey(p)) {
-                locator = this.loclib.get(p);
+            if (this.vlib.getLoclib().containsKey(p)) {
+                locator = this.vlib.getLoclib().get(p);
             } else {
                 this.triangulator = new Triangulator(p, vlib);
                 List<int[]> triangles;
@@ -62,14 +63,14 @@ public class NeighbourFinder {
                 for (int[] triangle : triangles) {
                     locator.addTriangle(triangle);
                 }
-                this.loclib.put(p, locator);
+                this.vlib.getLoclib().put(p, locator);
             }
             //System.out.println("polygon: " + p);
             this.spt = new Spt2(node, locator, vlib);
             neighbours.addAll(this.spt.getNeighbours());
             neighboursInPolygons.put(p, neighbours);
         }
-
+        this.vlib.addNeighbours(node, neighboursInPolygons);
         return neighboursInPolygons;
     }
 

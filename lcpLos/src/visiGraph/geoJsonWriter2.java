@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -91,32 +92,35 @@ public class geoJsonWriter2 {
 
     }
 
-    public static JSONObject boundary(Map<Integer, Coords> coords, Map<Integer, Integer> pred, String crs) {
+    public static JSONObject boundary(VertexLib vlib, Map<Integer, List<Integer>> boundary, String crs) {
         JSONObject polygons = perusJson(crs);
         JSONArray features = new JSONArray();
-        JSONObject feature = new JSONObject();
-        feature.put("type", "Feature");
-        JSONObject properties = new JSONObject();
-        feature.put("properties", properties);
-        JSONObject geometry = new JSONObject();
-        JSONArray rings = new JSONArray();
-        JSONArray coordinates = new JSONArray();
 
-        for (Integer v : pred.keySet()) {
+        for (List<Integer> polygon : boundary.values()) {
+            JSONObject feature = new JSONObject();
+            feature.put("type", "Feature");
+            JSONObject properties = new JSONObject();
+            feature.put("properties", properties);
+            JSONObject geometry = new JSONObject();
+            JSONArray rings = new JSONArray();
+            JSONArray coordinates = new JSONArray();
 
-            double[] reittipiste = new double[]{coords.get(v).getX(), coords.get(v).getY()};
+            Collections.sort(polygon);
+            for (Integer v : polygon) {
 
-            coordinates.put(new JSONArray(reittipiste));
+                double[] reittipiste = new double[]{vlib.getCoords(v).getX(), vlib.getCoords(v).getY()};
+
+                coordinates.put(new JSONArray(reittipiste));
+            }
+            rings.put(coordinates);
+            geometry.put("coordinates", rings);
+            geometry.put("type", "Polygon");
+            feature.put("geometry", geometry);
+            features.put(feature);
+            
+
         }
-        rings.put(coordinates);
-        geometry.put("coordinates", rings);
-
-        geometry.put("type", "Polygon");
-        feature.put("geometry", geometry);
-        features.put(feature);
-
-        polygons.put(
-                "features", features);
+        polygons.put("features", features);
 
         return polygons;
 
@@ -188,37 +192,37 @@ public class geoJsonWriter2 {
         return points;
 
     }
-/*
-    public static JSONObject removeRings(JSONArray features, String crs, VertexLib vlib) {
-        for (int i = 0; i < features.length(); i++) {
-            List<Integer> polygon = vlib.getPolygon(i);
-            boolean hole = true;
-            if(polygon==null || polygon.isEmpty()){
-                features.remove(i);
-                continue;
-            }
-            for (int v: polygon) {
-                if(vlib.vertexBelongsTo(v).size()>1){
-                    hole = false;
-                    break;
-                }
-            }
-            if(hole){
-               features.remove(i);
-               continue;
-            }
+    /*
+     public static JSONObject removeRings(JSONArray features, String crs, VertexLib vlib) {
+     for (int i = 0; i < features.length(); i++) {
+     List<Integer> polygon = vlib.getPolygon(i);
+     boolean hole = true;
+     if(polygon==null || polygon.isEmpty()){
+     features.remove(i);
+     continue;
+     }
+     for (int v: polygon) {
+     if(vlib.vertexBelongsTo(v).size()>1){
+     hole = false;
+     break;
+     }
+     }
+     if(hole){
+     features.remove(i);
+     continue;
+     }
             
-            JSONObject feature = features.getJSONObject(i);
-            JSONObject geometry = feature.getJSONObject("geometry");
-            JSONArray outline = geometry.getJSONArray("coordinates").getJSONArray(0);
-            geometry.remove("coordinates");
-            JSONArray rings = new JSONArray();
-            rings.put(outline);
-            geometry.put("coordinates", rings);
-        }
-        JSONObject object = perusJson(crs);
-        object.put("features", features);
-        return object;
-    }
-*/
+     JSONObject feature = features.getJSONObject(i);
+     JSONObject geometry = feature.getJSONObject("geometry");
+     JSONArray outline = geometry.getJSONArray("coordinates").getJSONArray(0);
+     geometry.remove("coordinates");
+     JSONArray rings = new JSONArray();
+     rings.put(outline);
+     geometry.put("coordinates", rings);
+     }
+     JSONObject object = perusJson(crs);
+     object.put("features", features);
+     return object;
+     }
+     */
 }

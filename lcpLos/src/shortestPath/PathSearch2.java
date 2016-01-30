@@ -124,9 +124,9 @@ public class PathSearch2 {
                 return true;
             }
 
-            Map<Integer, Set<Integer>> neighbours = this.finder.getNeighbours(node);
+            Map<Integer, List<Integer>> neighbours = this.finder.getNeighbours(node);
             for (int polygon : neighbours.keySet()) {
-                Set<Integer> neighboursInPolygon = neighbours.get(polygon);
+                List<Integer> neighboursInPolygon = neighbours.get(polygon);
                 double friction = this.vlib.getFriction(polygon);
                 for (int neighbour : neighboursInPolygon) {
                     // System.out.println("neighbour: " + nc);
@@ -162,11 +162,11 @@ public class PathSearch2 {
                 }
             }
 
-            Map<Integer, Set<Integer>> neighbours = this.finder.getNeighbours(node);
+            Map<Integer, List<Integer>> neighbours = this.finder.getNeighbours(node);
            // System.out.println("node: " + node);
            // System.out.println("neighbours: \n" + neighbours);
             for (int polygon : neighbours.keySet()) {
-                Set<Integer> neighboursInPolygon = neighbours.get(polygon);
+                List<Integer> neighboursInPolygon = neighbours.get(polygon);
                 double friction = this.vlib.getFriction(polygon);
                 for (int neighbour : neighboursInPolygon) {
                     // System.out.println("neighbour: " + nc);

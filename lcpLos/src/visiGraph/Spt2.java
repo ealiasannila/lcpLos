@@ -26,15 +26,23 @@ public class Spt2 {
 
     private List<Integer> neighbours;
     private EdgeLocator polygon;
-    private List<Sector> uncharted;
     private ArrayDeque<Funnel> splitQueue;
     private int startVertex;
     private VertexLib vlib;
+    private Charter charter;
+
+    private boolean debug;
 
     public Spt2(int s, EdgeLocator polygon, VertexLib vlib) {
+        if (s == 1250) {
+
+            this.debug = false;
+        } else {
+            this.debug = false;
+        }
 
         this.splitQueue = new ArrayDeque<Funnel>();
-        this.uncharted = new ArrayList<Sector>();
+        this.charter = new Charter(s, vlib);
         this.polygon = polygon;
         this.startVertex = s;
         this.neighbours = new ArrayList<Integer>();
@@ -77,18 +85,14 @@ public class Spt2 {
         }
 
         if (secl != -1 && secr != -1) {
-
-            this.uncharted.add(new Sector(this.startVertex, secl, secr, this.vlib));
-        } else {
-
-            int neighbour = this.polygon.getOpposingEdge(this.startVertex).iterator().next().getL();
-            Sector sector = new Sector(this.startVertex, neighbour, neighbour, this.vlib);
-            System.out.println("sector!!! " + sector);
-            this.uncharted.add(sector);
+            this.charter.addFence(new Edge(secl, secr));
         }
         while (!this.splitQueue.isEmpty()) {
+            if (debug) {
+                System.out.println("looping " + this.splitQueue.peekFirst().getApex());
+            }
             //System.out.println(this.splitQueue.peekFirst());
-            this.split(this.splitQueue.pollFirst());
+            this.split(this.splitQueue.pollLast());
         }
 
     }
@@ -130,136 +134,14 @@ public class Spt2 {
     }
 
     //UPDATE TO USING BINARY SEARCH
-    private boolean adjustSectors(Edge e, boolean polygonEdge) {
-       
-        boolean debug = false;
-        Sector previous = null;
-        for (Iterator<Sector> it = this.uncharted.iterator(); it.hasNext();) {
-            if (e.getL() == 6634 && e.getR() == 6633) {
-                debug = true;
-                System.out.println("uncharted: " + this.uncharted);
-            }else {
-                debug = false;
-            }
-            if (debug) {
-                System.out.println("doing something");
-            }
-            Sector sector = it.next();
-            if (debug) {
-                System.out.println("sector: " + sector);
-            }
-            if (sector.outside(e)) {
-                if (!it.hasNext()) {
-                    if (debug) {
-                        System.out.println("edge: " + e);
-                        System.out.println("outside no next");
-                    }
-                    return false;
-                }
-                previous = sector;
-
-                continue;
-            }
-
-            if (sector.inside(e.getL()) && sector.inside(e.getR()) && polygonEdge) {
-                
-                if (HelperFunctions.isRight(sector.getApex(), e.getL(), e.getR(), vlib) == 1) {
-                    Sector sr = new Sector(sector.getApex(), e.getR(), sector.getR(), vlib);
-                    
-                    this.uncharted.add(this.uncharted.indexOf(sector) + 1, sr);
-                    sector.setR(e.getL());
-
-                } else {
-                    if (debug) {
-                        System.out.println("some wierd coming from wrong side inside sector");
-                    }
-                }
-                return false;
-            } else if (sector.inside(e.getL()) && polygonEdge) {
-                if (HelperFunctions.isRight(sector.getApex(), sector.getR(), e.getR(), vlib) != -1) {
-                    //edge R outside sector R
-                    sector.setR(e.getL());
-                    if (it.hasNext()) {
-                        Sector next = it.next();
-                        if (next.inside(sector.getR())) {
-                            sector.setR(next.getR());
-                            it.remove();
-                        }
-                    }
-
-                } else if (HelperFunctions.isRight(sector.getApex(), sector.getL(), e.getR(), vlib) == -1) {
-                    //edge R outside sector L                    
-                    //is this even possible?
-                    if (true) {
-                        System.out.println("sec: " + sector);
-                        System.out.println("edg: " + e);
-                        System.out.println("coming from wrong side!");
-                        System.out.println("sL: " + sector.getL() + "->" + e.getL());
-                        sector.setL(e.getL());
-                        if (e.getR() == -1) {
-                            System.out.println("setting -1");
-                        }
-
-                    }
-                } else {
-                    if (debug) {
-                        System.out.println("some wierd at sector edge L");
-                        System.out.println(e + " " + sector);
-                    }
-                }
-                return false; //return because base = polygonEdge
-            } else if (sector.inside(e.getR()) && polygonEdge) {
-                if (HelperFunctions.isRight(sector.getApex(), sector.getR(), e.getL(), vlib) == 1) {
-                    //edge L outside sector R
-                    //is this even possible?
-                    if (debug) {
-                        System.out.println("coming from wrong side yea!");
-                        System.out.println("sR: " + sector.getR() + "->" + e.getR());
-                    }
-
-                    sector.setR(e.getR());
-                } else if (HelperFunctions.isRight(sector.getApex(), sector.getL(), e.getL(), vlib) != 1) {
-                    //edge L outside sector L  
-                    sector.setL(e.getR());
-
-                    if (previous != null) {
-                        if (previous.inside(sector.getL())) {
-                            previous.setR(sector.getR());
-                            it.remove();
-                        }
-                    }
-                } else {
-                    if (debug) {
-                        System.out.println("some wierd at sector edge R");
-                        System.out.println(e + " " + sector);
-                    }
-
-                }
-
-                return false; //return because base = polygonEdge
-            }
-            return true;
-        }
-        return true;
-    }
-
     private void split(Funnel f) {
-        boolean debug = false;
         Edge e = f.getBase();
-        if (e.getL() == 6633 && e.getR() == 6640) {
-            debug = true;
-        }
-        if (debug) {
-            System.out.println("is polyedge: " + e + this.isPolygonEdge(e));
-        }
-        boolean polygonEdge = this.isPolygonEdge(e);
-        if (!this.adjustSectors(e, polygonEdge)) {
-            if (debug) {
-                System.out.println("returning from adjustsectors");
-            }
+        if (!this.charter.hopeless(e)) {
             return;
         }
-        if (polygonEdge) {
+
+        if (this.isPolygonEdge(e)) {
+            this.charter.addFence(e);
             return;
         }
 
@@ -285,8 +167,5 @@ public class Spt2 {
         return neighbours;
     }
 
-    public List<Sector> getUncharted() {
-        return uncharted;
-    }
-
+   
 }
