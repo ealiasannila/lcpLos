@@ -7,6 +7,7 @@ package visiGraph;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +31,12 @@ public class Spt2 {
     private int startVertex;
     private VertexLib vlib;
     private Charter charter;
+    private Set<Funnel> usedFunnels;
 
     private boolean debug;
 
     public Spt2(int s, EdgeLocator polygon, VertexLib vlib) {
-        if (s == 1250) {
+        if (s == 4220) {
 
             this.debug = false;
         } else {
@@ -42,6 +44,7 @@ public class Spt2 {
         }
 
         this.splitQueue = new ArrayDeque<Funnel>();
+        this.usedFunnels = new HashSet<>();
         this.charter = new Charter(s, vlib);
         this.polygon = polygon;
         this.startVertex = s;
@@ -89,10 +92,22 @@ public class Spt2 {
         }
         while (!this.splitQueue.isEmpty()) {
             if (debug) {
-                System.out.println("looping " + this.splitQueue.peekFirst().getApex());
+                System.out.println(this.usedFunnels);
             }
             //System.out.println(this.splitQueue.peekFirst());
-            this.split(this.splitQueue.pollLast());
+             //!this.usedFunnels.contains(this.splitQueue.peekFirst()) || what the hell how can below work??
+           if (this.splitQueue.peekFirst().getApex()==this.startVertex) {
+               
+           //     if (true) {
+               //System.out.println("first: " + this.splitQueue.peekFirst().getBase());
+                this.usedFunnels.add(this.splitQueue.peekFirst());
+
+                this.split(this.splitQueue.pollFirst());
+            } else {
+              // System.out.println("double: " + this.splitQueue.peekFirst());
+               
+               this.splitQueue.pollFirst();
+            }
         }
 
     }
@@ -136,10 +151,11 @@ public class Spt2 {
     //UPDATE TO USING BINARY SEARCH
     private void split(Funnel f) {
         Edge e = f.getBase();
-        if (!this.charter.hopeless(e)) {
+
+/*        if (!this.charter.hopeless(e)) {
             return;
         }
-
+*/
         if (this.isPolygonEdge(e)) {
             this.charter.addFence(e);
             return;
@@ -167,5 +183,4 @@ public class Spt2 {
         return neighbours;
     }
 
-   
 }

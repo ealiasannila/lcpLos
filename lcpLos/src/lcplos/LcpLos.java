@@ -22,6 +22,7 @@ import shortestPath.NeighbourFinder;
 import shortestPath.PathSearch2;
 import triangulation.Triangulator;
 import visiGraph.CoordEdge;
+import visiGraph.Edge;
 import visiGraph.GeoJsonReader2;
 import visiGraph.geoJsonWriter2;
 import visiGraph.geoJsonWriter2;
@@ -36,7 +37,7 @@ public class LcpLos {
      * @param args the command line arguments
      */
     private static VertexLib createVlib(JSONArray polygons) {
-        VertexLib vlib = new VertexLib(polygons.length(), 40);
+        VertexLib vlib = new VertexLib(polygons.length(), 15);
         for (int p = 0; p < polygons.length(); p++) {
             List<Coords[]> coords = GeoJsonReader2.readPolygon(polygons, p);
             double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Vertices");
@@ -170,16 +171,16 @@ public class LcpLos {
         writeVertices(vlib);
 
         NeighbourFinder finder = new NeighbourFinder(vlib);
-        /*
-         writeNeighboursAsLines(781, vlib, finder);
 
-         System.exit(1);
-         */
+        writeNeighboursAsLines(1710, vlib, finder);
+
+       // System.exit(1);
         System.out.println("vert+tri");
 
+        
         Set<Integer> targets = new HashSet<Integer>();
-        /*
-         Random random = new Random();
+
+        /*     Random random = new Random();
          for (int i = 0; i < 20; i++) {
          targets.add(random.nextInt(vlib.getVertices().size()));
          }

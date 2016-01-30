@@ -33,7 +33,7 @@ public class NeighbourFinder {
     }
 
     public Map<Integer, List<Integer>> getNeighbours(int node) {
-        System.out.println("n: " + node);
+        //System.out.println("n: " + node);
         if(this.vlib.getNeighbourhood(node)!=null){
             return this.vlib.getNeighbourhood(node);
         }
