@@ -192,37 +192,5 @@ public class geoJsonWriter2 {
         return points;
 
     }
-    /*
-     public static JSONObject removeRings(JSONArray features, String crs, VertexLib vlib) {
-     for (int i = 0; i < features.length(); i++) {
-     List<Integer> polygon = vlib.getPolygon(i);
-     boolean hole = true;
-     if(polygon==null || polygon.isEmpty()){
-     features.remove(i);
-     continue;
-     }
-     for (int v: polygon) {
-     if(vlib.vertexBelongsTo(v).size()>1){
-     hole = false;
-     break;
-     }
-     }
-     if(hole){
-     features.remove(i);
-     continue;
-     }
-            
-     JSONObject feature = features.getJSONObject(i);
-     JSONObject geometry = feature.getJSONObject("geometry");
-     JSONArray outline = geometry.getJSONArray("coordinates").getJSONArray(0);
-     geometry.remove("coordinates");
-     JSONArray rings = new JSONArray();
-     rings.put(outline);
-     geometry.put("coordinates", rings);
-     }
-     JSONObject object = perusJson(crs);
-     object.put("features", features);
-     return object;
-     }
-     */
+   
 }

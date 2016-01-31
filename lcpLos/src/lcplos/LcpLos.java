@@ -36,16 +36,19 @@ public class LcpLos {
     /**
      * @param args the command line arguments
      */
-    private static VertexLib createVlib(JSONArray polygons) {
-        VertexLib vlib = new VertexLib(polygons.length(), 15);
+    private static VertexLib createVlib(JSONArray polygons, int vnumber) {
+        VertexLib vlib = new VertexLib(polygons.length(), 10000);
         for (int p = 0; p < polygons.length(); p++) {
             List<Coords[]> coords = GeoJsonReader2.readPolygon(polygons, p);
-            double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Vertices");
-            if (coords.get(0) == null || coords.get(0).length < 4) {
+            if(coords.isEmpty() ){
+                continue;
+            }
+            double friction = polygons.getJSONObject(p).getJSONObject("properties").getDouble("Level3");
+            if (coords.get(0) == null || coords.get(0).length < 3) {
                 continue;
             }
 
-            vlib.addPolygon(coords, p, 1);
+            vlib.addPolygon(coords, p, friction);
         }
         return vlib;
     }
@@ -112,17 +115,15 @@ public class LcpLos {
         List<int[]> all = new ArrayList<int[]>();
         for (int p = 0; p < vlib.nPoly(); p++) {
             Triangulator triangulator = new Triangulator(p, vlib);
-            List<int[]> triangles;
+            List<int[]> triangles = null;
             try {
                 triangles = triangulator.triangulate();
             } catch (Exception ex) {
                 System.out.println("exception");
                 System.out.println(ex);
                 ex.printStackTrace();
-                System.out.println("Cold no triangulate polygon: " + p + "exiting");
-
-                System.exit(1);
-                return;
+                System.out.println("Cold not triangulate polygon: " + p + "exiting");
+                continue;
             }
             all.addAll(triangles);
         }
@@ -147,15 +148,15 @@ public class LcpLos {
 
     public static void main(String[] args) {
 
-        JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/testarea.geojson"));
+        JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File("testdata/large.geojson"));
         System.out.println("read done: " + polygons.length());
+        int vnumber = 64867;
+        VertexLib vlib = createVlib(polygons, vnumber);
 
-        VertexLib vlib = createVlib(polygons);
-
-        JSONArray targetPointsJson = GeoJsonReader2.lataaJsonObject(new File("testdata/target_points.geojson"));
+        JSONArray targetPointsJson = GeoJsonReader2.lataaJsonObject(new File("testdata/large_targets.geojson"));
         Coords[] targetPoints = GeoJsonReader2.readPoints(targetPointsJson);
 
-        JSONArray startPointJson = GeoJsonReader2.lataaJsonObject(new File("testdata/start_point.geojson"));
+        JSONArray startPointJson = GeoJsonReader2.lataaJsonObject(new File("testdata/large_start.geojson"));
         Coords startPoint = GeoJsonReader2.readPoints(startPointJson)[0];
 
         //if no target specified search to all.
@@ -167,27 +168,25 @@ public class LcpLos {
         // vlib.addInsidePoint(new Coords(267705,6734689));
         vlib.addInsidePoints(targetPoints);
         System.out.println("vcount: " + vlib.getVertices().size());
-        writeTriangles(vlib);
-        writeVertices(vlib);
+        //writeTriangles(vlib);
+        //writeVertices(vlib);
 
         NeighbourFinder finder = new NeighbourFinder(vlib);
 
-        writeNeighboursAsLines(1710, vlib, finder);
-
-       // System.exit(1);
+        //writeNeighboursAsLines(1710, vlib, finder);
+        // System.exit(1);
         System.out.println("vert+tri");
 
-        
         Set<Integer> targets = new HashSet<Integer>();
 
-        /*     Random random = new Random();
-         for (int i = 0; i < 20; i++) {
-         targets.add(random.nextInt(vlib.getVertices().size()));
-         }
-         */
-        for (int i = start; i < vlib.getVertices().size(); i++) {
-            targets.add(i);
+       /* Random random = new Random();
+        for (int i = 0; i < 100; i++) {
+            targets.add(random.nextInt(vlib.getVertices().size()));
         }
+        */
+         for (int i = start; i < vlib.getVertices().size(); i++) {
+         targets.add(i);
+         }
 
         Set<CoordEdge> path = dijkstra(start, targets, finder, vlib);
         //Set<CoordEdge> path = aStar(6600, start, finder, vlib);

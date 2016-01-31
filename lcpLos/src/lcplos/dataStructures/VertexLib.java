@@ -40,6 +40,7 @@ public class VertexLib {
         this.loclib = new HashMap<>();
         this.neighbourhood = new HashMap<>();
     }
+    
 
     public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood){
             this.neighbourhood.put(v, neighbourhood);
@@ -107,7 +108,9 @@ public class VertexLib {
     }
 
     private boolean pointInside(Coords coords, int p) {
-
+        if(this.getPolygon(p)==null){
+            return false;
+        }
         List<List<Integer>> polygon = this.getPolygon(p);
         for (int i = 0; i < polygon.size(); i++) {
             List<Integer> ring = polygon.get(i);

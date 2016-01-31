@@ -26,6 +26,10 @@ public class Triangulator {
 
     public Triangulator(int p, VertexLib vlib) {
         List<List<Integer>> vertices = vlib.getPolygon(p);
+        if(vlib.getPolygon(p)==null){
+            System.out.println("p: "+ p + "null");
+            return;
+        }
         List points = new ArrayList<PolygonPoint>();
         this.coordsToVertex = new HashMap<>();
         for (int v : vertices.get(0)) {
