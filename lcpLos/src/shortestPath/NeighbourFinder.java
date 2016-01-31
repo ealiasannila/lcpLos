@@ -25,7 +25,6 @@ import visiGraph.Spt2;
 public class NeighbourFinder {
 
     private VertexLib vlib;
-    private Triangulator triangulator;
     private Spt2 spt;
 
     public NeighbourFinder(VertexLib vlib) {
@@ -34,7 +33,7 @@ public class NeighbourFinder {
 
     public Map<Integer, List<Integer>> getNeighbours(int node) {
         //System.out.println("n: " + node);
-        if(this.vlib.getNeighbourhood(node)!=null){
+        if (this.vlib.getNeighbourhood(node) != null) {
             return this.vlib.getNeighbourhood(node);
         }
         Set<Integer> polygons = this.vlib.vertexBelongsTo(node);
@@ -43,14 +42,12 @@ public class NeighbourFinder {
         Map<Integer, List<Integer>> neighboursInPolygons = new HashMap<>();
         for (int p : polygons) {
             List<Integer> neighbours = new ArrayList<Integer>();
-            EdgeLocator locator;
-            if (this.vlib.getLoclib().containsKey(p)) {
-                locator = this.vlib.getLoclib().get(p);
-            } else {
-                this.triangulator = new Triangulator(p, vlib);
+            EdgeLocator locator = this.vlib.getLocator(p);
+            if (locator == null) {
+                Triangulator triangulator = new Triangulator(p, vlib);
                 List<int[]> triangles;
                 try {
-                    triangles = this.triangulator.triangulate();
+                    triangles = triangulator.triangulate();
                 } catch (Exception ex) {
                     System.out.println("exception");
                     System.out.println(ex);
@@ -63,7 +60,7 @@ public class NeighbourFinder {
                 for (int[] triangle : triangles) {
                     locator.addTriangle(triangle);
                 }
-                this.vlib.getLoclib().put(p, locator);
+                this.vlib.addLocator(locator, p);
             }
             //System.out.println("polygon: " + p);
             this.spt = new Spt2(node, locator, vlib);

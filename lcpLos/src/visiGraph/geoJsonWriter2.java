@@ -161,13 +161,13 @@ public class geoJsonWriter2 {
 
     }
 
-    public static JSONObject vertices(List<Coords> vertices, String crs) {
+    public static JSONObject vertices(Coords[] vertices, String crs) {
         JSONObject points = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (int v = 0; v < vertices.size(); v++) {
-            Coords vertex = vertices.get(v);
+        for (int v = 0; v < vertices.length; v++) {
+            Coords vertex = vertices[v];
 
             JSONObject feature = new JSONObject();
 

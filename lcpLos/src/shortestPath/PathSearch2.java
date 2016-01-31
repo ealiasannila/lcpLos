@@ -24,9 +24,8 @@ import lcplos.dataStructures.VertexLib;
 public class PathSearch2 {
 
     private int startnode;
-    private Map<Integer, Double> toStart;
-    private Map<Integer, Double> toEnd;
-    private Map<Integer, Integer> pred;
+    private double[] toStart;
+    private int[] pred;
     private Set<Integer> target;
     private PriorityQueue<Integer> minheap;
     private NeighbourFinder finder;
@@ -46,14 +45,18 @@ public class PathSearch2 {
         this.vlib = vlib;
 
         this.startnode = start;
-        this.toStart = new HashMap<>();
-        this.pred = new HashMap<>();
+        this.toStart = new double[vlib.size()];
+        this.pred = new int[vlib.size()];
 
-        this.toStart.put(this.startnode, 0.0);
+        for (int i = 0; i < this.toStart.length; i++) {
+            this.toStart[i] = Double.MAX_VALUE;
+            this.pred[i] = -1;
+        }
+        this.toStart[this.startnode] = 0.0;
 
-        
     }
-    private void initHeap(Comparator smallestEstimate){
+
+    private void initHeap(Comparator smallestEstimate) {
         this.minheap = new PriorityQueue<>(20, smallestEstimate);
         this.minheap.add(startnode);
     }
@@ -65,19 +68,7 @@ public class PathSearch2 {
         Comparator<Integer> smallestEstimate = new Comparator<Integer>() {
             @Override
             public int compare(Integer n1, Integer n2) {
-                double d1;
-                double d2;
-                if (!toStart.containsKey(n1)) {
-                    d1 = Double.MAX_VALUE;
-                } else {
-                    d1 = toStart.get(n1);
-                }
-                if (!toStart.containsKey(n2)) {
-                    d2 = Double.MAX_VALUE;
-                } else {
-                    d2 = toStart.get(n2);
-                }
-                return (int) (d1 - d2);
+                return (int) (toStart[n1] - toStart[n2]);
             }
 
         };
@@ -85,27 +76,18 @@ public class PathSearch2 {
 
     }
 
-    private void initAstar(int start, int end, NeighbourFinder finder, VertexLib vlib) {
-        
-        this.init(start, finder, vlib);
-        this.toEnd = new HashMap<>();
-        this.toEnd.put(this.startnode, this.estimate(this.startnode, end));
+    private void initAstar(int start, final int end, NeighbourFinder finder, VertexLib vlib) {
 
+        this.init(start, finder, vlib);
+        final double minfriction = this.vlib.getMinFriction();
         Comparator<Integer> smallestEstimate = new Comparator<Integer>() {
             @Override
             public int compare(Integer n1, Integer n2) {
-                double d1;
-                double d2;
-                if (!toStart.containsKey(n1)) {
-                    d1 = Double.MAX_VALUE;
-                } else {
-                    d1 = toStart.get(n1) + toEnd.get(n1);
-                }
-                if (!toStart.containsKey(n2)) {
-                    d2 = Double.MAX_VALUE;
-                } else {
-                    d2 = toStart.get(n2) + toEnd.get(n2);
-                }
+                double d1 = toStart[n1];
+                double d2 = toStart[n2];
+                d1 = Math.max(d1, d1 + cost(n1, end, minfriction));//update to using minumum friction
+                d2 = Math.max(d2, d2 + cost(n2, end, minfriction));//update to using minumum friction
+
                 return (int) (d1 - d2);
             }
 
@@ -114,88 +96,63 @@ public class PathSearch2 {
         this.initHeap(smallestEstimate);
     }
 
-    public boolean aStar(int target) {
+    private boolean check(int target, int node){
+        return target==node;
+    }
+    
+    public boolean findSingle(int target) {
         while (!this.minheap.isEmpty()) {
             int node = this.minheap.poll();
 
-            // System.out.println(node.getCoords());
-            // System.out.println(node);
             if (node == target) {
                 return true;
             }
-
-            Map<Integer, List<Integer>> neighbours = this.finder.getNeighbours(node);
-            for (int polygon : neighbours.keySet()) {
-                List<Integer> neighboursInPolygon = neighbours.get(polygon);
-                double friction = this.vlib.getFriction(polygon);
-                for (int neighbour : neighboursInPolygon) {
-                    // System.out.println("neighbour: " + nc);
-                    if (!this.toStart.containsKey(neighbour)) {
-                        this.toEnd.put(neighbour, this.estimate(neighbour, target));
-                        this.toStart.put(neighbour, this.toStart.get(node) + this.cost(node, neighbour, friction));
-                        this.pred.put(neighbour, node);
-                        this.minheap.add(neighbour);
-                    } else {
-                        if (this.relax(node, neighbour, friction)) {
-                            this.minheap.remove(neighbour);
-                            this.minheap.add(neighbour);
-                        }
-                    }
-                }
-
-            }
+            this.iterateNeighbours(node);
         }
         return false;
     }
 
-    public boolean dijkstra() {
+    public boolean findMany() {
         Set<Integer> found = new HashSet<Integer>();
         while (!this.minheap.isEmpty()) {
             int node = this.minheap.poll();
-
-            // System.out.println(node.getCoords());
-            // System.out.println(node);
-            if (this.target.contains(node)&& !found.contains(node)) {
+            if (this.target.contains(node) && !found.contains(node)) {
                 found.add(node);
-                if(found.size()==target.size()){
+                if (found.size() == target.size()) {
                     return true;
                 }
             }
-
-            Map<Integer, List<Integer>> neighbours = this.finder.getNeighbours(node);
-           // System.out.println("node: " + node);
-           // System.out.println("neighbours: \n" + neighbours);
+            this.iterateNeighbours(node);
+        }
+        return false;
+    }
+    private void iterateNeighbours(int v){
+        Map<Integer, List<Integer>> neighbours = this.finder.getNeighbours(v);
             for (int polygon : neighbours.keySet()) {
                 List<Integer> neighboursInPolygon = neighbours.get(polygon);
                 double friction = this.vlib.getFriction(polygon);
                 for (int neighbour : neighboursInPolygon) {
-                    // System.out.println("neighbour: " + nc);
-                    if (!this.toStart.containsKey(neighbour)) {
-                        this.toStart.put(neighbour, this.toStart.get(node) + this.cost(node, neighbour, friction));
-                        this.pred.put(neighbour, node);
+                    if (this.toStart[neighbour] > Double.MAX_VALUE - 1) {
                         this.minheap.add(neighbour);
-                    } else {
-                        if (this.relax(node, neighbour, friction)) {
-                            this.minheap.remove(neighbour);
-                            this.minheap.add(neighbour);
-                        }
                     }
+                    if (this.relax(v, neighbour, friction)) {
+                        this.minheap.remove(neighbour);
+                        this.minheap.add(neighbour);
+                    }
+
                 }
 
             }
-        }
-        return false;
     }
 
-    
-    public Map<Integer, Integer> getPred() {
+    public int[] getPred() {
         return pred;
     }
 
     private boolean relax(int node, int neighbour, double cost) {
-        if (this.toStart.get(node) + this.cost(node, neighbour, cost) < this.toStart.get(neighbour)) {
-            this.toStart.put(neighbour, this.toStart.get(node) + this.cost(node, neighbour, cost));
-            this.pred.put(neighbour, node);
+        if (this.toStart[node] + this.cost(node, neighbour, cost) < this.toStart[neighbour]) {
+            this.toStart[neighbour] = this.toStart[node] + this.cost(node, neighbour, cost);
+            this.pred[neighbour] = node;
             return true;
         }
         return false;

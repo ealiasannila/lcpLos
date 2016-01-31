@@ -7,6 +7,7 @@ package lcplos.dataStructures;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,41 +22,50 @@ import visiGraph.EdgeLocator;
  */
 public class VertexLib {
 
-    private List<Set<Integer>> nodeToPolygons;
-    private List<Coords> vertices;
+    private Set<Integer>[] vertexBelongsTo;
+    private Coords[] verticeCoords;
     private List<List<Integer>>[] polygonToNodes;
     private HashMap<Coords, Integer> coordsToVertex;
     private double[] frictions;
     private double maxdist;
-    private Map<Integer, EdgeLocator> loclib;
-    private Map<Integer, Map<Integer, List<Integer>>> neighbourhood;
+    private EdgeLocator[] loclib;
+    private Map<Integer, List<Integer>>[] neighbourhood;
+    private int vpointer;
+    private double minfriction;
 
-    public VertexLib(int nPoly, double maxdist) {
-        this.nodeToPolygons = new ArrayList<>();
-        this.vertices = new ArrayList<Coords>();
+    public VertexLib(int nPoly, double maxdist, int nVert) {
+        this.vertexBelongsTo = new Set[nVert];
+        this.verticeCoords = new Coords[nVert];
         this.polygonToNodes = new List[nPoly];
         this.coordsToVertex = new HashMap<>();
         this.frictions = new double[nPoly];
         this.maxdist = maxdist;
-        this.loclib = new HashMap<>();
-        this.neighbourhood = new HashMap<>();
+        this.loclib = new EdgeLocator[nVert];
+        this.neighbourhood = new Map[nVert];
+        this.vpointer = 0;
+        this.minfriction = Double.MAX_VALUE;
     }
-    
 
-    public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood){
-            this.neighbourhood.put(v, neighbourhood);
+    public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood) {
+        this.neighbourhood[v] = neighbourhood;
+
+    }
+
+    public Map<Integer, List<Integer>> getNeighbourhood(int v) {
+        return this.neighbourhood[v];
+    }
+
+    public EdgeLocator getLocator(int p) {
+        return this.loclib[p];
+    }public EdgeLocator addLocator(EdgeLocator locator, int p) {
         
-    }
-    
-    public Map<Integer, List<Integer>> getNeighbourhood(int v){
-        return this.neighbourhood.get(v);
-    }
-    
-    public Map<Integer, EdgeLocator> getLoclib() {
-        return this.loclib;
+        return this.loclib[p]=locator;
     }
 
     public void addPolygon(List<Coords[]> coords, int p, double friction) {
+        if(friction<this.minfriction){
+            this.minfriction=friction;
+        }
         this.frictions[p] = friction;
         this.polygonToNodes[p] = new ArrayList<List<Integer>>();
         for (int ring = 0; ring < coords.size(); ring++) {
@@ -87,8 +97,13 @@ public class VertexLib {
         this.addInsidePoint(coords, this.pointInsidePolygon(coords));
     }
 
+    
+    public double getMinFriction(){
+        return this.minfriction;
+    }
+    
     public void addInsidePoint(Coords coords, int p) {
-
+        
         this.polygonToNodes[p].add(new ArrayList<Integer>());
         this.addPoint(coords, p, this.polygonToNodes[p].size() - 1);
         /*
@@ -108,7 +123,7 @@ public class VertexLib {
     }
 
     private boolean pointInside(Coords coords, int p) {
-        if(this.getPolygon(p)==null){
+        if (this.getPolygon(p) == null) {
             return false;
         }
         List<List<Integer>> polygon = this.getPolygon(p);
@@ -161,15 +176,17 @@ public class VertexLib {
     private void addPoint(Coords coords, int p, int ring) {
         int v;
         if (!this.coordsToVertex.containsKey(coords)) {
-            v = this.vertices.size();
-            this.vertices.add(coords);
+            v = this.vpointer;
+            this.vpointer++;
+            
+            this.verticeCoords[v]=coords;
             this.coordsToVertex.put(coords, v);
-            this.nodeToPolygons.add(new TreeSet<Integer>());
+            this.vertexBelongsTo[v]=new HashSet<Integer>();
         } else {
             v = this.coordsToVertex.get(coords);
         }
         this.polygonToNodes[p].get(ring).add(v);
-        this.nodeToPolygons.get(v).add(p);
+        this.vertexBelongsTo[v].add(p);
     }
 
     private void addExtraPoints(int p, int ring, Coords sc, Coords ec) {
@@ -201,7 +218,7 @@ public class VertexLib {
         if (v == -1) {
             System.out.println("-1");
         }
-        return this.vertices.get(v);
+        return this.verticeCoords[v];
     }
 
     public List<List<Integer>> getPolygon(int p) {
@@ -209,15 +226,15 @@ public class VertexLib {
     }
 
     public Set<Integer> vertexBelongsTo(int v) {
-        return this.nodeToPolygons.get(v);
+        return this.vertexBelongsTo[v];
     }
 
-    public List<Set<Integer>> getNodeToPolygons() {
-        return nodeToPolygons;
+    public int size(){
+        return this.coordsToVertex.size();
     }
 
-    public List<Coords> getVertices() {
-        return vertices;
+    public Coords[] getVertices() {
+        return verticeCoords;
     }
 
     public HashMap<Coords, Integer> getCoordsToVertex() {
