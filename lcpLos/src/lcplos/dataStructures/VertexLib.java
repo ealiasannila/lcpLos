@@ -11,10 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import logic.HelperFunctions;
-import logic.LosChecker;
-import visiGraph.EdgeLocator;
 
 /**
  *
@@ -45,7 +42,21 @@ public class VertexLib {
         this.vpointer = 0;
         this.minfriction = Double.MAX_VALUE;
     }
+    public VertexLib(int nPoly, double maxdist) {
+        int nVert = 200000;
+        this.vertexBelongsTo = new Set[nVert];
+        this.verticeCoords = new Coords[nVert];
+        this.polygonToNodes = new List[nPoly];
+        this.coordsToVertex = new HashMap<>();
+        this.frictions = new double[nPoly];
+        this.maxdist = maxdist;
+        this.loclib = new EdgeLocator[nVert];
+        this.neighbourhood = new Map[nVert];
+        this.vpointer = 0;
+        this.minfriction = Double.MAX_VALUE;
+    }
 
+    
     public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood) {
         this.neighbourhood[v] = neighbourhood;
 

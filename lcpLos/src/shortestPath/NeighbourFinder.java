@@ -15,8 +15,8 @@ import java.util.Set;
 import lcplos.dataStructures.Coords;
 import lcplos.dataStructures.VertexLib;
 import triangulation.Triangulator;
-import visiGraph.EdgeLocator;
-import visiGraph.Spt2;
+import lcplos.dataStructures.EdgeLocator;
+import logic.Spt2;
 
 /**
  *
