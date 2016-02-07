@@ -38,12 +38,7 @@ public class Spt2 {
     private boolean debug;
 
     public Spt2(int s, EdgeLocator polygon, VertexLib vlib) {
-        if (s == 4220) {
-
-            this.debug = false;
-        } else {
-            this.debug = false;
-        }
+        this.debug = false;
 
         this.splitQueue = new ArrayDeque<Funnel>();
         //  this.charter = new Charter(s, vlib);
@@ -52,9 +47,8 @@ public class Spt2 {
         this.neighbours = new ArrayList<Integer>();
         this.vlib = vlib;
 
-       // int secr = -1;
-       // int secl = -1;
-
+        // int secr = -1;
+        // int secl = -1;
         if (this.locator.getOpposingEdge(this.startVertex) == null) {
             System.out.println("s: " + this.startVertex);
             return;
@@ -77,12 +71,13 @@ public class Spt2 {
                 l = e.getL();
                 r = e.getR();
             }/*
-            if (this.locator.isPolygonEdge(new Edge(r, this.startVertex))) {
-                secr = r;
-            }
-            if (this.locator.isPolygonEdge(new Edge(l, this.startVertex))) {
-                secl = l;
-            }*/
+             if (this.locator.isPolygonEdge(new Edge(r, this.startVertex))) {
+             secr = r;
+             }
+             if (this.locator.isPolygonEdge(new Edge(l, this.startVertex))) {
+             secl = l;
+             }*/
+
             Funnel funnel = new Funnel(l, this.startVertex, r, this.vlib);
             this.splitQueue.addLast(funnel);
 
@@ -92,7 +87,7 @@ public class Spt2 {
          this.charter.addFence(new Edge(secl, secr));
          }*/
         while (!this.splitQueue.isEmpty()) {
-                this.split(this.splitQueue.pollFirst());
+            this.split(this.splitQueue.pollFirst());
         }
 
     }
@@ -136,6 +131,7 @@ public class Spt2 {
 
     //UPDATE TO USING BINARY SEARCH
     private void split(Funnel f) {
+        
         Edge e = f.getBase();
         /*
          if (!this.charter.hopeless(e)) {
@@ -144,30 +140,35 @@ public class Spt2 {
          */
 
         if (this.isPolygonEdge(e)) {
-       //     this.charter.addFence(e);
+            //     this.charter.addFence(e);
             return;
         }
 
         int v = this.locateOppositeVertex(e, f.getApex());
         ArrayDeque<Integer> suffixOuter;
         int sChannel = f.inRightChannel(v);
-        if(sChannel == -99){
-            System.out.println("HEERE!" + v);
+        if (sChannel == -99) {
+            //funnel is infinately narrow
+            return;
         }
+        
         if (sChannel == -1) {
             suffixOuter = f.splitLeftChannel(v);
         } else {
             suffixOuter = f.splitRightChannel(v);
         }
-
+        if(suffixOuter==null){//getting into a loop
+            return;
+        }
         int t = suffixOuter.peekFirst();
         if (t == this.startVertex) {
             this.neighbours.add(v);
         }
         if (f.getApex() == this.startVertex) {
             this.splitQueue.addLast(f);
+            this.splitSuffix(t, v, f, suffixOuter, sChannel);
+
         }
-        this.splitSuffix(t, v, f, suffixOuter, sChannel);
 
     }
 

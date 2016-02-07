@@ -113,6 +113,10 @@ public class Funnel {
             int tOrient = HelperFunctions.isRight(c.peekLast(), t, v, this.vlib);
             if (orient != -tOrient) {
                 c.addLast(t);
+                if(c.contains(v)){ //PURKKAA KOITA KEKSIÄ JOTAIN PAREMPAA
+                    System.out.println("LOOPPIING AT: " + v + " and " + t);
+                    return null;
+                }
                 c.addLast(v);
                 return newChannel;
             }

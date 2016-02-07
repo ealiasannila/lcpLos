@@ -149,6 +149,12 @@ public class PathSearch2 {
         return pred;
     }
 
+    public double[] getToStart() {
+        return toStart;
+    }
+    
+    
+
     private boolean relax(int node, int neighbour, double cost) {
         if (this.toStart[node] + this.cost(node, neighbour, cost) < this.toStart[neighbour]) {
             this.toStart[neighbour] = this.toStart[node] + this.cost(node, neighbour, cost);

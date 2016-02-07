@@ -21,6 +21,9 @@ import triangulation.Triangulator;
 import lcplos.dataStructures.CoordEdge;
 import dataManagement.GeoJsonReader2;
 import dataManagement.geoJsonWriter2;
+import java.util.Arrays;
+import java.util.HashMap;
+import logic.HelperFunctions;
 
 /**
  *
@@ -48,7 +51,7 @@ public class LcpLos {
         return vlib;
     }
 
-    private static Set<CoordEdge> aStar(int start, int target, NeighbourFinder finder, VertexLib vlib) {
+    private static PathSearch2 doAstar(int start, int target, NeighbourFinder finder, VertexLib vlib) {
         PathSearch2 search = new PathSearch2(start, target, finder, vlib);
 
         System.out.println("init done");
@@ -56,17 +59,20 @@ public class LcpLos {
         if (pathFound) {
             System.out.println("path found");
         } else {
-            System.out.println("no path found");
-            return null;
+            System.out.println("no path found");;
         }
+        return search;
+    }
 
-        Set<CoordEdge> path = new HashSet<>();
+    private static Map<CoordEdge, Double> findOne(PathSearch2 search, int target, VertexLib vlib) {
+
+        Map<CoordEdge, Double> path = new HashMap<>();
         int[] pred = search.getPred();
         int node = target;
         while (pred[node] != -1) {
             int old = node;
             node = pred[node];
-            path.add(new CoordEdge(vlib.getCoords(old), vlib.getCoords(node)));
+            path.put(new CoordEdge(vlib.getCoords(old), vlib.getCoords(node)),vlib.getFriction(old, node) );
         }
 
         System.out.println("path done");
@@ -74,7 +80,26 @@ public class LcpLos {
 
     }
 
-    private static Set<CoordEdge> dijkstra(int start, Set<Integer> targets, NeighbourFinder finder, VertexLib vlib) {
+    private static Map<CoordEdge, Double> findMany(PathSearch2 search, Set<Integer> targets, VertexLib vlib) {
+
+        Map<CoordEdge,Double> path = new HashMap<>();
+        double[] cost = search.getToStart();
+        int[] pred = search.getPred();
+        for (int node : targets) {
+            while (pred[node] != -1) {
+                int old = node;
+                node = pred[node];
+                double friction = (cost[old]- cost[node])/HelperFunctions.eucDist(vlib.getCoords(old), vlib.getCoords(node));
+                path.put(new CoordEdge(vlib.getCoords(old), vlib.getCoords(node)),friction );
+            }
+        }
+
+        System.out.println("path done");
+        return path;
+
+    }
+
+    private static PathSearch2 dijkstra(int start, Set<Integer> targets, NeighbourFinder finder, VertexLib vlib) {
 
         PathSearch2 search = new PathSearch2(start, targets, finder, vlib);
 
@@ -85,25 +110,15 @@ public class LcpLos {
         } else {
             System.out.println("some targets not found");
         }
-
-        Set<CoordEdge> path = new HashSet<>();
-        int[] pred = search.getPred();
-        for (int node : targets) {
-            while (pred[node] != -1) {
-                int old = node;
-                node = pred[node];
-                path.add(new CoordEdge(vlib.getCoords(old), vlib.getCoords(node)));
-            }
-        }
-
-        System.out.println("path done");
-        return path;
+        return search;
     }
 
     private static void writeVertices(VertexLib vlib) {
-        Coords[] vertices = vlib.getVertices();
-        geoJsonWriter2.kirjoita("testdata/vertices.geojson", geoJsonWriter2.vertices(vertices, "urn:ogc:def:crs:EPSG::3047"));
+        geoJsonWriter2.kirjoita("testdata/vertices.geojson", geoJsonWriter2.vertices(vlib, "urn:ogc:def:crs:EPSG::3047"));
+    }
 
+    private static void writeTargets(Set<Integer> targets, VertexLib vlib, double[] costs, String path) {
+        geoJsonWriter2.kirjoita(path, geoJsonWriter2.vertices(vlib, targets, costs, "urn:ogc:def:crs:EPSG::3047"));
     }
 
     private static void writeTriangles(VertexLib vlib) {
@@ -139,18 +154,19 @@ public class LcpLos {
 
     private static void writeNeighboursAsLines(int v, VertexLib vlib, NeighbourFinder finder) {
         Map<Integer, List<Integer>> neighbours = finder.getNeighbours(v);
-        Set<CoordEdge> lines = new HashSet<>();
+        Map<CoordEdge, Double> lines = new HashMap<>();
         for (List<Integer> list : neighbours.values()) {
             for (int n : list) {
-                lines.add(new CoordEdge(vlib.getCoords(v), vlib.getCoords(n)));
+                lines.put(new CoordEdge(vlib.getCoords(v), vlib.getCoords(n)), vlib.getFriction(v, n));
             }
         }
-        geoJsonWriter2.kirjoita("testdata/boundary.geojson", geoJsonWriter2.muunnaJsonReitti(lines, "urn:ogc:def:crs:EPSG::3047"));
+        geoJsonWriter2.kirjoita("testdata/boundary.geojson", geoJsonWriter2.createJsonPath(lines, "urn:ogc:def:crs:EPSG::3047"));
     }
 
     public static void main(String[] args) {
+
+        System.out.println(Arrays.toString(args));
         
-        args[4] = "testdata/large_targets.geojson";
         JSONArray polygons = GeoJsonReader2.lataaJsonObject(new File(args[0]));
         System.out.println("read done: " + polygons.length());
         int vnumber;
@@ -189,22 +205,26 @@ public class LcpLos {
             return;
         }
         System.out.println("vcount: " + vlib.size());
-//        writeTriangles(vlib);
+        writeTriangles(vlib);
 //        System.out.println("triangulation done");
-        //writeVertices(vlib);
+        writeVertices(vlib);
 
         NeighbourFinder finder = new NeighbourFinder(vlib);
-        Set<CoordEdge> path;
+        Map<CoordEdge, Double> path;
+        PathSearch2 search;
         if (args[2].equals("-a")) {
-            path = aStar(start, start + 1, finder, vlib);
+            search = doAstar(start, start + 1, finder, vlib);
+            path = findOne(search, start + 1, vlib);
         } else if (args[2].equals("-d")) {
-            path = dijkstra(start, targets, finder, vlib);
+            search = dijkstra(start, targets, finder, vlib);
+            path = findMany(search, targets, vlib);
+            writeTargets(targets, vlib, search.getToStart(),args[args.length-2]);
         } else {
             return;
         }
 
-        geoJsonWriter2.kirjoita("testdata/path.geojson",
-                geoJsonWriter2.muunnaJsonReitti(path, "urn:ogc:def:crs:EPSG::3047"));
+        geoJsonWriter2.kirjoita(args[args.length-1],
+                geoJsonWriter2.createJsonPath(path, "urn:ogc:def:crs:EPSG::3047"));
 
         System.out.println("writing done");
 

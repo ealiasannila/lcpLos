@@ -32,7 +32,6 @@ public class NeighbourFinder {
     }
 
     public Map<Integer, List<Integer>> getNeighbours(int node) {
-        //System.out.println("n: " + node);
         if (this.vlib.getNeighbourhood(node) != null) {
             return this.vlib.getNeighbourhood(node);
         }
@@ -62,7 +61,6 @@ public class NeighbourFinder {
                 }
                 this.vlib.addLocator(locator, p);
             }
-            //System.out.println("polygon: " + p);
             this.spt = new Spt2(node, locator, vlib);
             neighbours.addAll(this.spt.getNeighbours());
             neighboursInPolygons.put(p, neighbours);

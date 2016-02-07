@@ -115,7 +115,6 @@ public class geoJsonWriter2 {
             geometry.put("type", "Polygon");
             feature.put("geometry", geometry);
             features.put(feature);
-            
 
         }
         polygons.put("features", features);
@@ -124,17 +123,19 @@ public class geoJsonWriter2 {
 
     }
 
-    public static JSONObject muunnaJsonReitti(Set<CoordEdge> edges, String crs) {
+    public static JSONObject createJsonPath(Map<CoordEdge, Double> edges, String crs) {
         JSONObject reitti = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (CoordEdge edge : edges) {
+        for (CoordEdge edge : edges.keySet()) {
 
             JSONObject feature = new JSONObject();
 
             feature.put("type", "Feature");
             JSONObject properties = new JSONObject();
+            properties.put("friction", edges.get(edge));
+
             feature.put("properties", properties);
 
             JSONObject geometry = new JSONObject();
@@ -159,13 +160,13 @@ public class geoJsonWriter2 {
 
     }
 
-    public static JSONObject vertices(Coords[] vertices, String crs) {
+    public static JSONObject vertices(VertexLib vlib, String crs) {
         JSONObject points = perusJson(crs);
 
         JSONArray features = new JSONArray();
 
-        for (int v = 0; v < vertices.length; v++) {
-            Coords vertex = vertices[v];
+        for (int v = 0; v < vlib.size(); v++) {
+            Coords vertex = vlib.getCoords(v);
 
             JSONObject feature = new JSONObject();
 
@@ -190,5 +191,36 @@ public class geoJsonWriter2 {
         return points;
 
     }
-   
+
+    public static JSONObject vertices(VertexLib vlib, Set<Integer> vertices, double[] toStart, String crs) {
+        JSONObject points = perusJson(crs);
+        JSONArray features = new JSONArray();
+        for (int v : vertices) {
+            Coords vertex = vlib.getCoords(v);
+
+            JSONObject feature = new JSONObject();
+
+            feature.put("type", "Feature");
+            JSONObject properties = new JSONObject();
+            properties.put("vertex", v);
+            properties.put("cost_to_start", toStart[v]);
+            feature.put("properties", properties);
+
+            JSONObject geometry = new JSONObject();
+
+            double[] coordinates = new double[]{vertex.getX(), vertex.getY()};
+
+            geometry.put("coordinates", coordinates);
+
+            geometry.put("type", "Point");
+            feature.put("geometry", geometry);
+            features.put(feature);
+        }
+
+        points.put("features", features);
+
+        return points;
+
+    }
+
 }

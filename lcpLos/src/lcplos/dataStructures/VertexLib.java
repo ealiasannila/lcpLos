@@ -42,6 +42,7 @@ public class VertexLib {
         this.vpointer = 0;
         this.minfriction = Double.MAX_VALUE;
     }
+
     public VertexLib(int nPoly, double maxdist) {
         int nVert = 200000;
         this.vertexBelongsTo = new Set[nVert];
@@ -56,7 +57,6 @@ public class VertexLib {
         this.minfriction = Double.MAX_VALUE;
     }
 
-    
     public void addNeighbours(int v, Map<Integer, List<Integer>> neighbourhood) {
         this.neighbourhood[v] = neighbourhood;
 
@@ -68,14 +68,16 @@ public class VertexLib {
 
     public EdgeLocator getLocator(int p) {
         return this.loclib[p];
-    }public EdgeLocator addLocator(EdgeLocator locator, int p) {
-        
-        return this.loclib[p]=locator;
+    }
+
+    public EdgeLocator addLocator(EdgeLocator locator, int p) {
+
+        return this.loclib[p] = locator;
     }
 
     public void addPolygon(List<Coords[]> coords, int p, double friction) {
-        if(friction<this.minfriction){
-            this.minfriction=friction;
+        if (friction < this.minfriction) {
+            this.minfriction = friction;
         }
         this.frictions[p] = friction;
         this.polygonToNodes[p] = new ArrayList<List<Integer>>();
@@ -105,16 +107,29 @@ public class VertexLib {
     }
 
     public void addInsidePoint(Coords coords) {
-        this.addInsidePoint(coords, this.pointInsidePolygon(coords));
+        int p = this.pointInsidePolygon(coords);
+        if (p != -1) {
+            this.addInsidePoint(coords, p);
+        }
     }
 
-    
-    public double getMinFriction(){
+    public double getMinFriction() {
         return this.minfriction;
     }
-    
+
+    public double getFriction(int v1, int v2) {
+        double minX = Math.min(this.getCoords(v1).getX(), this.getCoords(v2).getX());
+        double minY = Math.min(this.getCoords(v1).getY(), this.getCoords(v2).getY());
+        double maxX = Math.max(this.getCoords(v1).getX(), this.getCoords(v2).getX());
+        double maxY = Math.max(this.getCoords(v1).getY(), this.getCoords(v2).getY());
+
+        double midX = minX + (maxX - minX) / 2.0;
+        double midY = minY + (maxY - minY) / 2.0;
+        return this.getFriction(this.pointInsidePolygon(new Coords(midX, midY)));
+    }
+
     public void addInsidePoint(Coords coords, int p) {
-        
+
         this.polygonToNodes[p].add(new ArrayList<Integer>());
         this.addPoint(coords, p, this.polygonToNodes[p].size() - 1);
         /*
@@ -189,10 +204,10 @@ public class VertexLib {
         if (!this.coordsToVertex.containsKey(coords)) {
             v = this.vpointer;
             this.vpointer++;
-            
-            this.verticeCoords[v]=coords;
+
+            this.verticeCoords[v] = coords;
             this.coordsToVertex.put(coords, v);
-            this.vertexBelongsTo[v]=new HashSet<Integer>();
+            this.vertexBelongsTo[v] = new HashSet<Integer>();
         } else {
             v = this.coordsToVertex.get(coords);
         }
@@ -240,7 +255,7 @@ public class VertexLib {
         return this.vertexBelongsTo[v];
     }
 
-    public int size(){
+    public int size() {
         return this.coordsToVertex.size();
     }
 
