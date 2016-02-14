@@ -205,9 +205,9 @@ public class LcpLos {
             return;
         }
         System.out.println("vcount: " + vlib.size());
-        writeTriangles(vlib);
+       // writeTriangles(vlib);
 //        System.out.println("triangulation done");
-        writeVertices(vlib);
+       // writeVertices(vlib);
 
         NeighbourFinder finder = new NeighbourFinder(vlib);
         Map<CoordEdge, Double> path;
