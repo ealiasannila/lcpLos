@@ -28,11 +28,13 @@ public class GeoJsonReader2 {
         try {
             lukija = new Scanner(tiedosto);
         } catch (FileNotFoundException ex) {
+            System.out.println("file not found");
             Logger.getLogger(GeoJsonReader2.class.getName()).log(Level.SEVERE, null, ex);
+            System.exit(1);
         }
         lukija.useDelimiter("\\Z");
         String data = lukija.next();
-
+        
         return new JSONObject(data).getJSONArray("features");
 
     }
@@ -53,7 +55,6 @@ public class GeoJsonReader2 {
         if (polygonFeatures.getJSONObject(feature).getJSONObject("geometry").getString("type").equals("Polygon")) {
             JSONArray rings = polygonFeatures.getJSONObject(feature).getJSONObject("geometry").getJSONArray("coordinates");
             for (int i = 0; i < rings.length(); i++) {
-
                 JSONArray coordinates = rings.getJSONArray(i);
                 int end = coordinates.length();
                 if (new Coords(coordinates.getJSONArray(0).getDouble(0), coordinates.getJSONArray(0).getDouble(1))

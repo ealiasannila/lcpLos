@@ -59,7 +59,7 @@ public class Triangulator {
                 for (int v : vertices.get(i)) {
                     Coords coords = vlib.getCoords(v);
                     if (this.coordsToVertex.containsKey(coords)) {
-                        System.out.println("trying to add weakly simple polygon");
+                        System.out.println("trying to add weakly simple polygon: " + p +"at: " + coords);
                         return;
                     }
                     this.coordsToVertex.put(coords, v);

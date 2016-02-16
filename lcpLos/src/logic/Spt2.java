@@ -123,24 +123,16 @@ public class Spt2 {
         } else {
             suffix = new Funnel(suffixInner, suffixOuter, this.vlib);
         }
-        if (suffix.getApex() == this.startVertex) {
-            this.splitQueue.addLast(suffix);
-        }
+        this.splitQueue.addLast(suffix);
 
     }
 
     //UPDATE TO USING BINARY SEARCH
     private void split(Funnel f) {
-        
+
         Edge e = f.getBase();
-        /*
-         if (!this.charter.hopeless(e)) {
-         return;
-         }
-         */
 
         if (this.isPolygonEdge(e)) {
-            //     this.charter.addFence(e);
             return;
         }
 
@@ -151,22 +143,23 @@ public class Spt2 {
             //funnel is infinately narrow
             return;
         }
-        
+
         if (sChannel == -1) {
             suffixOuter = f.splitLeftChannel(v);
         } else {
             suffixOuter = f.splitRightChannel(v);
         }
-        if(suffixOuter==null){//getting into a loop
+        if (suffixOuter == null) {//getting into a loop
             return;
         }
         int t = suffixOuter.peekFirst();
         if (t == this.startVertex) {
             this.neighbours.add(v);
+            this.splitSuffix(t, v, f, suffixOuter, sChannel);
+
         }
         if (f.getApex() == this.startVertex) {
             this.splitQueue.addLast(f);
-            this.splitSuffix(t, v, f, suffixOuter, sChannel);
 
         }
 
